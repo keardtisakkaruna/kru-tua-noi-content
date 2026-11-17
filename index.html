@@ -1,0 +1,2925 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" id="metaThemeColor" content="#F6F8FC" />
+  <title>แดชบอร์ดรวมคอนเทนต์ | ครูตัวน้อย ๆ</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Mali:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: light;
+      --bg-paper: #F6F8FC;
+      --bg-dot: #D5DFF0;
+      --surface: #FFFFFF;
+      --surface-soft: #F1F5F9;
+      --surface-subtle: #F8FAFC;
+      --surface-accent: #EFF6FF;
+      --topbar-bg: rgba(255, 255, 255, 0.94);
+      --ink: #132038;
+      --ink-muted: #475569;
+      --ink-light: #475569;
+      --border: #CBD5E1;
+      --border-soft: #E2E8F0;
+      --focus-ring: #1D4ED8;
+      --primary: #1D4ED8;
+      --primary-hover: #1E40AF;
+      --primary-ink: #FFFFFF;
+      --copy-main-bg: #132038;
+      --copy-main-hover: #1E3256;
+      --cat-activity: #1D4ED8;
+      --cat-activity-bg: #EFF6FF;
+      --cat-activity-bd: #BFDBFE;
+      --cat-food: #B91C1C;
+      --cat-food-bg: #FEF2F2;
+      --cat-food-bd: #FECACA;
+      --cat-travel: #047857;
+      --cat-travel-bg: #ECFDF5;
+      --cat-travel-bd: #A7F3D0;
+      --cat-review: #B45309;
+      --cat-review-bg: #FFFBEB;
+      --cat-review-bd: #FDE68A;
+      --cat-farm: #3F6212;
+      --cat-farm-bg: #F7FEE7;
+      --cat-farm-bd: #BEF264;
+      --btn-mode-bg: #EFF6FF;
+      --btn-mode-bd: #93C5FD;
+      --btn-mode-ink: #1E3A8A;
+      --btn-mode-hot-bg: #FEF3C7;
+      --btn-mode-hot-bd: #D97706;
+      --btn-mode-hot-ink: #78350F;
+      --btn-ai-ok-bg: #ECFDF5;
+      --btn-ai-ok-bd: #6EE7B7;
+      --btn-ai-ok-ink: #065F46;
+      --btn-ai-warn-bg: #FFFBEB;
+      --btn-ai-warn-bd: #F59E0B;
+      --btn-ai-warn-ink: #78350F;
+      --btn-danger-bg: #FEF2F2;
+      --btn-danger-bd: #FECACA;
+      --btn-danger-ink: #B91C1C;
+      --status-ready-bg: #DBEAFE;
+      --status-ready-ink: #1E3A8A;
+      --status-posted-bg: #DCFCE7;
+      --status-posted-ink: #14532D;
+      --status-hidden-bg: #E2E8F0;
+      --status-hidden-ink: #1E293B;
+      --comment-bg: #F0FDF4;
+      --comment-bd: #BBF7D0;
+      --comment-ink: #14532D;
+      --strip-bg: #EFF6FF;
+      --strip-bd: #BFDBFE;
+      --strip-ink: #1E3A8A;
+      --latest-badge-bg: #C2410C;
+      --latest-badge-ink: #FFFFFF;
+      --toast-bg: #132038;
+      --toast-ink: #FFFFFF;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 9px;
+      --shadow-card: 0 4px 18px rgba(15, 23, 42, 0.06);
+      --shadow-float: 0 12px 28px rgba(15, 23, 42, 0.16);
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-paper: #0F172A;
+      --bg-dot: #1E293B;
+      --surface: #1E293B;
+      --surface-soft: #0F172A;
+      --surface-subtle: #162032;
+      --surface-accent: #172554;
+      --topbar-bg: rgba(15, 23, 42, 0.94);
+      --ink: #F8FAFC;
+      --ink-muted: #CBD5E1;
+      --ink-light: #CBD5E1;
+      --border: #334155;
+      --border-soft: #334155;
+      --focus-ring: #60A5FA;
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --primary-ink: #FFFFFF;
+      --copy-main-bg: #1D4ED8;
+      --copy-main-hover: #1E40AF;
+      --cat-activity: #93C5FD;
+      --cat-activity-bg: rgba(30, 58, 138, 0.5);
+      --cat-activity-bd: #3B82F6;
+      --cat-food: #FCA5A5;
+      --cat-food-bg: rgba(127, 29, 29, 0.5);
+      --cat-food-bd: #EF4444;
+      --cat-travel: #6EE7B7;
+      --cat-travel-bg: rgba(6, 78, 59, 0.5);
+      --cat-travel-bd: #10B981;
+      --cat-review: #FCD34D;
+      --cat-review-bg: rgba(120, 53, 15, 0.5);
+      --cat-review-bd: #F59E0B;
+      --cat-farm: #BEF264;
+      --cat-farm-bg: rgba(63, 98, 18, 0.5);
+      --cat-farm-bd: #84CC16;
+      --btn-mode-bg: #172554;
+      --btn-mode-bd: #3B82F6;
+      --btn-mode-ink: #DBEAFE;
+      --btn-mode-hot-bg: #451A03;
+      --btn-mode-hot-bd: #F59E0B;
+      --btn-mode-hot-ink: #FDE68A;
+      --btn-ai-ok-bg: #064E3B;
+      --btn-ai-ok-bd: #10B981;
+      --btn-ai-ok-ink: #D1FAE5;
+      --btn-ai-warn-bg: #451A03;
+      --btn-ai-warn-bd: #F59E0B;
+      --btn-ai-warn-ink: #FDE68A;
+      --btn-danger-bg: #450A0A;
+      --btn-danger-bd: #DC2626;
+      --btn-danger-ink: #FECACA;
+      --status-ready-bg: #1E3A8A;
+      --status-ready-ink: #DBEAFE;
+      --status-posted-bg: #064E3B;
+      --status-posted-ink: #D1FAE5;
+      --status-hidden-bg: #334155;
+      --status-hidden-ink: #E2E8F0;
+      --comment-bg: #052E16;
+      --comment-bd: #166534;
+      --comment-ink: #DCFCE7;
+      --strip-bg: #172554;
+      --strip-bd: #1D4ED8;
+      --strip-ink: #DBEAFE;
+      --latest-badge-bg: #C2410C;
+      --latest-badge-ink: #FFFFFF;
+      --toast-bg: #F8FAFC;
+      --toast-ink: #0F172A;
+      --shadow-card: 0 4px 18px rgba(2, 6, 23, 0.35);
+      --shadow-float: 0 12px 28px rgba(2, 6, 23, 0.55);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-padding-top: 112px;
+      scroll-padding-bottom: 104px;
+      overflow-x: clip;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Anuphan", "Sarabun", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      caret-color: var(--primary);
+      background-color: var(--bg-paper);
+      background-image: radial-gradient(var(--bg-dot) 1.2px, transparent 1.2px);
+      background-size: 22px 22px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+      padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    }
+
+    ::selection {
+      background: var(--primary);
+      color: var(--primary-ink);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 14px;
+      z-index: 120;
+      background: var(--primary);
+      color: var(--primary-ink);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: var(--shadow-float);
+    }
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    button, input, select, textarea, a {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    select, option {
+      background-color: var(--surface);
+      color: var(--ink);
+    }
+
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible, [role="button"]:focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Top Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--topbar-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    .topbar-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      max-width: 100%;
+    }
+    .brand > div:last-child {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #1E3A8A, #1D4ED8);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Mali", sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
+      flex-shrink: 0;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: "Mali", "Anuphan", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-top: 1px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover { background: var(--surface-soft); }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.58; cursor: not-allowed; }
+
+    .btn-icon-sq {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 10px;
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner { padding: 8px 12px; gap: 8px; }
+      .brand { gap: 9px; flex: 1 1 100%; }
+      .brand-mark { width: 38px; height: 38px; font-size: 16px; border-radius: 10px; }
+      .brand h1 { font-size: 0.94rem; }
+      .brand-sub { display: none; }
+      .topbar-actions { width: 100%; min-width: 0; gap: 6px; }
+      .topbar-actions .btn { min-height: 44px; padding: 6px 8px; font-size: 0.76rem; border-radius: 10px; flex: 1 1 48%; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .topbar-actions .btn svg { flex-shrink: 0; }
+      .topbar-actions #btnOpenUpload { flex: 1 1 calc(100% - 54px); }
+      .topbar-actions .btn-icon-sq { flex: 0 0 44px; padding: 0; }
+      .container { padding: 12px; }
+    }
+    @media (max-width: 420px) {
+      .topbar-actions .btn { font-size: 0.7rem; padding: 6px 6px; gap: 4px; }
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--primary-ink);
+    }
+    .btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+
+    .btn-mode {
+      background: var(--btn-mode-bg);
+      border-color: var(--btn-mode-bd);
+      color: var(--btn-mode-ink);
+      font-family: "Mali", "Anuphan", sans-serif;
+    }
+    .btn-mode:hover { filter: brightness(0.97); background: var(--btn-mode-bg); }
+    .btn-mode.is-99999 {
+      background: var(--btn-mode-hot-bg);
+      border-color: var(--btn-mode-hot-bd);
+      color: var(--btn-mode-hot-ink);
+    }
+
+    .btn-ai-ok {
+      background: var(--btn-ai-ok-bg);
+      border-color: var(--btn-ai-ok-bd);
+      color: var(--btn-ai-ok-ink);
+    }
+    .btn-ai-ok:hover { background: var(--btn-ai-ok-bg); filter: brightness(0.97); }
+    .btn-ai-warn {
+      background: var(--btn-ai-warn-bg);
+      border-color: var(--btn-ai-warn-bd);
+      color: var(--btn-ai-warn-ink);
+    }
+    .btn-ai-warn:hover { background: var(--btn-ai-warn-bg); filter: brightness(0.97); }
+
+    .btn-danger {
+      background: var(--btn-danger-bg);
+      border-color: var(--btn-danger-bd);
+      color: var(--btn-danger-ink);
+    }
+    .btn-danger:hover { background: var(--btn-danger-bg); filter: brightness(0.95); }
+
+    .btn-sm {
+      min-height: 40px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (pointer: coarse) {
+      .btn-sm { min-height: 44px; }
+    }
+
+    /* Main container */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .preview-banner {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--btn-mode-hot-bg);
+      border: 1px solid var(--btn-mode-hot-bd);
+      color: var(--btn-mode-hot-ink);
+      font-size: 0.86rem;
+      font-weight: 500;
+    }
+    .preview-banner.show { display: block; }
+
+    /* Category Stock Meter */
+    .stock-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 1120px) {
+      .stock-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .stock-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    .stock-card {
+      background: var(--surface);
+      border: 2px solid var(--border-soft);
+      border-radius: 15px;
+      padding: 12px 14px;
+      min-height: 44px;
+      cursor: pointer;
+      text-align: left;
+      transition: transform 0.12s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .stock-card:hover { transform: translateY(-1px); border-color: var(--border); }
+    .stock-card.active {
+      border-color: var(--ink);
+      box-shadow: var(--shadow-float);
+    }
+    .stock-card[data-cat="activity"].active { border-color: var(--cat-activity-bd); background: var(--cat-activity-bg); }
+    .stock-card[data-cat="food"].active { border-color: var(--cat-food-bd); background: var(--cat-food-bg); }
+    .stock-card[data-cat="travel"].active { border-color: var(--cat-travel-bd); background: var(--cat-travel-bg); }
+    .stock-card[data-cat="review"].active { border-color: var(--cat-review-bd); background: var(--cat-review-bg); }
+    .stock-card[data-cat="farm"].active { border-color: var(--cat-farm-bd); background: var(--cat-farm-bg); }
+
+    .stock-title {
+      font-family: "Mali", "Anuphan", sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .stock-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+    }
+    .stock-sub {
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+    }
+
+    /* Filter Toolbar */
+    .toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .status-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-btn {
+      min-height: 44px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--ink);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .pill-btn:hover { background: var(--border-soft); }
+    .pill-btn.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--surface);
+    }
+
+    .search-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex: 1 1 280px;
+      min-width: 0;
+      max-width: 100%;
+      justify-content: flex-end;
+    }
+
+    .search-input {
+      flex: 1 1 180px;
+      min-width: 0;
+      width: 100%;
+      max-width: 380px;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-subtle);
+      color: var(--ink);
+      font-size: 0.94rem;
+    }
+
+    .select-input {
+      min-width: 0;
+      max-width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background-color: var(--surface);
+      color: var(--ink);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      .search-group { flex: 1 1 100%; justify-content: stretch; }
+      .search-input, .select-input { flex: 1 1 100%; max-width: 100%; }
+    }
+
+    /* Posts Grid */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 1120px) {
+      .posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .posts-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .post-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      min-width: 0;
+      max-width: 100%;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      scroll-margin-top: 112px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .post-card:not(.just-uploaded) {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 620px;
+    }
+    .post-card.is-posted { opacity: 0.84; }
+    .post-card.just-uploaded {
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 0 3px var(--cat-activity-bd), var(--shadow-float);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes cardReveal {
+        from { transform: translateY(6px); opacity: 0.85; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .post-card.just-uploaded {
+        animation: cardReveal 0.28s ease-out 1;
+      }
+    }
+
+    .recent-strip {
+      background: var(--strip-bg);
+      border: 1px solid var(--strip-bd);
+      border-radius: var(--radius-lg);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+    .recent-strip-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--strip-ink);
+    }
+    .recent-strip-sub {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+    .recent-strip-list {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+    .recent-chip {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 52px;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 6px 12px 6px 6px;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      max-width: 245px;
+      text-align: left;
+    }
+    .recent-chip:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-card);
+    }
+    .recent-chip img {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center 22%;
+      flex-shrink: 0;
+      background: var(--border-soft);
+    }
+    .recent-chip-meta {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .recent-chip-id {
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--cat-activity);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .recent-chip-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .badge-latest {
+      background: var(--latest-badge-bg);
+      color: var(--latest-badge-ink);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.22);
+    }
+    .recent-chip-badge {
+      background: var(--latest-badge-bg);
+      color: var(--latest-badge-ink);
+      padding: 1px 7px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .card-media {
+      position: relative;
+      background: var(--surface-soft);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+    .card-media-trigger {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 22%;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+    .card-media-trigger:hover img { transform: scale(1.02); }
+    .media-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--ink-muted);
+      font-size: 0.88rem;
+    }
+
+    .media-top-badges {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .id-badge {
+      background: rgba(15, 23, 42, 0.88);
+      color: #FFFFFF;
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      padding: 4px 9px;
+      border-radius: 999px;
+    }
+
+    .status-badge {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .status-ready { background: var(--status-ready-bg); color: var(--status-ready-ink); }
+    .status-posted { background: var(--status-posted-bg); color: var(--status-posted-ink); }
+    .status-hidden { background: var(--status-hidden-bg); color: var(--status-hidden-ink); }
+
+    .media-bottom-bar {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      left: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .album-chip {
+      background: rgba(15, 23, 42, 0.88);
+      color: #FFFFFF;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .studio-trigger {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 36px;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
+    }
+    .studio-trigger:hover { background: var(--surface-soft); }
+    @media (pointer: coarse) {
+      .studio-trigger { min-height: 44px; padding: 6px 14px; }
+    }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .cat-select {
+      font-family: "Mali", "Anuphan", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-height: 38px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      max-width: 100%;
+    }
+    .cat-activity { background-color: var(--cat-activity-bg); color: var(--cat-activity); border-color: var(--cat-activity-bd); }
+    .cat-food { background-color: var(--cat-food-bg); color: var(--cat-food); border-color: var(--cat-food-bd); }
+    .cat-travel { background-color: var(--cat-travel-bg); color: var(--cat-travel); border-color: var(--cat-travel-bd); }
+    .cat-review { background-color: var(--cat-review-bg); color: var(--cat-review); border-color: var(--cat-review-bd); }
+    .cat-farm { background-color: var(--cat-farm-bg); color: var(--cat-farm); border-color: var(--cat-farm-bd); }
+
+    .best-time {
+      font-size: 0.76rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink-muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .post-title {
+      margin: 0;
+      font-family: "Mali", "Anuphan", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.38;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .hook-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--surface-subtle);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      min-width: 0;
+    }
+    .hook-text {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .hook-copy {
+      border: 1px solid var(--border-soft);
+      background: var(--surface-soft);
+      color: var(--ink);
+      border-radius: 7px;
+      min-height: 36px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .hook-copy:hover { background: var(--border-soft); }
+
+    /* 4 Caption Tabs */
+    .style-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 4px;
+      background: var(--surface-soft);
+      padding: 4px;
+      border-radius: 11px;
+    }
+
+    .style-tab {
+      min-height: 40px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .style-tab.active {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+    }
+
+    .caption-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 11px 12px;
+      font-size: 0.9rem;
+      line-height: 1.62;
+      color: var(--ink);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      min-height: 108px;
+      max-height: 220px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .first-comment-box {
+      background: var(--comment-bg);
+      border: 1px solid var(--comment-bd);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--comment-ink);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .first-comment-label {
+      font-weight: 700;
+      font-size: 0.76rem;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .copy-actions {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-copy-main {
+      background: var(--copy-main-bg);
+      border-color: var(--copy-main-bg);
+      color: #FFFFFF;
+    }
+    .btn-copy-main:hover { background: var(--copy-main-hover); border-color: var(--copy-main-hover); }
+
+    .btn-copy-comment {
+      background: var(--btn-ai-ok-bg);
+      border-color: var(--btn-ai-ok-bd);
+      color: var(--btn-ai-ok-ink);
+    }
+    .btn-copy-comment:hover { background: var(--btn-ai-ok-bg); filter: brightness(0.96); }
+
+    .card-footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-soft);
+      margin-top: auto;
+    }
+    .card-footer-actions .btn-sm { flex: 1 1 auto; }
+    .card-footer-actions .btn-del-post { flex: 0 0 44px; min-width: 44px; min-height: 44px; padding: 0; }
+
+    /* Inline Edit Form */
+    .edit-panel {
+      display: none;
+      background: var(--surface-subtle);
+      border-top: 1px solid var(--border);
+      padding: 12px 14px;
+      gap: 8px;
+      flex-direction: column;
+    }
+    .edit-panel.open { display: flex; }
+    .edit-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      margin-bottom: 3px;
+      display: block;
+      cursor: pointer;
+    }
+    .edit-field, .edit-area {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background-color: var(--surface);
+      color: var(--ink);
+      font-size: 0.9rem;
+      min-height: 42px;
+    }
+    .edit-area { min-height: 76px; resize: vertical; line-height: 1.5; }
+
+    /* Floating Mobile Upload FAB */
+    .fab-upload {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right, 0px));
+      bottom: max(18px, env(safe-area-inset-bottom, 0px));
+      z-index: 35;
+      min-height: 54px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(145deg, #1E3A8A, #1D4ED8);
+      color: #FFFFFF;
+      font-family: "Mali", "Anuphan", sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-float);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fab-upload:hover { filter: brightness(1.06); }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(15, 23, 42, 0.68);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-dialog {
+      width: 100%;
+      max-width: 640px;
+      max-height: 92dvh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border-soft);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-float);
+      position: relative;
+    }
+    .modal-dialog.wide { max-width: 820px; }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .modal-header h2 {
+      margin: 0;
+      font-family: "Mali", "Anuphan", sans-serif;
+      font-size: 1.12rem;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .modal-close-btn {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 6px 12px;
+      flex-shrink: 0;
+    }
+
+    .dropzone {
+      border: 2px dashed var(--cat-activity-bd);
+      background: var(--cat-activity-bg);
+      color: var(--ink);
+      border-radius: 16px;
+      padding: 22px 16px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .dropzone.dragover {
+      background: var(--surface-accent);
+      border-color: var(--primary);
+    }
+
+    .upload-thumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .upload-thumb-item {
+      position: relative;
+      width: 78px;
+      height: 78px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .upload-thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .upload-thumb-rm {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(15, 23, 42, 0.88);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .upload-thumb-rm::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .seg-btn {
+      min-height: 44px;
+      border-radius: 12px;
+      border: 2px solid var(--border-soft);
+      background: var(--surface-subtle);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .seg-btn.active {
+      border-color: var(--cat-activity-bd);
+      background: var(--cat-activity-bg);
+      color: var(--cat-activity);
+    }
+
+    .canvas-wrap {
+      background: #0F172A;
+      border-radius: 16px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 12px;
+      min-height: 260px;
+    }
+    .canvas-wrap canvas {
+      max-width: 100%;
+      max-height: 55vh;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .album-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .album-thumb-btn {
+      padding: 0;
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: var(--surface-soft);
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .album-thumb-btn.active { border-color: var(--primary); }
+    .album-thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .info-callout {
+      background: var(--strip-bg);
+      border: 1px solid var(--strip-bd);
+      color: var(--strip-ink);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.86rem;
+    }
+    .info-callout a {
+      color: var(--cat-activity);
+      font-weight: 700;
+    }
+    .progress-box {
+      display: none;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--cat-activity-bg);
+      border: 1px solid var(--cat-activity-bd);
+      color: var(--cat-activity);
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%) translateY(16px);
+      background: var(--toast-bg);
+      color: var(--toast-ink);
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.45;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 90;
+      box-shadow: var(--shadow-float);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      width: max-content;
+      max-width: min(92vw, 440px);
+      overflow-wrap: anywhere;
+      text-align: center;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--ink-muted);
+    }
+    .loading-spinner {
+      text-align: center;
+      padding: 48px 20px;
+      font-family: "Mali", sans-serif;
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      grid-column: 1 / -1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .card-media-trigger:hover img, .stock-card:hover, .recent-chip:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#mainContent" class="skip-link">ข้ามไปยังเนื้อหาหลัก</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">คร</div>
+        <div>
+          <h1 id="headerBrandTitle">แดชบอร์ดรวมคอนเทนต์ | ครูตัวน้อย ๆ 9,999 กิจกรรม</h1>
+          <div class="brand-sub">คลังภาพ + 4 สไตล์แคปชั่น + ป้ายพาดหัว พร้อมโพสต์ทั้งคอมและมือถือ</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button id="btnToggleMode" type="button" class="btn btn-mode" title="สลับชื่อเพจเมื่อได้รับคำสั่ง ค.ศ.3">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          <span id="modeBtnLabel">โหมดปัจจุบัน: 9,999 กิจกรรม</span>
+        </button>
+        <button id="btnApiSettings" type="button" class="btn btn-ai-warn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span id="apiBtnLabel">ตั้งค่า Gemini API Key</span>
+        </button>
+        <button id="btnOpenUpload" type="button" class="btn btn-primary">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>อัปโหลดรูปใหม่</span>
+        </button>
+        <button id="btnThemeToggle" type="button" class="btn btn-icon-sq" aria-label="สลับโหมดมืดและสว่าง" aria-pressed="false" title="สลับโหมดมืดและสว่าง">
+          <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent" class="container">
+    <div id="previewBanner" class="preview-banner">
+      <span aria-hidden="true">🖥️</span> <strong>โหมดพรีวิวออฟไลน์:</strong> กำลังแสดงข้อมูลตัวอย่างแบบออฟไลน์เพื่อให้ทดลองใช้งานได้ทันที — หากต้องการซิงก์/อัปโหลดขึ้น Cloud จริงให้เปิดผ่านลิงก์เว็บแดชบอร์ดออนไลน์นะครับ
+    </div>
+
+    <h2 class="sr-only">สรุปจำนวนคอนเทนต์ตามหมวดหมู่</h2>
+    <section id="stockGrid" class="stock-grid" aria-label="สรุปจำนวนคอนเทนต์พร้อมโพสต์"></section>
+
+    <section class="toolbar" aria-label="ตัวกรองและค้นหา">
+      <div id="statusPills" class="status-pills">
+        <button type="button" class="pill-btn active" data-status="ready" aria-pressed="true">พร้อมโพสต์</button>
+        <button type="button" class="pill-btn" data-status="posted" aria-pressed="false">โพสต์แล้ว</button>
+        <button type="button" class="pill-btn" data-status="hidden" aria-pressed="false">ซ่อนไว้</button>
+        <button type="button" class="pill-btn" data-status="all" aria-pressed="false">ทั้งหมด</button>
+      </div>
+
+      <div class="search-group">
+        <input id="searchInput" name="q" type="search" class="search-input" aria-label="ค้นหาคำ รหัสโพสต์ หัวข้อ หรือแฮชแท็ก" placeholder="ค้นหาคำ, รหัส DP-001, หัวข้อ, หรือแฮชแท็ก…" autocomplete="off" />
+        <select id="sortSelect" class="select-input" aria-label="เรียงลำดับ">
+          <option value="newest">เรียง: ใหม่ล่าสุดก่อน</option>
+          <option value="oldest">เรียง: เก่าก่อน (DP-001)</option>
+          <option value="code_desc">เรียง: รหัสมากไปน้อย</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="recentUploadsStrip" class="recent-strip" style="display:none;" aria-label="รูปที่อัปโหลดล่าสุด">
+      <div class="recent-strip-head">
+        <h2 style="margin:0;font-size:inherit;font-weight:inherit;"><span aria-hidden="true">🆕</span> รูปที่อัปโหลดล่าสุด (คลิกเพื่อข้ามไปดูทันที)</h2>
+        <span class="recent-strip-sub">เรียงจากใหม่สุด</span>
+      </div>
+      <div id="recentUploadsList" class="recent-strip-list"></div>
+    </section>
+
+    <h2 class="sr-only">รายการโพสต์คอนเทนต์</h2>
+    <section id="postsGrid" class="posts-grid" aria-live="polite">
+      <div class="loading-spinner">กำลังเปิดสมุดคอนเทนต์ ครูตัวน้อย ๆ…</div>
+    </section>
+  </main>
+
+  <button id="fabUpload" type="button" class="fab-upload">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    <span>เพิ่มรูปลงคลัง</span>
+  </button>
+
+  <!-- Modal 1: Upload -->
+  <div id="uploadModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="uploadModalTitle"><span aria-hidden="true">📸</span> อัปโหลดรูป + ให้ AI ช่วยจัดหมวดและคิดแคปชั่น</h2>
+        <button type="button" class="btn btn-sm modal-close-btn" aria-label="ปิดหน้าต่างอัปโหลด" onclick="closeModal('uploadModal')">ปิด ✕</button>
+      </div>
+
+      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="แตะเพื่อเลือกรูปภาพ หรือลากไฟล์มาวางที่นี่" onclick="document.getElementById('fileInput').click()">
+        <div style="font-size:2rem;margin-bottom:6px;" aria-hidden="true">🖼️➕</div>
+        <div style="font-weight:700;margin-bottom:4px;">แตะเพื่อเลือกรูปจากมือถือ หรือลากไฟล์มาวางที่นี่</div>
+        <div style="font-size:0.82rem;color:var(--ink-muted);">ระบบจะหมุนภาพตั้งตรงตาม EXIF และย่อขนาด HD ให้อัตโนมัติ เลือกได้ทีละหลายรูปครับ</div>
+        <input id="fileInput" type="file" accept="image/*" multiple style="display:none" />
+      </div>
+
+      <div id="uploadThumbs" class="upload-thumbs"></div>
+
+      <div class="segmented">
+        <button type="button" class="seg-btn active" data-mode="single" aria-pressed="true" onclick="setUploadMode('single')">
+          <span aria-hidden="true">🖼️</span> 1 รูป = 1 โพสต์แยกกัน
+        </button>
+        <button type="button" class="seg-btn" data-mode="album" aria-pressed="false" onclick="setUploadMode('album')">
+          <span aria-hidden="true">📚</span> รวมเป็น 1 อัลบั้มเล่าเรื่อง
+        </button>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label class="edit-label" for="uploadCategory">หมวดหมู่คอนเทนต์</label>
+        <select id="uploadCategory" class="edit-field">
+          <option value="auto">🤖 ให้ Gemini AI วิเคราะห์รูปแล้วจัดหมวดให้อัตโนมัติ (แนะนำ)</option>
+          <option value="activity" id="optCatActivity">🎓 ครูตัวน้อย ๆ 9,999 กิจกรรม</option>
+          <option value="food">🍽️ ครูตัวน้อย ๆ คอยตระเวนแดก</option>
+          <option value="travel">🧳 ครูตัวน้อย ๆ คอยตระเวนเที่ยว</option>
+          <option value="review">🛍️ ครูตัวน้อย ๆ คอยรีวิว</option>
+          <option value="farm">🐮 ครูตัวน้อย ๆ คอยตะลุยฟาร์ม</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label class="edit-label" for="uploadNote">บันทึกช่วยจำ / ชื่อร้าน / ลิงก์ป้ายยา (ถ้ามี)</label>
+        <textarea id="uploadNote" class="edit-area" placeholder="ตัวอย่าง: ก๋วยเตี๋ยวเรือลุงสม หลังวัดคลองห้า หรือลิงก์ Shopee https://… (ระบบจะแยกลิงก์ไปไว้ในคอมเมนต์แรกให้อัตโนมัติเพื่อไม่ให้เฟซบุ๊กลดการมองเห็น)"></textarea>
+      </div>
+
+      <div id="uploadProgress" class="progress-box" aria-live="polite"></div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button type="button" class="btn" onclick="closeModal('uploadModal')">ยกเลิก</button>
+        <button id="btnStartUpload" type="button" class="btn btn-primary" onclick="startUploadProcess()">
+          <span aria-hidden="true">🚀</span> อัปโหลดและสร้าง 4 แคปชั่น
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Gemini API Settings -->
+  <div id="apiModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="apiModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="apiModalTitle"><span aria-hidden="true">⚙️</span> ตั้งค่า Gemini API Key (สำหรับวิเคราะห์รูปอัตโนมัติ)</h2>
+        <button type="button" class="btn btn-sm modal-close-btn" aria-label="ปิดหน้าต่างตั้งค่า API Key" onclick="closeModal('apiModal')">ปิด ✕</button>
+      </div>
+
+      <div class="info-callout">
+        <div style="font-weight:700;margin-bottom:4px;">วิธีขอ Key ฟรีจาก Google (ใช้เวลา 30 วินาที):</div>
+        <div>1. เปิดลิงก์ <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">https://aistudio.google.com/app/apikey</a></div>
+        <div>2. กดปุ่ม <strong>Create API key</strong> แล้วคัดลอกรหัส (ขึ้นต้นด้วย AIza…)</div>
+        <div>3. นำมาวางด้านล่างแล้วกดบันทึก (Key จะถูกเก็บอย่างปลอดภัยในบัญชี Google Apps Script ของคุณครูเอง)</div>
+      </div>
+
+      <div id="apiStatusNote" style="margin-bottom:10px;font-size:0.88rem;font-weight:600;"></div>
+
+      <label class="edit-label" for="geminiKeyInput">Gemini API Key</label>
+      <div style="display:flex;gap:8px;margin-bottom:14px;">
+        <input id="geminiKeyInput" name="gemini_api_key" type="password" class="edit-field" placeholder="วาง AIzaSy… ที่นี่" autocomplete="off" spellcheck="false" />
+        <button id="btnToggleKeyVis" type="button" class="btn btn-icon-sq" aria-label="แสดงหรือซ่อน Gemini API Key" aria-pressed="false" onclick="toggleKeyVisibility()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+
+      <div id="apiTestResult" style="margin-bottom:12px;font-size:0.86rem;font-weight:600;" aria-live="polite"></div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;">
+        <button type="button" class="btn btn-danger btn-sm" onclick="clearApiKey()">ล้าง Key</button>
+        <div style="display:flex;gap:8px;">
+          <button type="button" class="btn" onclick="handleTestApiKey()">ทดสอบเชื่อมต่อ</button>
+          <button type="button" class="btn btn-primary" onclick="handleSaveApiKey()">บันทึก Key</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Quick Photo Studio -->
+  <div id="studioModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="studioModalTitle">
+    <div class="modal-dialog wide">
+      <div class="modal-header">
+        <h2 id="studioModalTitle"><span aria-hidden="true">🎨</span> สตูดิโอแต่งป้าย Mali & บันทึกรูป HD</h2>
+        <button type="button" class="btn btn-sm modal-close-btn" aria-label="ปิดหน้าต่างสตูดิโอ" onclick="closeModal('studioModal')">ปิด ✕</button>
+      </div>
+
+      <div id="studioAlbumStrip" class="album-strip" style="display:none;"></div>
+
+      <div class="segmented">
+        <button type="button" id="studioModeClean" class="seg-btn" aria-pressed="false" onclick="setStudioMode('clean')">
+          <span aria-hidden="true">📷</span> รูปต้นฉบับ HD คลีน ๆ
+        </button>
+        <button type="button" id="studioModeStamp" class="seg-btn active" aria-pressed="true" onclick="setStudioMode('stamp')">
+          <span aria-hidden="true">✨</span> แปะป้ายหมวด + พาดหัวฟอนต์ Mali ขอบขาว
+        </button>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="studioCanvas"></canvas>
+      </div>
+
+      <div id="studioStampControls" style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:14px;">
+        <div>
+          <label class="edit-label" for="studioHeadline">ข้อความพาดหัวบนรูป (แก้ไขได้เลย)</label>
+          <input id="studioHeadline" type="text" class="edit-field" oninput="renderStudioCanvas()" />
+        </div>
+        <div>
+          <label class="edit-label" for="studioPos">ตำแหน่งข้อความ</label>
+          <select id="studioPos" class="edit-field" onchange="renderStudioCanvas()">
+            <option value="bottom">อยู่ด้านล่าง</option>
+            <option value="top">อยู่ด้านบน</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="studioLoadingNote" style="font-size:0.84rem;color:var(--ink-muted);margin-bottom:10px;" aria-live="polite"></div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;">
+        <button type="button" class="btn" onclick="downloadStudioImage(false)">ดาวน์โหลดรูป JPEG</button>
+        <button type="button" class="btn btn-primary" onclick="downloadStudioImage(true)">แชร์ / บันทึกเข้ามือถือ</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const STATE = {
+      posts: [],
+      activityMode: "9999",
+      hasGeminiKey: false,
+      geminiKeyMasked: "",
+      activeCategory: "all",
+      activeStatus: "ready",
+      searchQuery: "",
+      sortBy: "newest",
+      selectedTabByPost: {},
+      openEditByPost: {},
+      pendingFiles: [],
+      uploadMode: "single",
+      isPreviewMode: false,
+      justUploadedId: "",
+      studioPost: null,
+      studioImages: [],
+      studioImageIdx: 0,
+      studioMode: "stamp",
+      studioLoadedImgObj: null
+    };
+
+    const CATEGORY_META = {
+      activity: {
+        key: "activity",
+        icon: "🎓",
+        color: "#1D4ED8",
+        cls: "cat-activity"
+      },
+      food: {
+        key: "food",
+        icon: "🍽️",
+        color: "#DC2626",
+        cls: "cat-food",
+        name: "ครูตัวน้อย ๆ คอยตระเวนแดก",
+        shortName: "คอยตระเวนแดก"
+      },
+      travel: {
+        key: "travel",
+        icon: "🧳",
+        color: "#059669",
+        cls: "cat-travel",
+        name: "ครูตัวน้อย ๆ คอยตระเวนเที่ยว",
+        shortName: "คอยตระเวนเที่ยว"
+      },
+      review: {
+        key: "review",
+        icon: "🛍️",
+        color: "#D97706",
+        cls: "cat-review",
+        name: "ครูตัวน้อย ๆ คอยรีวิว",
+        shortName: "คอยรีวิว"
+      },
+      farm: {
+        key: "farm",
+        icon: "🐮",
+        color: "#65A30D",
+        cls: "cat-farm",
+        name: "ครูตัวน้อย ๆ คอยตะลุยฟาร์ม",
+        shortName: "คอยตะลุยฟาร์ม"
+      }
+    };
+
+    const STYLE_TABS = [
+      { id: "short", label: "⚡ สั้น", field: "caption_short" },
+      { id: "warm", label: "💛 อบอุ่น", field: "caption_warm" },
+      { id: "funny", label: "😂 สายฮา", field: "caption_funny" },
+      { id: "question", label: "💬 ชวนคุย", field: "caption_question" }
+    ];
+
+    const GAS_EXEC_URL = "https://script.google.com/macros/s/AKfycbzPK_vMV-Y3Gp8jk53hlSAtcutsT-YBqDJmXUQkYb5QWqFNH6Gbxs9jFwYmwnATk3at/exec";
+
+    const ICONS = {
+      copy: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+      comment: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      edit: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+      trash: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+      sparkles: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
+      palette: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>',
+      check: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>',
+      undo: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>',
+      eye: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+      eyeOff: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+    };
+
+    function hasAppsScript_() {
+      return typeof google !== "undefined" && google.script && google.script.run;
+    }
+
+    function isOfflinePreview_() {
+      return Boolean(window.PREVIEW_BOOTSTRAP_DATA);
+    }
+
+    function hasOnlineBackend_() {
+      return hasAppsScript_() || (!isOfflinePreview_() && Boolean(GAS_EXEC_URL));
+    }
+
+    function applyTheme(theme, persist = true) {
+      const next = theme === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      if (persist) {
+        try { localStorage.setItem("ktn_theme", next); } catch (e) {}
+      }
+      const meta = document.getElementById("metaThemeColor");
+      if (meta) meta.setAttribute("content", next === "dark" ? "#0F172A" : "#F6F8FC");
+      const btn = document.getElementById("btnThemeToggle");
+      if (btn) btn.setAttribute("aria-pressed", String(next === "dark"));
+      const sun = document.getElementById("themeIconSun");
+      const moon = document.getElementById("themeIconMoon");
+      if (sun) sun.style.display = next === "dark" ? "block" : "none";
+      if (moon) moon.style.display = next === "dark" ? "none" : "block";
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      applyTheme(cur === "dark" ? "light" : "dark", true);
+    }
+
+    function initTheme_() {
+      try {
+        const qTheme = new URLSearchParams(window.location.search).get("theme");
+        if (qTheme === "dark" || qTheme === "light") {
+          applyTheme(qTheme, false);
+          return;
+        }
+      } catch (e) {}
+      let saved = "";
+      try { saved = localStorage.getItem("ktn_theme") || ""; } catch (e) {}
+      if (saved === "dark" || saved === "light") {
+        applyTheme(saved, false);
+      } else {
+        applyTheme("light", false);
+      }
+    }
+
+    function runGas(fnName) {
+      const args = Array.prototype.slice.call(arguments, 1);
+      if (hasAppsScript_()) {
+        return new Promise((resolve, reject) => {
+          const runner = google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(reject);
+          runner[fnName].apply(runner, args);
+        });
+      }
+      if (window.PREVIEW_BOOTSTRAP_DATA) {
+        return Promise.reject(new Error("PREVIEW_OFFLINE"));
+      }
+      return fetch(GAS_EXEC_URL, {
+        method: "POST",
+        mode: "cors",
+        credentials: "omit",
+        redirect: "follow",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: fnName, args: args })
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error("HTTP " + res.status);
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (!data || !data.ok) {
+            throw new Error((data && data.error) || "เชื่อมต่อระบบหลังบ้านไม่สำเร็จ");
+          }
+          return data.result;
+        });
+    }
+
+    function applyActivityModeText(text) {
+      let s = String(text || "");
+      if (STATE.activityMode === "99999") {
+        s = s
+          .replace(/99,999/g, "99,999")
+          .replace(/(^|[^0-9])9,999([^0-9]|$)/g, "$199,999$2")
+          .replace(/#ครูตัวน้อยๆ9999กิจกรรม/g, "#ครูตัวน้อยๆ99999กิจกรรม")
+          .replace(/เก้าพันเก้าร้อยเก้าสิบเก้า/g, "เก้าหมื่นเก้าพันเก้าร้อยเก้าสิบเก้า");
+      } else {
+        s = s
+          .replace(/99,999/g, "9,999")
+          .replace(/#ครูตัวน้อยๆ99999กิจกรรม/g, "#ครูตัวน้อยๆ9999กิจกรรม")
+          .replace(/เก้าหมื่นเก้าพันเก้าร้อยเก้าสิบเก้า/g, "เก้าพันเก้าร้อยเก้าสิบเก้า");
+      }
+      return s;
+    }
+
+    function getCategoryFullName(cat) {
+      if (cat === "activity") {
+        return STATE.activityMode === "99999"
+          ? "ครูตัวน้อย ๆ 99,999 กิจกรรม"
+          : "ครูตัวน้อย ๆ 9,999 กิจกรรม";
+      }
+      return (CATEGORY_META[cat] && CATEGORY_META[cat].name) || "ครูตัวน้อย ๆ 9,999 กิจกรรม";
+    }
+
+    function getCategoryShortName(cat) {
+      if (cat === "activity") {
+        return STATE.activityMode === "99999" ? "99,999 กิจกรรม" : "9,999 กิจกรรม";
+      }
+      return (CATEGORY_META[cat] && CATEGORY_META[cat].shortName) || cat;
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function postNumericId(postId) {
+      const m = String(postId || "").match(/(\d+)/);
+      return m ? parseInt(m[1], 10) : 0;
+    }
+
+    function updateHeaderUI() {
+      const is99999 = STATE.activityMode === "99999";
+      const brandLabel = is99999 ? "99,999 กิจกรรม" : "9,999 กิจกรรม";
+      document.getElementById("headerBrandTitle").textContent = "แดชบอร์ดรวมคอนเทนต์ | ครูตัวน้อย ๆ " + brandLabel;
+      const modeBtn = document.getElementById("btnToggleMode");
+      const modeLabel = document.getElementById("modeBtnLabel");
+      if (modeLabel) {
+        modeLabel.textContent = "โหมดปัจจุบัน: " + brandLabel;
+      } else {
+        modeBtn.textContent = "โหมดปัจจุบัน: " + brandLabel;
+      }
+      modeBtn.classList.toggle("is-99999", is99999);
+
+      const optAct = document.getElementById("optCatActivity");
+      if (optAct) optAct.textContent = "🎓 " + getCategoryFullName("activity");
+
+      const apiBtn = document.getElementById("btnApiSettings");
+      const apiLabel = document.getElementById("apiBtnLabel");
+      if (STATE.hasGeminiKey) {
+        apiBtn.className = "btn btn-ai-ok";
+        const txt = "AI พร้อม (" + (STATE.geminiKeyMasked || "ตั้งค่าแล้ว") + ")";
+        if (apiLabel) apiLabel.textContent = txt; else apiBtn.textContent = txt;
+      } else {
+        apiBtn.className = "btn btn-ai-warn";
+        const txt = "ตั้งค่า Gemini API Key";
+        if (apiLabel) apiLabel.textContent = txt; else apiBtn.textContent = txt;
+      }
+    }
+
+    function renderStockMeter() {
+      const readyCounts = { all: 0, activity: 0, food: 0, travel: 0, review: 0, farm: 0 };
+      const totalCounts = { all: 0, activity: 0, food: 0, travel: 0, review: 0, farm: 0 };
+      for (const p of STATE.posts) {
+        const c = CATEGORY_META[p.category] ? p.category : "activity";
+        totalCounts.all++;
+        totalCounts[c]++;
+        if (p.status === "ready") {
+          readyCounts.all++;
+          readyCounts[c]++;
+        }
+      }
+
+      const cards = [
+        { key: "all", icon: "🗂️", label: "รวมทุกหมวด", sub: "ทั้งหมด " + totalCounts.all + " โพสต์" },
+        { key: "activity", icon: "🎓", label: getCategoryShortName("activity"), sub: "งานสอน/โรงเรียน/พัฒนา" },
+        { key: "food", icon: "🍽️", label: getCategoryShortName("food"), sub: "ของกิน/ร้านเด็ด" },
+        { key: "travel", icon: "🧳", label: getCategoryShortName("travel"), sub: "ทริป/พักผ่อน" },
+        { key: "review", icon: "🛍️", label: getCategoryShortName("review"), sub: "รีวิวสร้างรายได้" },
+        { key: "farm", icon: "🐮", label: getCategoryShortName("farm"), sub: "วัว ควาย ฟาร์ม ธรรมชาติ" }
+      ];
+
+      const html = cards.map(c => {
+        const isActiveBool = STATE.activeCategory === c.key;
+        const isActive = isActiveBool ? " active" : "";
+        const extraCls = c.key === "all" ? " stock-card-all" : "";
+        return `<button type="button" class="stock-card${extraCls}${isActive}" data-cat="${c.key}" aria-pressed="${isActiveBool}" onclick="selectCategoryFilter('${c.key}')">
+          <div class="stock-title"><span aria-hidden="true">${c.icon}</span> ${escapeHtml(c.label)}</div>
+          <div class="stock-num">${readyCounts[c.key]} <span style="font-size:0.78rem;font-weight:600;color:var(--ink-muted)">พร้อมโพสต์</span></div>
+          <div class="stock-sub">${escapeHtml(c.sub)}</div>
+        </button>`;
+      }).join("");
+      document.getElementById("stockGrid").innerHTML = html;
+    }
+
+    function parseCreatedTimestamp_(val) {
+      let raw = String(val || "").trim();
+      if (!raw) return 0;
+      // Strip localized timezone names like "(เวลาอินโดจีน)" that iOS Safari fails to parse
+      raw = raw.replace(/\s*\([^)]*\)\s*$/, "").trim();
+      if (/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/.test(raw)) {
+        raw = raw.replace(/\s+/, "T");
+      }
+      const ms = Date.parse(raw);
+      return Number.isFinite(ms) ? ms : 0;
+    }
+
+    function compareNewestPosts_(a, b) {
+      const ta = parseCreatedTimestamp_(a.created_at);
+      const tb = parseCreatedTimestamp_(b.created_at);
+      if (ta && tb && ta !== tb) return tb - ta;
+      return postNumericId(b.post_id) - postNumericId(a.post_id);
+    }
+
+    function getLatestUploadedPosts(limit) {
+      const visible = STATE.posts.filter(p => p.status !== "hidden");
+      const source = visible.length > 0 ? visible : STATE.posts;
+      return source.slice().sort(compareNewestPosts_).slice(0, limit || 4);
+    }
+
+    function renderRecentStrip() {
+      const strip = document.getElementById("recentUploadsStrip");
+      const listEl = document.getElementById("recentUploadsList");
+      if (!strip || !listEl) return;
+      const recent = getLatestUploadedPosts(4);
+      if (recent.length === 0) {
+        strip.style.display = "none";
+        return;
+      }
+      strip.style.display = "block";
+      listEl.innerHTML = recent.map((p, idx) => {
+        const pid = p.post_id;
+        const thumb = p.thumb_data_url || "";
+        const title = applyActivityModeText(p.title || pid);
+        return `<button type="button" class="recent-chip" onclick="jumpToPost('${escapeHtml(pid)}')" title="${escapeHtml(title)}">
+          ${thumb ? `<img width="44" height="44" src="${thumb}" alt="${escapeHtml(title)}" />` : `<div style="width:44px;height:44px;border-radius:8px;background:var(--border-soft);flex-shrink:0;" aria-hidden="true"></div>`}
+          <div class="recent-chip-meta">
+            <div class="recent-chip-id">
+              <span>${escapeHtml(pid)}</span>
+              ${idx === 0 ? `<span class="recent-chip-badge">ล่าสุด</span>` : ""}
+            </div>
+            <div class="recent-chip-title">${escapeHtml(title)}</div>
+          </div>
+        </button>`;
+      }).join("");
+    }
+
+    function jumpToPost(pid) {
+      const p = findPost(pid);
+      if (!p) return;
+      STATE.searchQuery = "";
+      STATE.sortBy = "newest";
+      STATE.activeCategory = "all";
+      STATE.activeStatus = p.status === "hidden" ? "hidden" : (p.status === "posted" ? "posted" : "ready");
+      const searchEl = document.getElementById("searchInput");
+      if (searchEl) searchEl.value = "";
+      const sortEl = document.getElementById("sortSelect");
+      if (sortEl) sortEl.value = "newest";
+      document.querySelectorAll("#statusPills .pill-btn").forEach(b => {
+        const active = b.dataset.status === STATE.activeStatus;
+        b.classList.toggle("active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      STATE.justUploadedId = pid;
+      renderAll();
+      requestAnimationFrame(() => {
+        const card = document.querySelector(`.post-card[data-post-id="${CSS.escape(pid)}"]`);
+        if (card) {
+          const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          card.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+        }
+      });
+    }
+
+    function getFilteredPosts() {
+      const q = STATE.searchQuery.trim().toLowerCase();
+      let list = STATE.posts.filter(p => {
+        if (STATE.activeCategory !== "all" && p.category !== STATE.activeCategory) return false;
+        if (STATE.activeStatus !== "all" && p.status !== STATE.activeStatus) return false;
+        if (q) {
+          const hay = [
+            p.post_id, p.title, p.user_note, p.source_filename,
+            p.caption_short, p.caption_warm, p.caption_funny, p.caption_question,
+            p.first_comment, p.reel_hook
+          ].join(" ").toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+
+      list = list.slice().sort((a, b) => {
+        const na = postNumericId(a.post_id);
+        const nb = postNumericId(b.post_id);
+        if (STATE.sortBy === "oldest") return na - nb;
+        if (STATE.sortBy === "code_desc") return nb - na;
+        return compareNewestPosts_(a, b);
+      });
+      return list;
+    }
+
+    function renderPostsGrid() {
+      const grid = document.getElementById("postsGrid");
+      const list = getFilteredPosts();
+      if (list.length === 0) {
+        grid.innerHTML = `<div class="empty-state">
+          <div style="font-size:2rem;margin-bottom:8px;">📭</div>
+          <div style="font-weight:700;font-size:1.05rem;margin-bottom:4px;">ยังไม่มีโพสต์ในหมวดหรือสถานะที่เลือก</div>
+          <div style="font-size:0.88rem;margin-bottom:14px;">ลองสลับตัวกรอง หรือกดปุ่ม <strong>📸 อัปโหลดรูปใหม่</strong> เพื่อเพิ่มคอนเทนต์ได้เลยครับ</div>
+          <button type="button" class="btn btn-primary" onclick="openUploadModal()">📸 เพิ่มรูปลงหมวดนี้เลย</button>
+        </div>`;
+        return;
+      }
+
+      const statusLabelMap = {
+        ready: "พร้อมโพสต์",
+        posted: "โพสต์แล้ว",
+        hidden: "ซ่อนอยู่"
+      };
+
+      const actName = getCategoryFullName("activity");
+      const latestArr = getLatestUploadedPosts(1);
+      const latestPostId = latestArr.length > 0 ? latestArr[0].post_id : "";
+
+      grid.innerHTML = list.map(p => {
+        const pid = p.post_id;
+        const isJustUploaded = STATE.justUploadedId && pid === STATE.justUploadedId;
+        const isLatest = !isJustUploaded && latestPostId && pid === latestPostId;
+        const activeStyle = STATE.selectedTabByPost[pid] || "short";
+        const tabObj = STYLE_TABS.find(t => t.id === activeStyle) || STYLE_TABS[0];
+        const captionRaw = p[tabObj.field] || "";
+        const captionShown = applyActivityModeText(captionRaw);
+        const hookShown = applyActivityModeText(p.reel_hook || "");
+        const commentShown = applyActivityModeText(p.first_comment || "");
+        const fileIds = String(p.drive_file_ids || "").split(",").map(s => s.trim()).filter(Boolean);
+        const catCls = (CATEGORY_META[p.category] && CATEGORY_META[p.category].cls) || "cat-activity";
+        const isEditing = Boolean(STATE.openEditByPost[pid]);
+        const thumbSrc = p.thumb_data_url || "";
+        const statusCls = p.status === "posted" ? "status-posted" : (p.status === "hidden" ? "status-hidden" : "status-ready");
+        const togglePostedHtml = p.status === "posted" ? (ICONS.undo + " ย้ายกลับพร้อมโพสต์") : (ICONS.check + " โพสต์แล้ว");
+        const toggleHideHtml = p.status === "hidden" ? (ICONS.eye + " แสดงอีกครั้ง") : (ICONS.eyeOff + " ซ่อน");
+
+        const styleTabsHtml = STYLE_TABS.map(t => {
+          const isSelected = t.id === activeStyle;
+          const act = isSelected ? " active" : "";
+          return `<button type="button" role="tab" aria-selected="${isSelected}" class="style-tab${act}" onclick="selectCaptionTab('${escapeHtml(pid)}','${t.id}')">${t.label}</button>`;
+        }).join("");
+
+        return `<article class="post-card ${p.status === "posted" ? "is-posted" : ""} ${isJustUploaded ? "just-uploaded" : ""}" data-post-id="${escapeHtml(pid)}">
+          <div class="card-media">
+            <button type="button" class="card-media-trigger" onclick="openPhotoStudio('${escapeHtml(pid)}')" aria-label="เปิดสตูดิโอแต่งรูป HD ของโพสต์ ${escapeHtml(pid)}">
+              ${thumbSrc ? `<img loading="lazy" width="400" height="300" src="${thumbSrc}" alt="${escapeHtml(p.title)}" />` : `<span class="media-placeholder">ไม่มีพรีวิวรูป</span>`}
+            </button>
+            <div class="media-top-badges">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <span class="id-badge">${escapeHtml(pid)}</span>
+                ${isJustUploaded ? `<span class="badge-latest">เพิ่งสร้างเสร็จ</span>` : (isLatest ? `<span class="badge-latest">อัปโหลดล่าสุด</span>` : "")}
+              </div>
+              <span class="status-badge ${statusCls}">${statusLabelMap[p.status] || p.status}</span>
+            </div>
+            <div class="media-bottom-bar">
+              ${fileIds.length > 1 ? `<span class="album-chip"><span aria-hidden="true">📚</span> อัลบั้ม ${fileIds.length} รูป</span>` : `<span></span>`}
+              <button type="button" class="studio-trigger" onclick="openPhotoStudio('${escapeHtml(pid)}')">
+                ${ICONS.palette} แต่งป้าย / รูป HD
+              </button>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="cat-row">
+              <select class="cat-select ${catCls}" aria-label="เปลี่ยนหมวดหมู่โพสต์ ${escapeHtml(pid)}" onchange="quickChangeCategory('${escapeHtml(pid)}', this.value)">
+                <option value="activity" ${p.category === "activity" ? "selected" : ""}>🎓 ${escapeHtml(actName)}</option>
+                <option value="food" ${p.category === "food" ? "selected" : ""}>🍽️ ครูตัวน้อย ๆ คอยตระเวนแดก</option>
+                <option value="travel" ${p.category === "travel" ? "selected" : ""}>🧳 ครูตัวน้อย ๆ คอยตระเวนเที่ยว</option>
+                <option value="review" ${p.category === "review" ? "selected" : ""}>🛍️ ครูตัวน้อย ๆ คอยรีวิว</option>
+                <option value="farm" ${p.category === "farm" ? "selected" : ""}>🐮 ครูตัวน้อย ๆ คอยตะลุยฟาร์ม</option>
+              </select>
+              <span class="best-time"><span aria-hidden="true">⏰</span> ${escapeHtml(p.best_time || "19:00 น.")}</span>
+            </div>
+
+            <h3 class="post-title">${escapeHtml(applyActivityModeText(p.title))}</h3>
+
+            <div class="hook-strip">
+              <span class="hook-text" title="${escapeHtml(hookShown)}"><span aria-hidden="true">🎬</span> ${escapeHtml(hookShown)}</span>
+              <button type="button" class="hook-copy" onclick="copyHook('${escapeHtml(pid)}')">คัดลอกฮุก</button>
+            </div>
+
+            <div class="style-tabs" role="tablist" aria-label="สไตล์แคปชั่น">${styleTabsHtml}</div>
+
+            <div class="caption-box">${escapeHtml(captionShown)}</div>
+
+            <div class="first-comment-box">
+              <span class="first-comment-label"><span aria-hidden="true">💬</span> คอมเมนต์แรก (ใส่พิกัด/ลิงก์/ชวนคุย)</span>
+              ${escapeHtml(commentShown)}
+            </div>
+
+            <div class="copy-actions">
+              <button type="button" class="btn btn-copy-main" onclick="copyActiveCaption('${escapeHtml(pid)}')">
+                ${ICONS.copy} คัดลอกแคปชั่นหลัก
+              </button>
+              <button type="button" class="btn btn-copy-comment" onclick="copyFirstComment('${escapeHtml(pid)}')">
+                ${ICONS.comment} คัดลอกเม้นต์แรก
+              </button>
+            </div>
+
+            <div class="card-footer-actions">
+              <button type="button" class="btn btn-sm" onclick="togglePostStatus('${escapeHtml(pid)}', '${p.status === "posted" ? "ready" : "posted"}')">${togglePostedHtml}</button>
+              <button type="button" class="btn btn-sm" onclick="toggleEditPanel('${escapeHtml(pid)}')">${ICONS.edit} แก้ไข</button>
+              <button type="button" class="btn btn-sm" onclick="handleRegenerateAI('${escapeHtml(pid)}')">${ICONS.sparkles} AI คิดใหม่</button>
+              <button type="button" class="btn btn-sm" onclick="togglePostStatus('${escapeHtml(pid)}', '${p.status === "hidden" ? "ready" : "hidden"}')">${toggleHideHtml}</button>
+              <button type="button" class="btn btn-sm btn-danger btn-del-post" aria-label="ลบโพสต์ ${escapeHtml(pid)}" onclick="handleDeletePost('${escapeHtml(pid)}')">${ICONS.trash}</button>
+            </div>
+          </div>
+
+          <div class="edit-panel ${isEditing ? "open" : ""}" id="edit_${escapeHtml(pid)}">
+            <div>
+              <label class="edit-label" for="ed_title_${escapeHtml(pid)}">หัวข้อภาพ</label>
+              <input type="text" class="edit-field" id="ed_title_${escapeHtml(pid)}" value="${escapeHtml(p.title)}" />
+            </div>
+            <div>
+              <label class="edit-label" for="ed_hook_${escapeHtml(pid)}">พาดหัวสั้นบนรูป / Reels Hook</label>
+              <input type="text" class="edit-field" id="ed_hook_${escapeHtml(pid)}" value="${escapeHtml(p.reel_hook)}" />
+            </div>
+            <div>
+              <label class="edit-label" for="ed_short_${escapeHtml(pid)}">⚡ แคปชั่นสั้น</label>
+              <textarea class="edit-area" id="ed_short_${escapeHtml(pid)}">${escapeHtml(p.caption_short)}</textarea>
+            </div>
+            <div>
+              <label class="edit-label" for="ed_warm_${escapeHtml(pid)}">💛 แคปชั่นอบอุ่น</label>
+              <textarea class="edit-area" id="ed_warm_${escapeHtml(pid)}">${escapeHtml(p.caption_warm)}</textarea>
+            </div>
+            <div>
+              <label class="edit-label" for="ed_funny_${escapeHtml(pid)}">😂 แคปชั่นสายฮา</label>
+              <textarea class="edit-area" id="ed_funny_${escapeHtml(pid)}">${escapeHtml(p.caption_funny)}</textarea>
+            </div>
+            <div>
+              <label class="edit-label" for="ed_question_${escapeHtml(pid)}">💬 แคปชั่นชวนคุย</label>
+              <textarea class="edit-area" id="ed_question_${escapeHtml(pid)}">${escapeHtml(p.caption_question)}</textarea>
+            </div>
+            <div>
+              <label class="edit-label" for="ed_comment_${escapeHtml(pid)}">💬 คอมเมนต์แรก (วางลิงก์ Shopee/พิกัดได้)</label>
+              <textarea class="edit-area" id="ed_comment_${escapeHtml(pid)}">${escapeHtml(p.first_comment)}</textarea>
+            </div>
+            <div>
+              <label class="edit-label" for="ed_time_${escapeHtml(pid)}">⏰ เวลาแนะนำ</label>
+              <input type="text" class="edit-field" id="ed_time_${escapeHtml(pid)}" value="${escapeHtml(p.best_time)}" />
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;">
+              <button type="button" class="btn btn-sm" onclick="toggleEditPanel('${escapeHtml(pid)}')">ปิด</button>
+              <button type="button" class="btn btn-sm btn-primary" onclick="saveInlineEdit('${escapeHtml(pid)}')">บันทึกการแก้ไข</button>
+            </div>
+          </div>
+        </article>`;
+      }).join("");
+    }
+
+    function renderAll() {
+      updateHeaderUI();
+      renderStockMeter();
+      renderRecentStrip();
+      renderPostsGrid();
+    }
+
+    function findPost(pid) {
+      return STATE.posts.find(p => p.post_id === pid);
+    }
+
+    function selectCategoryFilter(cat) {
+      STATE.activeCategory = cat;
+      renderAll();
+    }
+
+    function selectCaptionTab(pid, tabId) {
+      STATE.selectedTabByPost[pid] = tabId;
+      renderPostsGrid();
+    }
+
+    function toggleEditPanel(pid) {
+      STATE.openEditByPost[pid] = !STATE.openEditByPost[pid];
+      renderPostsGrid();
+    }
+
+    async function copyTextValue(text, successMsg) {
+      const clean = String(text || "").trim();
+      if (!clean) {
+        showToast("ไม่มีข้อความให้คัดลอกครับ");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(clean);
+        showToast("✅ " + (successMsg || "คัดลอกแล้ว!"));
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = clean;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("✅ " + (successMsg || "คัดลอกแล้ว!"));
+      }
+    }
+
+    function copyActiveCaption(pid) {
+      const p = findPost(pid);
+      if (!p) return;
+      const activeStyle = STATE.selectedTabByPost[pid] || "short";
+      const tabObj = STYLE_TABS.find(t => t.id === activeStyle) || STYLE_TABS[0];
+      const text = applyActivityModeText(p[tabObj.field] || "");
+      copyTextValue(text, "คัดลอกแคปชั่น (" + tabObj.label + ") พร้อมวางใน Facebook แล้ว!");
+    }
+
+    function copyFirstComment(pid) {
+      const p = findPost(pid);
+      if (!p) return;
+      const text = applyActivityModeText(p.first_comment || "");
+      copyTextValue(text, "คัดลอกคอมเมนต์แรกแล้ว!");
+    }
+
+    function copyHook(pid) {
+      const p = findPost(pid);
+      if (!p) return;
+      const text = applyActivityModeText(p.reel_hook || "");
+      copyTextValue(text, "คัดลอกฮุกพาดหัวแล้ว!");
+    }
+
+    async function quickChangeCategory(pid, newCat) {
+      const p = findPost(pid);
+      if (!p) return;
+      const prev = p.category;
+      p.category = newCat;
+      renderAll();
+      if (!hasOnlineBackend_()) {
+        showToast("พรีวิว: ย้ายหมวดเป็น " + getCategoryShortName(newCat) + " แล้ว");
+        return;
+      }
+      try {
+        await runGas("updatePostFields", pid, { category: newCat });
+        showToast("✅ ย้ายหมวดเรียบร้อย");
+      } catch (err) {
+        p.category = prev;
+        renderAll();
+        showToast("❌ เปลี่ยนหมวดไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    async function togglePostStatus(pid, nextStatus) {
+      const p = findPost(pid);
+      if (!p) return;
+      const prev = p.status;
+      p.status = nextStatus;
+      renderAll();
+      if (!hasOnlineBackend_()) {
+        showToast("พรีวิว: เปลี่ยนสถานะเป็น " + nextStatus);
+        return;
+      }
+      try {
+        await runGas("updatePostFields", pid, { status: nextStatus });
+        showToast(nextStatus === "posted" ? "✅ บันทึกว่าโพสต์แล้ว!" : "อัปเดตสถานะเรียบร้อย");
+      } catch (err) {
+        p.status = prev;
+        renderAll();
+        showToast("❌ บันทึกสถานะไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    async function saveInlineEdit(pid) {
+      const p = findPost(pid);
+      if (!p) return;
+      const patch = {
+        title: document.getElementById("ed_title_" + pid).value,
+        reel_hook: document.getElementById("ed_hook_" + pid).value,
+        caption_short: document.getElementById("ed_short_" + pid).value,
+        caption_warm: document.getElementById("ed_warm_" + pid).value,
+        caption_funny: document.getElementById("ed_funny_" + pid).value,
+        caption_question: document.getElementById("ed_question_" + pid).value,
+        first_comment: document.getElementById("ed_comment_" + pid).value,
+        best_time: document.getElementById("ed_time_" + pid).value
+      };
+      Object.assign(p, patch);
+      STATE.openEditByPost[pid] = false;
+      renderAll();
+
+      if (!hasOnlineBackend_()) {
+        showToast("พรีวิว: บันทึกการแก้ไขชั่วคราวแล้ว");
+        return;
+      }
+      try {
+        const res = await runGas("updatePostFields", pid, patch);
+        if (res && res.post) Object.assign(p, res.post);
+        renderAll();
+        showToast("💾 บันทึกลง Google Sheets เรียบร้อย!");
+      } catch (err) {
+        showToast("❌ บันทึกไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    async function handleDeletePost(pid) {
+      if (!confirm("ต้องการลบโพสต์ " + pid + " ออกจากแดชบอร์ดใช่ไหมครับ? (รูปจะถูกย้ายเข้าถังขยะ Google Drive)")) return;
+      const idx = STATE.posts.findIndex(p => p.post_id === pid);
+      if (idx === -1) return;
+      const backup = STATE.posts[idx];
+      STATE.posts.splice(idx, 1);
+      renderAll();
+      if (!hasOnlineBackend_()) {
+        showToast("พรีวิว: ลบโพสต์ชั่วคราวแล้ว");
+        return;
+      }
+      try {
+        await runGas("deletePost", pid);
+        showToast("🗑️ ลบโพสต์ " + pid + " เรียบร้อย");
+      } catch (err) {
+        STATE.posts.splice(idx, 0, backup);
+        renderAll();
+        showToast("❌ ลบไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    async function handleRegenerateAI(pid) {
+      if (!hasOnlineBackend_()) {
+        showToast("ฟีเจอร์ AI คิดแคปชั่นใหม่ ใช้งานได้เมื่อเปิดผ่านลิงก์เว็บแดชบอร์ดออนไลน์ครับ");
+        return;
+      }
+      if (!STATE.hasGeminiKey) {
+        openApiModal();
+        showToast("กรุณาใส่ Gemini API Key ก่อนใช้ AI คิดแคปชั่นใหม่นะครับ");
+        return;
+      }
+      showToast("✨ กำลังส่งรูปให้ Gemini AI วิเคราะห์และคิดแคปชั่นใหม่…");
+      try {
+        const res = await runGas("regeneratePostWithAI", pid, false);
+        if (!res.ok) {
+          if (res.needApiKey) openApiModal();
+          showToast(res.message || "ไม่สามารถเรียก AI ได้");
+          return;
+        }
+        const p = findPost(pid);
+        if (p && res.post) Object.assign(p, res.post);
+        renderAll();
+        showToast("✨ Gemini AI สร้าง 4 แคปชั่นใหม่ให้เรียบร้อย!");
+      } catch (err) {
+        showToast("❌ AI ผิดพลาด: " + err.message);
+      }
+    }
+
+    // Mode Toggle 9,999 <-> 99,999
+    async function handleToggleMode() {
+      const nextMode = STATE.activityMode === "99999" ? "9999" : "99999";
+      if (nextMode === "99999" && !confirm("สลับโหมดทั้งระบบเป็น 'ครูตัวน้อย ๆ 99,999 กิจกรรม' (พร้อมรับคำสั่ง ค.ศ.3) เลยไหมครับ?")) {
+        return;
+      }
+      STATE.activityMode = nextMode;
+      localStorage.setItem("teacher_activity_mode", nextMode);
+      renderAll();
+      if (!hasOnlineBackend_()) {
+        showToast("เปลี่ยนโหมดเป็น " + (nextMode === "99999" ? "99,999" : "9,999") + " กิจกรรมแล้ว!");
+        return;
+      }
+      try {
+        await runGas("toggleActivityMode", nextMode);
+        showToast("🎓 อัปเดตโหมดเป็น " + (nextMode === "99999" ? "99,999 กิจกรรม" : "9,999 กิจกรรม") + " เรียบร้อย!");
+      } catch (err) {
+        showToast("⚠️ สลับในหน้าจอแล้ว แต่บันทึกลงชีตไม่สำเร็จ: " + err.message);
+      }
+    }
+
+    // Modals (scroll-lock + focus management)
+    let __lastModalTrigger = null;
+    function openModal(id) {
+      __lastModalTrigger = document.activeElement;
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => {
+        const firstFocus = modal.querySelector("input:not([type='hidden']), textarea, select, .modal-close-btn, button");
+        if (firstFocus && typeof firstFocus.focus === "function") firstFocus.focus();
+      });
+    }
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove("open");
+      if (!document.querySelector(".modal-backdrop.open")) {
+        document.body.style.overflow = "";
+      }
+      if (__lastModalTrigger && typeof __lastModalTrigger.focus === "function") {
+        __lastModalTrigger.focus();
+        __lastModalTrigger = null;
+      }
+    }
+
+    function openApiModal() {
+      document.getElementById("apiTestResult").textContent = "";
+      document.getElementById("geminiKeyInput").value = "";
+      document.getElementById("apiStatusNote").textContent = STATE.hasGeminiKey
+        ? ("สถานะปัจจุบัน: บันทึก Key ไว้แล้ว (" + STATE.geminiKeyMasked + ") — ใส่ Key ใหม่ทับได้เลย")
+        : "สถานะปัจจุบัน: ยังไม่ได้ใส่ Gemini API Key";
+      openModal("apiModal");
+    }
+
+    function toggleKeyVisibility() {
+      const inp = document.getElementById("geminiKeyInput");
+      const btn = document.getElementById("btnToggleKeyVis");
+      const show = inp.type === "password";
+      inp.type = show ? "text" : "password";
+      if (btn) btn.setAttribute("aria-pressed", String(show));
+    }
+
+    async function handleSaveApiKey() {
+      const key = document.getElementById("geminiKeyInput").value.trim();
+      if (!key) {
+        showToast("กรุณาวาง Gemini API Key ก่อนกดบันทึกครับ");
+        return;
+      }
+      if (!hasOnlineBackend_()) {
+        showToast("กรุณาบันทึก Key บนหน้าเว็บแดชบอร์ดออนไลน์นะครับ");
+        return;
+      }
+      const resEl = document.getElementById("apiTestResult");
+      resEl.textContent = "⏳ กำลังบันทึก…";
+      try {
+        const res = await runGas("saveGeminiApiKey", key);
+        STATE.hasGeminiKey = Boolean(res.hasGeminiKey);
+        STATE.geminiKeyMasked = res.geminiKeyMasked || "";
+        updateHeaderUI();
+        resEl.style.color = "var(--btn-ai-ok-ink)";
+        resEl.textContent = "✅ บันทึก API Key เรียบร้อย! กดทดสอบเชื่อมต่อได้เลย";
+        showToast("✅ บันทึก Gemini API Key แล้ว");
+      } catch (err) {
+        resEl.style.color = "var(--btn-danger-ink)";
+        resEl.textContent = "❌ " + err.message;
+      }
+    }
+
+    async function handleTestApiKey() {
+      if (!hasOnlineBackend_()) {
+        showToast("ฟีเจอร์ทดสอบ Key ใช้ได้บนเว็บแดชบอร์ดออนไลน์ครับ");
+        return;
+      }
+      const typedKey = document.getElementById("geminiKeyInput").value.trim();
+      const resEl = document.getElementById("apiTestResult");
+      resEl.style.color = "var(--cat-activity)";
+      resEl.textContent = "⏳ กำลังทดสอบเชื่อมต่อ Gemini Flash รุ่นล่าสุด…";
+      try {
+        const res = await runGas("testGeminiConnection", typedKey || "");
+        resEl.style.color = res.ok ? "var(--btn-ai-ok-ink)" : "var(--btn-danger-ink)";
+        resEl.textContent = (res.ok ? "✅ " : "❌ ") + res.message;
+      } catch (err) {
+        resEl.style.color = "var(--btn-danger-ink)";
+        resEl.textContent = "❌ " + err.message;
+      }
+    }
+
+    async function clearApiKey() {
+      if (!hasOnlineBackend_()) return;
+      if (!confirm("ต้องการล้าง Gemini API Key ที่บันทึกไว้ใช่ไหมครับ?")) return;
+      const res = await runGas("saveGeminiApiKey", "");
+      STATE.hasGeminiKey = Boolean(res.hasGeminiKey);
+      STATE.geminiKeyMasked = "";
+      updateHeaderUI();
+      document.getElementById("apiStatusNote").textContent = "สถานะปัจจุบัน: ล้าง Key แล้ว";
+      showToast("ล้าง Key เรียบร้อย");
+    }
+
+    // Upload Workflow + Client Canvas Compression & Upright EXIF Orientation
+    function openUploadModal() {
+      openModal("uploadModal");
+    }
+
+    function setUploadMode(mode) {
+      STATE.uploadMode = mode;
+      document.querySelectorAll("#uploadModal .seg-btn").forEach(b => {
+        const active = b.dataset.mode === mode;
+        b.classList.toggle("active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+    }
+
+    function renderPendingThumbs() {
+      const box = document.getElementById("uploadThumbs");
+      box.innerHTML = STATE.pendingFiles.map((item, idx) => `
+        <div class="upload-thumb-item">
+          <img width="78" height="78" src="${item.previewUrl}" alt="${escapeHtml(item.name)}" />
+          <button type="button" class="upload-thumb-rm" aria-label="นำรูป ${escapeHtml(item.name)} ออก" onclick="removePendingFile(${idx})">✕</button>
+        </div>
+      `).join("");
+    }
+
+    function removePendingFile(idx) {
+      const removed = STATE.pendingFiles.splice(idx, 1);
+      if (removed[0] && removed[0].previewUrl) URL.revokeObjectURL(removed[0].previewUrl);
+      renderPendingThumbs();
+    }
+
+    function handleFilesSelected(fileList) {
+      const arr = Array.from(fileList || []).filter(f => f.type.startsWith("image/"));
+      if (arr.length === 0) return;
+      for (const f of arr) {
+        STATE.pendingFiles.push({
+          file: f,
+          name: f.name,
+          previewUrl: URL.createObjectURL(f)
+        });
+      }
+      renderPendingThumbs();
+    }
+
+    async function processImageFileToJpeg(file) {
+      let source;
+      let width;
+      let height;
+      if (typeof createImageBitmap === "function") {
+        try {
+          source = await createImageBitmap(file, { imageOrientation: "from-image" });
+          width = source.width;
+          height = source.height;
+        } catch (e) {
+          source = null;
+        }
+      }
+      if (!source) {
+        source = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = URL.createObjectURL(file);
+        });
+        width = source.naturalWidth || source.width;
+        height = source.naturalHeight || source.height;
+      }
+
+      const drawScaled = (maxDim, quality) => {
+        const scale = Math.min(1, maxDim / Math.max(width, height));
+        const w = Math.max(1, Math.round(width * scale));
+        const h = Math.max(1, Math.round(height * scale));
+        const c = document.createElement("canvas");
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext("2d");
+        ctx.drawImage(source, 0, 0, w, h);
+        return c.toDataURL("image/jpeg", quality);
+      };
+
+      const hdDataUrl = drawScaled(1600, 0.85);
+      let thumbDataUrl = drawScaled(260, 0.6);
+      if (thumbDataUrl.length > 28000) {
+        thumbDataUrl = drawScaled(200, 0.5);
+      }
+      if (source && typeof source.close === "function") source.close();
+
+      return {
+        filename: file.name || "photo.jpg",
+        mimeType: "image/jpeg",
+        hdBase64: hdDataUrl,
+        thumbDataUrl: thumbDataUrl,
+        dateTaken: new Date().toISOString().slice(0, 16).replace("T", " ")
+      };
+    }
+
+    async function startUploadProcess() {
+      if (STATE.pendingFiles.length === 0) {
+        showToast("กรุณาเลือกรูปภาพอย่างน้อย 1 รูปก่อนนะครับ");
+        return;
+      }
+      if (!hasOnlineBackend_()) {
+        showToast("การอัปโหลดขึ้น Drive + Sheets ใช้ได้เมื่อเปิดผ่านลิงก์เว็บแดชบอร์ดออนไลน์นะครับ");
+        return;
+      }
+      const btn = document.getElementById("btnStartUpload");
+      const prog = document.getElementById("uploadProgress");
+      btn.disabled = true;
+      prog.style.display = "block";
+
+      const requestedCategory = document.getElementById("uploadCategory").value;
+      const userNote = document.getElementById("uploadNote").value.trim();
+
+      try {
+        prog.textContent = "⏳ กำลังเตรียมไฟล์และจัดหมุนภาพให้ตั้งตรง…";
+        const processed = [];
+        for (let i = 0; i < STATE.pendingFiles.length; i++) {
+          prog.textContent = "⏳ กำลังย่อภาพ HD รูปที่ " + (i + 1) + "/" + STATE.pendingFiles.length + "…";
+          processed.push(await processImageFileToJpeg(STATE.pendingFiles[i].file));
+        }
+
+        const createdPostIds = [];
+        if (STATE.uploadMode === "album" && processed.length > 1) {
+          const chunk = processed.slice(0, 8);
+          prog.textContent = "🚀 กำลังอัปโหลดอัลบั้ม " + chunk.length + " รูป และให้ AI คิดแคปชั่น…";
+          const res = await runGas("uploadAndAnalyzePosts", {
+            postMode: "album",
+            requestedCategory: requestedCategory,
+            userNote: userNote,
+            activityMode: STATE.activityMode,
+            images: chunk
+          });
+          if (res && res.post) {
+            STATE.posts.unshift(res.post);
+            createdPostIds.push(res.post.post_id);
+          }
+          showToast(res.aiUsed ? "✨ AI วิเคราะห์อัลบั้มและสร้าง 4 แคปชั่นเรียบร้อย!" : "✅ อัปโหลดอัลบั้มด้วยเทมเพลตเรียบร้อย");
+        } else {
+          let aiUsedAny = false;
+          let aiErr = "";
+          for (let i = 0; i < processed.length; i++) {
+            prog.textContent = "🚀 กำลังอัปโหลดโพสต์ที่ " + (i + 1) + "/" + processed.length + "…";
+            const res = await runGas("uploadAndAnalyzePosts", {
+              postMode: "single",
+              requestedCategory: requestedCategory,
+              userNote: userNote,
+              activityMode: STATE.activityMode,
+              images: [processed[i]]
+            });
+            if (res && res.post) {
+              STATE.posts.unshift(res.post);
+              createdPostIds.push(res.post.post_id);
+            }
+            if (res && res.aiUsed) aiUsedAny = true;
+            if (res && res.aiError) aiErr = res.aiError;
+          }
+          if (aiErr && !aiUsedAny) {
+            showToast("⚠️ อัปโหลดสำเร็จ (AI ติดปัญหาใช้เทมเพลตแทน: " + aiErr + ")");
+          } else {
+            showToast(aiUsedAny ? "✨ AI วิเคราะห์รูปและสร้าง 4 แคปชั่นเสร็จครบแล้ว!" : "✅ อัปโหลดด้วยเทมเพลตเรียบร้อย!");
+          }
+        }
+
+        STATE.pendingFiles = [];
+        renderPendingThumbs();
+        document.getElementById("uploadNote").value = "";
+        closeModal("uploadModal");
+        if (createdPostIds.length > 0) {
+          jumpToPost(createdPostIds[0]);
+        } else {
+          STATE.activeStatus = "ready";
+          STATE.activeCategory = "all";
+          document.querySelectorAll("#statusPills .pill-btn").forEach(b => {
+            const active = b.dataset.status === "ready";
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-pressed", String(active));
+          });
+          renderAll();
+        }
+      } catch (err) {
+        showToast("❌ อัปโหลดไม่สำเร็จ: " + err.message);
+      } finally {
+        btn.disabled = false;
+        prog.style.display = "none";
+      }
+    }
+
+    // Photo Studio Canvas Modal
+    async function openPhotoStudio(pid) {
+      const p = findPost(pid);
+      if (!p) return;
+      STATE.studioPost = p;
+      STATE.studioImageIdx = 0;
+      setStudioMode("stamp");
+      document.getElementById("studioHeadline").value = applyActivityModeText(p.reel_hook || p.title || "");
+
+      const strip = document.getElementById("studioAlbumStrip");
+      strip.style.display = "none";
+      strip.innerHTML = "";
+      document.getElementById("studioLoadingNote").textContent = "⏳ กำลังโหลดภาพความละเอียด HD จาก Google Drive…";
+
+      openModal("studioModal");
+
+      // Show thumb immediately while HD loads
+      if (p.thumb_data_url) {
+        await loadCanvasSourceImage(p.thumb_data_url);
+      }
+
+      if (hasOnlineBackend_() && p.drive_file_ids) {
+        try {
+          const res = await runGas("getFullImagesDataUrls", p.drive_file_ids);
+          if (res && Array.isArray(res.images) && res.images.length > 0) {
+            STATE.studioImages = res.images;
+            if (res.images.length > 1) {
+              strip.style.display = "flex";
+              strip.innerHTML = res.images.map((im, i) => `
+                <button type="button" class="album-thumb-btn ${i === 0 ? "active" : ""}" onclick="selectStudioAlbumImage(${i})" aria-label="เลือกรูปที่ ${i + 1}" aria-pressed="${i === 0}">
+                  <img width="60" height="60" src="${im.dataUrl}" alt="" />
+                </button>
+              `).join("");
+            }
+            await loadCanvasSourceImage(res.images[0].dataUrl);
+            document.getElementById("studioLoadingNote").textContent = "✅ โหลดภาพ HD ต้นฉบับพร้อมส่งออกแล้วครับ";
+            return;
+          }
+        } catch (err) {
+          document.getElementById("studioLoadingNote").textContent = "⚠️ โหลดภาพ HD ไม่ได้ ใช้ภาพพรีวิวแทน (" + err.message + ")";
+        }
+      } else {
+        document.getElementById("studioLoadingNote").textContent = "ℹ️ โหมดพรีวิวใช้ภาพตัวอย่าง (เปิดเว็บแดชบอร์ดออนไลน์เพื่อแต่งจากไฟล์ HD เต็มตา)";
+      }
+    }
+
+    async function selectStudioAlbumImage(i) {
+      STATE.studioImageIdx = i;
+      document.querySelectorAll("#studioAlbumStrip .album-thumb-btn").forEach((el, idx) => {
+        const active = idx === i;
+        el.classList.toggle("active", active);
+        el.setAttribute("aria-pressed", String(active));
+      });
+      if (STATE.studioImages[i]) {
+        await loadCanvasSourceImage(STATE.studioImages[i].dataUrl);
+      }
+    }
+
+    function setStudioMode(mode) {
+      STATE.studioMode = mode;
+      const cleanBtn = document.getElementById("studioModeClean");
+      const stampBtn = document.getElementById("studioModeStamp");
+      cleanBtn.classList.toggle("active", mode === "clean");
+      cleanBtn.setAttribute("aria-pressed", String(mode === "clean"));
+      stampBtn.classList.toggle("active", mode === "stamp");
+      stampBtn.setAttribute("aria-pressed", String(mode === "stamp"));
+      document.getElementById("studioStampControls").style.display = mode === "stamp" ? "grid" : "none";
+      renderStudioCanvas();
+    }
+
+    function loadCanvasSourceImage(src) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => {
+          STATE.studioLoadedImgObj = img;
+          renderStudioCanvas();
+          resolve();
+        };
+        img.src = src;
+      });
+    }
+
+    function drawRoundedRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function wrapThaiLines(ctx, text, maxWidth) {
+      const words = String(text || "").split(/\s+/);
+      const lines = [];
+      let line = "";
+      for (const word of words) {
+        const test = line ? line + " " + word : word;
+        if (ctx.measureText(test).width <= maxWidth) {
+          line = test;
+        } else {
+          if (line) lines.push(line);
+          if (ctx.measureText(word).width <= maxWidth) {
+            line = word;
+          } else {
+            // Character wrap fallback for long unbroken Thai text
+            let part = "";
+            for (const ch of Array.from(word)) {
+              if (ctx.measureText(part + ch).width > maxWidth && part) {
+                lines.push(part);
+                part = ch;
+              } else {
+                part += ch;
+              }
+            }
+            line = part;
+          }
+        }
+      }
+      if (line) lines.push(line);
+      return lines;
+    }
+
+    function renderStudioCanvas() {
+      const img = STATE.studioLoadedImgObj;
+      const p = STATE.studioPost;
+      if (!img || !p) return;
+
+      const canvas = document.getElementById("studioCanvas");
+      const maxOut = 1440;
+      const scale = Math.min(1, maxOut / Math.max(img.width, img.height));
+      const w = Math.max(1, Math.round(img.width * scale));
+      const h = Math.max(1, Math.round(img.height * scale));
+      canvas.width = w;
+      canvas.height = h;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+
+      if (STATE.studioMode !== "stamp") return;
+
+      const catKey = p.category || "activity";
+      const catColor = (CATEGORY_META[catKey] && CATEGORY_META[catKey].color) || "#1D4ED8";
+      const badgeLabel = getCategoryFullName(catKey);
+      const pos = document.getElementById("studioPos").value;
+      const headline = document.getElementById("studioHeadline").value.trim();
+
+      const minSide = Math.min(w, h);
+      const pillFontPx = Math.max(16, Math.round(minSide * 0.032));
+      const padX = Math.round(minSide * 0.045);
+
+      // Draw Category Pill Top-Left
+      ctx.save();
+      ctx.font = "700 " + pillFontPx + "px 'Mali', 'Anuphan', sans-serif";
+      const textMetrics = ctx.measureText(badgeLabel);
+      const pillW = Math.min(w - padX * 2, textMetrics.width + pillFontPx * 1.8);
+      const pillH = Math.round(pillFontPx * 1.85);
+      const pillX = padX;
+      const pillY = padX;
+
+      ctx.shadowColor = "rgba(0,0,0,0.28)";
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = "#FFFFFF";
+      drawRoundedRect(ctx, pillX - 3, pillY - 3, pillW + 6, pillH + 6, (pillH + 6) / 2);
+      ctx.fill();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = catColor;
+      drawRoundedRect(ctx, pillX, pillY, pillW, pillH, pillH / 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#FFFFFF";
+      ctx.textBaseline = "middle";
+      ctx.fillText(badgeLabel, pillX + pillFontPx * 0.9, pillY + pillH / 2 + 1, pillW - pillFontPx * 1.4);
+      ctx.restore();
+
+      // Subtle watermark top-right / bottom-right opposite headline
+      ctx.save();
+      const wmPx = Math.max(13, Math.round(minSide * 0.025));
+      ctx.font = "700 " + wmPx + "px 'Mali', 'Anuphan', sans-serif";
+      const wmText = "ครูตัวน้อย ๆ คนนี้";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "bottom";
+      ctx.lineWidth = Math.max(3, Math.round(wmPx * 0.25));
+      ctx.strokeStyle = "rgba(255,255,255,0.92)";
+      ctx.strokeText(wmText, w - padX, h - Math.round(padX * 0.6));
+      ctx.fillStyle = "#132038";
+      ctx.fillText(wmText, w - padX, h - Math.round(padX * 0.6));
+      ctx.restore();
+
+      // Bold Mali White-Outlined Headline Sticker
+      if (headline) {
+        ctx.save();
+        const headPx = Math.max(22, Math.round(minSide * 0.055));
+        ctx.font = "700 " + headPx + "px 'Mali', 'Anuphan', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        const lines = wrapThaiLines(ctx, headline, w - padX * 2.4).slice(0, 3);
+        const lineH = Math.round(headPx * 1.32);
+        const startY = pos === "top"
+          ? (pillY + pillH + Math.round(lineH * 0.9))
+          : (h - padX - wmPx - Math.round(lineH * (lines.length - 0.3)));
+
+        ctx.lineJoin = "round";
+        ctx.miterLimit = 2;
+        for (let i = 0; i < lines.length; i++) {
+          const ly = startY + i * lineH;
+          ctx.shadowColor = "rgba(15,23,42,0.45)";
+          ctx.shadowBlur = 14;
+          ctx.lineWidth = Math.max(6, Math.round(headPx * 0.24));
+          ctx.strokeStyle = "#FFFFFF";
+          ctx.strokeText(lines[i], w / 2, ly);
+
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = catColor;
+          ctx.fillText(lines[i], w / 2, ly);
+        }
+        ctx.restore();
+      }
+    }
+
+    function downloadStudioImage(tryNativeShare) {
+      const canvas = document.getElementById("studioCanvas");
+      const pid = (STATE.studioPost && STATE.studioPost.post_id) || "post";
+      const fileName = pid + "_" + STATE.studioMode + ".jpg";
+      canvas.toBlob(async blob => {
+        if (!blob) return;
+        const file = new File([blob], fileName, { type: "image/jpeg" });
+        if (tryNativeShare && navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: STATE.studioPost ? STATE.studioPost.title : "ครูตัวน้อย ๆ"
+            });
+            showToast("✅ ส่งรูปสำเร็จ!");
+            return;
+          } catch (err) {
+            if (err && err.name === "AbortError") return;
+          }
+        }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showToast("💾 ดาวน์โหลดรูป " + fileName + " แล้ว!");
+      }, "image/jpeg", 0.92);
+    }
+
+    // Event bindings & Bootstrap
+    function wireEvents() {
+      document.getElementById("btnToggleMode").addEventListener("click", handleToggleMode);
+      document.getElementById("btnApiSettings").addEventListener("click", openApiModal);
+      document.getElementById("btnOpenUpload").addEventListener("click", openUploadModal);
+      document.getElementById("fabUpload").addEventListener("click", openUploadModal);
+      document.getElementById("btnThemeToggle").addEventListener("click", toggleTheme);
+
+      document.getElementById("searchInput").addEventListener("input", e => {
+        STATE.searchQuery = e.target.value;
+        renderPostsGrid();
+      });
+
+      document.getElementById("sortSelect").addEventListener("change", e => {
+        STATE.sortBy = e.target.value;
+        renderPostsGrid();
+      });
+
+      document.getElementById("statusPills").addEventListener("click", e => {
+        const btn = e.target.closest(".pill-btn");
+        if (!btn) return;
+        STATE.activeStatus = btn.dataset.status;
+        document.querySelectorAll("#statusPills .pill-btn").forEach(b => {
+          const active = b === btn;
+          b.classList.toggle("active", active);
+          b.setAttribute("aria-pressed", String(active));
+        });
+        renderPostsGrid();
+      });
+
+      const fileInput = document.getElementById("fileInput");
+      fileInput.addEventListener("change", e => {
+        handleFilesSelected(e.target.files);
+        fileInput.value = "";
+      });
+
+      const dz = document.getElementById("dropzone");
+      dz.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          fileInput.click();
+        }
+      });
+      dz.addEventListener("dragover", e => {
+        e.preventDefault();
+        dz.classList.add("dragover");
+      });
+      dz.addEventListener("dragleave", () => dz.classList.remove("dragover"));
+      dz.addEventListener("drop", e => {
+        e.preventDefault();
+        dz.classList.remove("dragover");
+        handleFilesSelected(e.dataTransfer.files);
+      });
+
+      document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+        backdrop.addEventListener("click", e => {
+          if (e.target === backdrop) closeModal(backdrop.id);
+        });
+      });
+
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+          document.querySelectorAll(".modal-backdrop.open").forEach(m => closeModal(m.id));
+        }
+      });
+    }
+
+    async function bootstrap() {
+      initTheme_();
+      wireEvents();
+      if (hasOnlineBackend_()) {
+        try {
+          const data = await runGas("getInitialData");
+          STATE.posts = Array.isArray(data.posts) ? data.posts : [];
+          STATE.activityMode = data.activityMode === "99999" ? "99999" : "9999";
+          STATE.hasGeminiKey = Boolean(data.hasGeminiKey);
+          STATE.geminiKeyMasked = data.geminiKeyMasked || "";
+          renderAll();
+          return;
+        } catch (err) {
+          document.getElementById("postsGrid").innerHTML = `<div class="empty-state">
+            <div style="font-size:1.8rem;margin-bottom:8px;" aria-hidden="true">⚠️</div>
+            <div style="font-weight:700;margin-bottom:6px;">ไม่สามารถเชื่อมต่อ Google Sheets / Drive ได้</div>
+            <div style="font-size:0.86rem;">${escapeHtml(err.message || String(err))}</div>
+          </div>`;
+          return;
+        }
+      }
+
+      // Standalone local preview fallback
+      STATE.isPreviewMode = true;
+      document.getElementById("previewBanner").classList.add("show");
+      const savedMode = localStorage.getItem("teacher_activity_mode");
+      if (savedMode === "99999" || savedMode === "9999") STATE.activityMode = savedMode;
+      STATE.posts = Array.isArray(window.PREVIEW_BOOTSTRAP_DATA) ? window.PREVIEW_BOOTSTRAP_DATA : [];
+      renderAll();
+    }
+
+    document.addEventListener("DOMContentLoaded", bootstrap);
+  </script>
+</body>
+</html>
