@@ -96,7 +96,7 @@
 
     * { box-sizing: border-box; }
     html {
-      scroll-padding-top: 96px;
+      scroll-padding-top: 130px;
       scrollbar-color: var(--border) transparent;
     }
     html, body {
@@ -411,8 +411,8 @@
     /* Queue Sidebar */
     .queue-aside {
       position: sticky;
-      top: 78px;
-      max-height: calc(100vh - 94px);
+      top: 124px;
+      max-height: calc(100vh - 138px);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -806,8 +806,8 @@
     /* Quick Question Panel */
     .qpanel-aside {
       position: sticky;
-      top: 78px;
-      max-height: calc(100vh - 94px);
+      top: 124px;
+      max-height: calc(100vh - 138px);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -854,6 +854,12 @@
       color: var(--ink-muted);
       margin-bottom: 4px;
     }
+    .q-badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
     .q-badge {
       background: var(--navy-soft);
       color: var(--accent-ink);
@@ -861,8 +867,43 @@
       padding: 2px 8px;
       border-radius: 6px;
     }
-    .q-th { font-weight: 600; font-size: 13.5px; margin-bottom: 3px; }
-    .q-en { font-size: 12.5px; color: var(--ink-muted); font-style: italic; margin-bottom: 4px; }
+    .lvl-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      line-height: 1.4;
+    }
+    .lvl-easy {
+      background: var(--emerald-bg);
+      color: var(--emerald-ink);
+    }
+    .lvl-medium {
+      background: var(--amber-bg);
+      color: var(--amber-ink);
+    }
+    .q-en {
+      font-size: 16.5px;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--ink);
+      line-height: 1.45;
+      background: var(--navy-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: 6px 0;
+    }
+    .qbank-cards .q-en {
+      font-size: 17px;
+      padding: 10px 12px;
+    }
+    .q-th {
+      font-weight: 500;
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
     .q-tip { font-size: 12px; color: var(--emerald-ink); background: var(--emerald-bg); padding: 6px 8px; border-radius: 6px; margin-bottom: 8px; }
     .q-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 
@@ -1433,6 +1474,11 @@
                 </button>
               </div>
               <select id="qPanelCatFilter" class="search-input" aria-label="กรองหมวดหมู่คำถามสัมภาษณ์"></select>
+              <div id="qPanelLevelChips" class="filter-chips" role="group" aria-label="กรองระดับความยากของคำถาม">
+                <button type="button" class="chip-btn active" data-qpanel-level="all" aria-pressed="true">ทั้งหมด</button>
+                <button type="button" class="chip-btn" data-qpanel-level="easy" aria-pressed="false">ง่าย</button>
+                <button type="button" class="chip-btn" data-qpanel-level="medium" aria-pressed="false">ปานกลาง</button>
+              </div>
               <div id="qPanelStats" class="subitem-max-hint">เลือกติ๊ก &ldquo;ถามแล้ว&rdquo; เพื่อบันทึกไว้ในใบรายคน</div>
             </div>
             <div id="qPanelList" class="qpanel-list"></div>
@@ -1533,6 +1579,13 @@
                 </select>
               </div>
               <div>
+                <label class="field-label" for="newQLevel">ระดับความยาก</label>
+                <select id="newQLevel" class="text-input">
+                  <option value="easy" selected>ง่าย (ถามสั้น ตอบไว 30–60 วิ)</option>
+                  <option value="medium">ปานกลาง (เจาะลึกสถานการณ์/แผนฯ)</option>
+                </select>
+              </div>
+              <div>
                 <label class="field-label" for="newQTh">คำถามภาษาไทย *</label>
                 <textarea id="newQTh" class="text-area" placeholder="พิมพ์คำถามที่ต้องการเพิ่ม…"></textarea>
               </div>
@@ -1550,9 +1603,14 @@
 
           <div>
             <div class="card card-pad" style="margin-bottom:12px;">
-              <div class="toolbar-row" style="margin-bottom:0;">
+              <div class="toolbar-row" style="margin-bottom:8px;">
                 <input id="qBankSearch" type="search" class="search-input" style="max-width:340px;" aria-label="ค้นหาข้อความคำถาม" autocomplete="off" spellcheck="false" placeholder="ค้นหาคำถาม…" />
                 <select id="qBankCatFilter" class="search-input" style="max-width:280px;" aria-label="กรองหมวดหมู่คำถาม"></select>
+              </div>
+              <div id="qBankLevelChips" class="filter-chips" role="group" aria-label="กรองระดับความยากในคลังคำถาม">
+                <button type="button" class="chip-btn active" data-qbank-level="all" aria-pressed="true">ทุกระดับ</button>
+                <button type="button" class="chip-btn" data-qbank-level="easy" aria-pressed="false">ง่าย</button>
+                <button type="button" class="chip-btn" data-qbank-level="medium" aria-pressed="false">ปานกลาง</button>
               </div>
             </div>
             <div id="qBankFullList" class="qbank-cards"></div>
@@ -2030,275 +2088,327 @@
   "questions": [
     {
       "q_id": "Q01",
+      "level": "easy",
       "category": "อุดมการณ์และความเป็นครู",
-      "indicator_ref": "1.3",
-      "question_th": "อะไรคือจุดเปลี่ยนหรือแรงบันดาลใจสำคัญที่ทำให้ตัดสินใจสอบบรรจุเป็นข้าราชการครูภาษาอังกฤษ สังกัด สพฐ.?",
-      "question_en": "What inspired you to become a government English teacher under OBEC?",
-      "tip": "ฟังความมุ่งมั่นระยะยาว ความเข้าใจบริบทโรงเรียนประถมศึกษา/ขยายโอกาส และเจตคติเชิงบวกต่อวิชาชีพ"
+      "indicator_ref": "1.1",
+      "question_th": "ช่วยแนะนำตัวเองสั้น ๆ เป็นภาษาอังกฤษหน่อยครับ",
+      "question_en": "Please introduce yourself briefly.",
+      "tip": "ดูความมั่นใจ การออกเสียง บุคลิกภาพ และทักษะการสื่อสารภาษาอังกฤษเบื้องต้น (1.1)"
     },
     {
       "q_id": "Q02",
+      "level": "easy",
       "category": "อุดมการณ์และความเป็นครู",
       "indicator_ref": "1.3",
-      "question_th": "หากได้บรรจุในโรงเรียนขนาดเล็กพื้นที่ห่างไกลในจังหวัดสระบุรี ที่มีครูภาษาอังกฤษเพียงคนเดียวและขาดแคลนสื่อ จะปรับตัวและวางแผนพัฒนาเด็กอย่างไร?",
-      "question_en": "If assigned to a small rural school with limited resources, how would you adapt and elevate English learning?",
-      "tip": "ประเมินความอดทน ความเสียสละ ความคิดริเริ่มสร้างสรรค์ในการใช้บริบทชุมชนและสื่อประหยัด"
+      "question_th": "ทำไมคุณถึงอยากเป็นครูสอนภาษาอังกฤษ?",
+      "question_en": "Why do you want to be an English teacher?",
+      "tip": "ฟังแรงบันดาลใจ ความจริงใจ และเจตคติเชิงบวกต่อวิชาชีพครู"
     },
     {
       "q_id": "Q03",
+      "level": "easy",
       "category": "อุดมการณ์และความเป็นครู",
       "indicator_ref": "1.3",
-      "question_th": "ในยุคที่ AI และแอปแปลภาษาเก่งขึ้นมาก คุณคิดว่าบทบาทที่แท้จริงของครูสอนภาษาอังกฤษที่เทคโนโลยีแทนไม่ได้คืออะไร?",
-      "question_en": "With AI translation tools everywhere, what irreplaceable value does an English teacher bring?",
-      "tip": "ดูวิสัยทัศน์การผสาน AI เป็นเครื่องมือเสริม และบทบาทความเป็นกัลยาณมิตร/แรงบันดาลใจ/Cultural empathy"
+      "question_th": "คุณชอบอะไรที่สุดในการสอนเด็กประถม?",
+      "question_en": "What do you like most about teaching children?",
+      "tip": "ดูความรักเด็ก ความเข้าใจธรรมชาติผู้เรียนระดับประถมศึกษา"
     },
     {
       "q_id": "Q04",
+      "level": "easy",
       "category": "อุดมการณ์และความเป็นครู",
       "indicator_ref": "1.3",
-      "question_th": "คำว่า 'ครูมืออาชีพ' กับ 'จิตวิญญาณความเป็นครู' ในมุมมองของคุณเชื่อมโยงกันอย่างไร จงยกตัวอย่างจากประสบการณ์ที่ผ่านมา?",
-      "question_en": "How do professionalism and the spirit of teaching connect in your past experience?",
-      "tip": "ฟังการสะท้อนคิดจากประสบการณ์สอน/ฝึกสอนจริง ไม่ใช่แค่คำคมลอย ๆ"
+      "question_th": "จุดเด่นในการสอนของคุณคืออะไร?",
+      "question_en": "What is your biggest strength as a teacher?",
+      "tip": "ดูความรู้จักตนเองและความมั่นใจในศักยภาพด้านการสอน"
     },
     {
       "q_id": "Q05",
-      "category": "อุดมการณ์และความเป็นครู",
-      "indicator_ref": "1.3",
-      "question_th": "หากต้องทำงานนอกเหนือจากงานสอน เช่น งานธุรการ งานกิจกรรมนักเรียน หรือดูแลระบบงานโรงเรียน จะบริหารเวลาอย่างไรไม่ให้กระทบคุณภาพการสอนในห้องเรียน?",
-      "question_en": "How do you balance teaching excellence with administrative and school duties?",
-      "tip": "ดูทัศนคติต่อระบบงานโรงเรียนประถม ความมีวินัย และการบริหารจัดการเวลาอย่างสร้างสรรค์"
+      "level": "easy",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "ถ้าเด็กขี้อายและไม่กล้าพูดภาษาอังกฤษ คุณจะทำอย่างไร?",
+      "question_en": "What do you do if students are shy to speak English?",
+      "tip": "ดูวิธีสร้างบรรยากาศที่เป็นมิตร ให้กำลังใจ ไม่ตำหนิเวลาออกเสียงผิด"
     },
     {
       "q_id": "Q06",
-      "category": "อุดมการณ์และความเป็นครู",
-      "indicator_ref": "1.3",
-      "question_th": "เป้าหมายในการพัฒนาตนเองในอีก 3–5 ปีข้างหน้าหลังจากบรรจุเป็นครูผู้ช่วยคือเรื่องใด?",
-      "question_en": "What is your 3-to-5-year professional development plan once appointed?",
-      "tip": "ดูความต่อเนื่องในการเรียนรู้ PLC การพัฒนาทักษะภาษาอังกฤษของตนเอง และนวัตกรรม/ว.PA"
+      "level": "easy",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "ถ้าในห้องเรียนเสียงดังวุ่นวาย คุณมีวิธีจัดการอย่างไร?",
+      "question_en": "How do you handle a noisy classroom?",
+      "tip": "ดูการควบคุมอารมณ์ วุฒิภาวะ และเทคนิคดึงความสนใจเด็กเชิงบวก"
     },
     {
       "q_id": "Q07",
-      "category": "อุดมการณ์และความเป็นครู",
-      "indicator_ref": "1.3",
-      "question_th": "คุณเคยสอนนักเรียนที่มีปัญหาการเรียนรู้หรือขาดโอกาสที่สุดแล้วรู้สึกภูมิใจมากที่สุดเรื่องใด เล่าสั้น ๆ ให้ฟังหน่อย?",
-      "question_en": "Share a proud moment supporting a struggling or disadvantaged learner.",
-      "tip": "สังเกตความเมตตา ความใส่ใจรายบุคคล และผลลัพธ์ที่เป็นรูปธรรมต่อผู้เรียน"
+      "level": "easy",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "ถ้าเน็ตหรือโปรเจกเตอร์ใช้ไม่ได้กลางคาบ คุณจะสอนต่ออย่างไร?",
+      "question_en": "What will you do if the internet or projector stops working?",
+      "tip": "ดูไหวพริบปฏิภาณ แผนสำรอง เช่น เกมคำศัพท์บนกระดาน บทบาทสมมติ TPR"
     },
     {
       "q_id": "Q08",
+      "level": "easy",
       "category": "สถานการณ์สมมติและแก้ปัญหา",
       "indicator_ref": "1.2",
-      "question_th": "สมมตินักเรียน ป.5 มีพื้นฐานภาษาอังกฤษต่างกันมาก บางคนอ่านไม่ออกแม้แต่คำพื้นฐาน แต่บางคนสื่อสารได้แล้ว คุณจะจัดการสอนในชั่วโมงเดียวกันอย่างไร?",
-      "question_en": "How would you handle a mixed-ability Grade 5 classroom in the same lesson?",
-      "tip": "มองหาแนวคิด Differentiated Instruction, Peer tutoring, ใบงานแบ่งระดับ หรือฐานกิจกรรม"
+      "question_th": "คุณจะช่วยนักเรียนที่พื้นฐานภาษาอังกฤษอ่อนอย่างไร?",
+      "question_en": "How do you help weak students in your class?",
+      "tip": "ดูความใส่ใจรายบุคคล การจับคู่เพื่อนช่วยเพื่อน หรือใบงานง่ายขึ้น"
     },
     {
       "q_id": "Q09",
-      "category": "สถานการณ์สมมติและแก้ปัญหา",
-      "indicator_ref": "1.2",
-      "question_th": "หากผู้ปกครองร้องเรียนผ่านผู้อำนวยการว่าคุณให้การบ้านภาษาอังกฤษยากเกินไปและลูกทำไม่ได้ คุณจะรับมือและสื่อสารอย่างไร?",
-      "question_en": "A parent complains to the principal that your English homework is too difficult. How do you respond?",
-      "tip": "ดูวุฒิภาวะทางอารมณ์ การรับฟังไม่โต้เถียง การสื่อสารเชิงบวกกับผู้ปกครอง และการทบทวนงานให้เหมาะสม"
+      "level": "easy",
+      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
+      "indicator_ref": "1.4",
+      "question_th": "คุณจะสอนให้นักเรียนรักเมืองไทยผ่านวิชาภาษาอังกฤษได้อย่างไร?",
+      "question_en": "How can you teach students to love Thailand through English?",
+      "tip": "ดูแนวคิดการเชื่อมโยงวัฒนธรรมไทย ประวัติศาสตร์ไทย มาเล่าเป็นภาษาอังกฤษ (1.4)"
     },
     {
       "q_id": "Q10",
-      "category": "สถานการณ์สมมติและแก้ปัญหา",
-      "indicator_ref": "1.2",
-      "question_th": "ระหว่างกำลังสอนโดยใช้สื่อ PowerPoint/อินเทอร์เน็ต แล้วไฟดับหรือระบบอินเทอร์เน็ตล่มกะทันหัน คุณมีแผนสำรองในการดำเนินคาบเรียนต่ออย่างไร?",
-      "question_en": "If the electricity or internet goes out mid-lesson, what is your backup plan?",
-      "tip": "ดูไหวพริบปฏิภาณ กิจกรรม Unplugged เช่น TPR, เกมคำศัพท์บนกระดาน, Role-play, Chant"
+      "level": "easy",
+      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
+      "indicator_ref": "1.4",
+      "question_th": "ช่วยเล่าสถานที่หรือวัฒนธรรมเด่นของจังหวัดสระบุรีสั้น ๆ หน่อยครับ",
+      "question_en": "Can you tell us one special place or culture in Saraburi?",
+      "tip": "ดูความรู้ท้องถิ่น เช่น วัดพระพุทธบาท น้ำตกเจ็ดสาวน้อย วัฒนธรรมไท-ยวน แก่งคอย"
     },
     {
       "q_id": "Q11",
-      "category": "สถานการณ์สมมติและแก้ปัญหา",
-      "indicator_ref": "1.2",
-      "question_th": "หากนักเรียนล้อเลียนเพื่อนที่ออกเสียงภาษาอังกฤษผิดจนเพื่อนคนนั้นไม่กล้าพูดอีกเลย คุณจะจัดการสถานการณ์ตรงหน้าและฟื้นฟูบรรยากาศในห้องอย่างไร?",
-      "question_en": "How do you intervene when students mock a classmate's English pronunciation?",
-      "tip": "ดูการสร้าง Safe Space / Growth Mindset และทักษะการควบคุมชั้นเรียนเชิงบวก (Positive Discipline)"
+      "level": "easy",
+      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
+      "indicator_ref": "1.4",
+      "question_th": "ครูที่ดีในมุมมองของคุณควรมีคุณธรรมข้อใดสำคัญที่สุด?",
+      "question_en": "What is the most important quality of a good teacher?",
+      "tip": "ดูจรรยาบรรณ คุณธรรม ความเมตตา ความรับผิดชอบ และการเป็นแบบอย่างที่ดี"
     },
     {
       "q_id": "Q12",
-      "category": "สถานการณ์สมมติและแก้ปัญหา",
-      "indicator_ref": "1.2",
-      "question_th": "หากได้รับมอบหมายให้เป็นครูที่ปรึกษาและพบว่านักเรียนมีพฤติกรรมติดเกม/ขาดเรียนบ่อย จะมีขั้นตอนดูแลช่วยเหลือนักเรียนอย่างไร?",
-      "question_en": "What steps would you take to support an advisee with frequent absences or gaming addiction?",
-      "tip": "ดูความเข้าใจระบบดูแลช่วยเหลือนักเรียน การเยี่ยมบ้าน การประสานผู้ปกครอง และแรงจูงใจเชิงบวก"
+      "level": "easy",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.1",
+      "question_th": "ช่วยสรุปแผนการจัดการเรียนรู้ที่นำมาให้ฟังสั้น ๆ ภายใน 1 นาทีครับ",
+      "question_en": "Please tell us about your lesson plan in 1 minute.",
+      "tip": "ดูความแม่นยำในแผนฯ ของตนเอง เป้าหมายหลัก และลำดับขั้นการสอน (3.1)"
     },
     {
       "q_id": "Q13",
-      "category": "สถานการณ์สมมติและแก้ปัญหา",
-      "indicator_ref": "1.2",
-      "question_th": "หากครูรุ่นพี่ในหมวดสาระมีความเห็นไม่ตรงกับวิธีการสอนแบบใหม่ที่คุณเสนอ คุณจะทำงานร่วมกันและสื่อสารอย่างไรให้เกิดความร่วมมือ?",
-      "question_en": "How would you collaborate with senior colleagues who disagree with your new teaching approach?",
-      "tip": "ดูสัมมาคารวะ วุฒิภาวะ การใช้ผลลัพธ์ผู้เรียนเป็นตัวตั้ง และการใช้กระบวนการ PLC"
+      "level": "easy",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.2",
+      "question_th": "คุณมีวิธีทำให้เด็กสนุกกับการเรียนภาษาอังกฤษอย่างไร?",
+      "question_en": "How do you make English fun for kids?",
+      "tip": "ดูความคิดสร้างสรรค์ในการจัดกิจกรรม Active Learning เพลง เกม บทบาทสมมติ"
     },
     {
       "q_id": "Q14",
-      "category": "สถานการณ์สมมติและแก้ปัญหา",
-      "indicator_ref": "1.2",
-      "question_th": "เหลือเวลาสอนเพียง 1 สัปดาห์ก่อนสอบ O-NET / NT / RT หรือแข่งทักษะวิชาการ แต่เด็กยังขาดความมั่นใจในทักษะการอ่านจับใจความ จะติวและเสริมพลังใจอย่างไร?",
-      "question_en": "With one week left before a standardized test or competition, how do you boost reading comprehension and confidence?",
-      "tip": "ดูการวางแผนแบบมีจุดเน้น (Test-taking strategies + Skimming/Scanning + เสริมกำลังใจ)"
+      "level": "easy",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.2",
+      "question_th": "กิจกรรมหรือเกมภาษาอังกฤษในห้องเรียนที่คุณชอบใช้มากที่สุดคืออะไร?",
+      "question_en": "What is your favorite English game or activity in class?",
+      "tip": "ดูความเหมาะสมกับวัยเด็กประถมและตอบโจทย์การสื่อสารจริง"
     },
     {
       "q_id": "Q15",
-      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
-      "indicator_ref": "1.4",
-      "question_th": "ทำไมครูภาษาอังกฤษจึงควรมีความรู้ความเข้าใจเรื่องประวัติศาสตร์ชาติไทย และจะบูรณาการเรื่องความรักชาติและการเป็นพลเมืองดีเข้ากับการสอนภาษาอังกฤษได้อย่างไร?",
-      "question_en": "How can you integrate Thai history, patriotism, and good citizenship into English lessons?",
-      "tip": "เกณฑ์สำคัญข้อ 1.4 (7 คะแนน): ดูความเข้าใจประวัติศาสตร์ไทย/ท้องถิ่นสระบุรี และการให้นักเรียนเล่าอัตลักษณ์ไทยเป็นภาษาอังกฤษ"
+      "level": "easy",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.3",
+      "question_th": "คุณจะเช็กได้อย่างไรว่านักเรียนเข้าใจบทเรียนแล้ว?",
+      "question_en": "How do you check if students understand your lesson?",
+      "tip": "ดูวิธีวัดผลระหว่างเรียน เช่น ถาม-ตอบ เกม Exit Ticket ใบงาน สังเกตพฤติกรรม"
     },
     {
       "q_id": "Q16",
-      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
-      "indicator_ref": "1.4",
-      "question_th": "จังหวัดสระบุรี (หรือท้องถิ่นแก่งคอย/ทับกวาง) มีมรดกทางประวัติศาสตร์หรือวัฒนธรรมอะไรบ้างที่คุณสามารถนำมาออกแบบเป็นบทเรียนภาษาอังกฤษให้เด็กภูมิใจในท้องถิ่น?",
-      "question_en": "What Saraburi historical or cultural heritage could you turn into an English lesson?",
-      "tip": "เชื่อมโยง Soft Power ท้องถิ่น เช่น พระพุทธบาท น้ำตกเจ็ดสาวน้อย วัฒนธรรมไท-ยวน ประวัติศาสตร์เส้นทางรถไฟแก่งคอย"
+      "level": "easy",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.2",
+      "question_th": "ลองสาธิตวิธีสอนคำศัพท์ใหม่ 1 คำ ให้เด็ก ป.4 แบบสั้น ๆ หน่อยครับ",
+      "question_en": "Please show us how you teach one new word to Grade 4 students.",
+      "tip": "สังเกตน้ำเสียง ท่าทาง พลังการสอน และการให้เด็กออกเสียงตาม (3.2)"
     },
     {
       "q_id": "Q17",
-      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
-      "indicator_ref": "1.4",
-      "question_th": "คุณเข้าใจคำว่า 'จงรักภักดีต่อสถาบันชาติ ศาสนา พระมหากษัตริย์' และการสอนให้นักเรียนเป็นพลเมืองดีในสังคมประชาธิปไตยอย่างไร?",
-      "question_en": "How do you nurture loyalty to core national institutions alongside democratic citizenship in students?",
-      "tip": "ประเมินความเข้าใจคุณธรรม จริยธรรม หลักคิดที่ถูกต้องต่อชาติบ้านเมืองและสถาบันสำคัญตามกรอบ 1.4"
+      "level": "easy",
+      "category": "แฟ้มสะสมงานและชุมชน",
+      "indicator_ref": "2.2",
+      "question_th": "ผลงานชิ้นไหนในแฟ้มสะสมงานที่คุณภูมิใจมากที่สุด?",
+      "question_en": "Which achievement in your portfolio are you most proud of?",
+      "tip": "ประเมินความตรงวิชาเอกและผลที่เกิดขึ้นกับนักเรียนตามเกณฑ์ 2.2"
     },
     {
       "q_id": "Q18",
-      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
-      "indicator_ref": "1.4",
-      "question_th": "พระบรมราโชบายด้านการศึกษาของในหลวงรัชกาลที่ 10 ทั้ง 4 ด้าน มีด้านใดบ้าง และในฐานะครูภาษาอังกฤษจะน้อมนำมาใช้ในชั้นเรียนอย่างไร?",
-      "question_en": "How can you apply King Rama X's four educational directives in your English classroom?",
-      "tip": "1) ทัศนคติที่ถูกต้องต่อบ้านเมือง 2) พื้นฐานชีวิตมั่นคงมีคุณธรรม 3) มีงานทำมีอาชีพ 4) เป็นพลเมืองดี"
+      "level": "easy",
+      "category": "แฟ้มสะสมงานและชุมชน",
+      "indicator_ref": "2.3",
+      "question_th": "คุณเคยร่วมกิจกรรมชุมชนหรือจิตอาสาอะไรบ้าง เล่าสั้น ๆ หน่อยครับ",
+      "question_en": "What community or volunteer activities have you joined?",
+      "tip": "ประเมินการเข้าถึงชุมชนและจิตสาธารณะตามเกณฑ์ 2.3"
     },
     {
       "q_id": "Q19",
-      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
-      "indicator_ref": "1.4",
-      "question_th": "ในยุคสื่อโซเชียลมีเดีย หากครูทำคลิปรีวิวหรือถ่ายคอนเทนต์ในโรงเรียน มีขอบเขตด้านจรรยาบรรณวิชาชีพครูและการคุ้มครองสิทธิเด็ก (PDPA) อย่างไรบ้าง?",
-      "question_en": "What ethical and PDPA boundaries must teachers respect when posting school content on social media?",
-      "tip": "ดูความตระหนักเรื่องจรรยาบรรณต่อผู้เรียน ภาพลักษณ์ข้าราชการครู และการไม่ละเมิดสิทธิ/ศักดิ์ศรีเด็ก"
+      "level": "medium",
+      "category": "อุดมการณ์และความเป็นครู",
+      "indicator_ref": "1.3",
+      "question_th": "หากได้บรรจุในโรงเรียนขนาดเล็กที่มีครูภาษาอังกฤษคนเดียวและสื่อจำกัด จะวางแผนสอนอย่างไร?",
+      "question_en": "How would you teach in a small rural school with limited resources?",
+      "tip": "ประเมินความอดทน ความเสียสละ และความคิดริเริ่มใช้สื่อรอบตัว/บริบทชุมชน"
     },
     {
       "q_id": "Q20",
-      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
-      "indicator_ref": "1.4",
-      "question_th": "คุณธรรม 5 ประการ (พอเพียง วินัย สุจริต จิตอาสา กตัญญู) คุณจะออกแบบกิจกรรมภาษาอังกฤษสอดแทรกคุณธรรมข้อใดได้ชัดเจนที่สุด?",
-      "question_en": "Which of the five core virtues can you weave most effectively into an English activity?",
-      "tip": "ดูการสอดแทรกคุณธรรมจริยธรรมอย่างเป็นธรรมชาติในกิจกรรมการสอน ไม่ยัดเยียด"
+      "level": "medium",
+      "category": "อุดมการณ์และความเป็นครู",
+      "indicator_ref": "1.3",
+      "question_th": "ในยุคที่มี AI และแอปแปลภาษา อะไรคือบทบาทของครูภาษาอังกฤษที่ AI แทนไม่ได้?",
+      "question_en": "In the AI era, what can an English teacher do that AI cannot?",
+      "tip": "ดูวิสัยทัศน์การใช้ AI เป็นเครื่องมือเสริม และบทบาทแรงบันดาลใจ/ความเข้าใจผู้เรียน"
     },
     {
       "q_id": "Q21",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.1",
-      "question_th": "จากแผนการจัดการเรียนรู้ที่นำมาเสนอ ช่วยอธิบายว่าคุณวิเคราะห์มาตรฐาน/ตัวชี้วัดสู่จุดประสงค์ K-P-A (หรือ K-S-A) และเลือกใช้รูปแบบการสอนใดเพราะเหตุใด?",
-      "question_en": "Walk us through how your lesson plan aligns standards, K-P-A objectives, and your chosen teaching model.",
-      "tip": "วัดความแม่นยำตามข้อ 3.1 (20 คะแนน): ดูความสอดคล้องของ ตัวชี้วัด -> จุดประสงค์ -> กิจกรรม -> วัดผล"
+      "level": "medium",
+      "category": "อุดมการณ์และความเป็นครู",
+      "indicator_ref": "1.3",
+      "question_th": "ถ้ามีงานโรงเรียนและงานเอกสารมาก จะแบ่งเวลาอย่างไรไม่ให้กระทบการสอน?",
+      "question_en": "How do you balance teaching and school duties?",
+      "tip": "ดูทัศนคติต่อระบบงานโรงเรียน วินัย และการบริหารจัดการเวลา"
     },
     {
       "q_id": "Q22",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "ในขั้นนำเข้าสู่บทเรียน (Warm-up) และขั้นฝึกปฏิบัติ (Practice) ของแผนฯ นี้ คุณมีเทคนิคกระตุ้นให้เด็กทุกคนมีส่วนร่วมและลดความเขินอายอย่างไร?",
-      "question_en": "What techniques do you use in Warm-up and Practice to maximize student talk time and reduce shyness?",
-      "tip": "วัดข้อ 3.2: CLT, PPP, TBLT, Think-Pair-Share, Information Gap, เกมที่เด็กได้พูดจริงไม่ใช่แค่ครูพูด"
+      "level": "medium",
+      "category": "อุดมการณ์และความเป็นครู",
+      "indicator_ref": "1.3",
+      "question_th": "เป้าหมายการพัฒนาตนเองในอีก 3 ปีข้างหน้าหลังบรรจุคืออะไร?",
+      "question_en": "What is your goal for self-development in the next 3 years?",
+      "tip": "ดูความต่อเนื่องในการเรียนรู้ PLC การพัฒนาทักษะภาษา และนวัตกรรมการสอน"
     },
     {
       "q_id": "Q23",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "ถ้าเด็กประถมต้นหรือประถมปลายสะกดคำและอ่านออกเสียงภาษาอังกฤษไม่ได้เลย คุณจะใช้หลักการ Phonics เข้ามาช่วยปูพื้นฐานอย่างไร?",
-      "question_en": "How would you apply Phonics strategies for primary students who struggle with decoding and reading?",
-      "tip": "ดูความเข้าใจเรื่อง Phonemic awareness, Blending, Segmenting และการสอนเสียงไม่ใช่ท่อง ABC เฉย ๆ"
+      "level": "medium",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "ในห้องเดียวกันมีทั้งเด็กเก่งมากและเด็กที่ยังอ่านคำพื้นฐานไม่ได้ จะสอนร่วมกันอย่างไร?",
+      "question_en": "How do you teach a mixed-ability class in the same lesson?",
+      "tip": "มองหา Differentiated Instruction, Peer tutoring, ใบงานแบ่งระดับ หรือฐานกิจกรรม"
     },
     {
       "q_id": "Q24",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "คุณใช้ Classroom English ในห้องเรียนประถมมากน้อยแค่ไหน และมีวิธีช่วยให้เด็กเข้าใจคำสั่งภาษาอังกฤษโดยไม่ต้องแปลไทยทุกคำอย่างไร?",
-      "question_en": "How do you maximize Classroom English in primary classes without translating every sentence?",
-      "tip": "ดูการใช้ Gesture, Visual cues, Scaffolding, Routine expressions และความเหมาะสมตามระดับ CEFR (Pre-A1/A1)"
+      "level": "medium",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "ถ้าผู้ปกครองแจ้งว่าการบ้านภาษาอังกฤษยากเกินไป คุณจะตอบและแก้ไขอย่างไร?",
+      "question_en": "A parent says your homework is too hard. How do you respond?",
+      "tip": "ดูวุฒิภาวะทางอารมณ์ การรับฟังไม่โต้เถียง และการปรับงานให้เหมาะกับผู้เรียน"
     },
     {
       "q_id": "Q25",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "จงยกตัวอย่างคำถามปลายเปิด (Open-ended / HOTS questions) ที่ใช้ในแผนฯ นี้เพื่อกระตุ้นให้นักเรียนคิดวิเคราะห์เป็นภาษาอังกฤษ?",
-      "question_en": "Give an example of an open-ended question from your lesson plan that sparks critical thinking.",
-      "tip": "ตรวจตรงกรอบ 3.2 ข้อ 'ทักษะการใช้คำถามที่กระตุ้นให้นักเรียนแสดงความคิดเห็น'"
+      "level": "medium",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "ถ้านักเรียนล้อเพื่อนที่ออกเสียงภาษาอังกฤษผิด คุณจะแก้ไขตรงหน้าอย่างไร?",
+      "question_en": "What do you do if students laugh at a friend's pronunciation?",
+      "tip": "ดูการสร้างพื้นที่ปลอดภัย (Safe Space) และวินัยเชิงบวกในชั้นเรียน"
     },
     {
       "q_id": "Q26",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "สื่อเทคโนโลยีหรือนวัตกรรมในแผนฯ นี้ช่วยพัฒนาทักษะภาษาอังกฤษตรงตัวชี้วัดอย่างไร และถ้าใช้ AI ช่วยสอนจะสอนเด็กใช้อย่างรู้เท่าทันอย่างไร?",
-      "question_en": "How does your chosen EdTech or AI tool directly serve the lesson's indicator safely and effectively?",
-      "tip": "ประเมินว่าสื่อไม่ได้มีไว้แค่ 'เล่นสนุก' แต่ตอบโจทย์ K-P-A และมีแผนป้องกันการใช้ผิดวัตถุประสงค์"
+      "level": "medium",
+      "category": "สถานการณ์สมมติและแก้ปัญหา",
+      "indicator_ref": "1.2",
+      "question_th": "หากครูรุ่นพี่เห็นต่างจากวิธีสอนแบบใหม่ที่คุณเสนอ จะสื่อสารและทำงานร่วมกันอย่างไร?",
+      "question_en": "How do you work with senior teachers who have different teaching ideas?",
+      "tip": "ดูสัมมาคารวะ วุฒิภาวะ การเปิดใจรับฟัง และการใช้กระบวนการ PLC"
     },
     {
       "q_id": "Q27",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.3",
-      "question_th": "การวัดและประเมินผลในแผนฯ นี้ ใช้เครื่องมืออะไรประเมินทักษะการฟัง-พูด (Speaking/Listening) และการให้คะแนนด้วย Rubric มีเกณฑ์อย่างไร?",
-      "question_en": "What tools and rubrics do you use to assess speaking, listening, and attitude authentically?",
-      "tip": "วัดข้อ 3.3 (15 คะแนน): ดูความสอดคล้องกับจุดประสงค์ เครื่องมือหลากหลาย (Observation, Checklist, Rubric, Exit ticket)"
+      "level": "medium",
+      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
+      "indicator_ref": "1.4",
+      "question_th": "จะนำพระบรมราโชบายด้านการศึกษาของในหลวง ร.10 มาใช้ในห้องเรียนภาษาอังกฤษอย่างไร?",
+      "question_en": "How do you apply King Rama X's educational guidance in class?",
+      "tip": "4 ด้าน: ทัศนคติที่ถูกต้องต่อบ้านเมือง, พื้นฐานชีวิตมั่นคงมีคุณธรรม, มีงานทำมีอาชีพ, เป็นพลเมืองดี"
     },
     {
       "q_id": "Q28",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.3",
-      "question_th": "หากสอนตามแผนฯ นี้แล้วพบว่านักเรียนเกินครึ่งไม่ผ่านเกณฑ์ในชั่วโมงนั้น คุณจะเขียน 'บันทึกผลหลังการสอน' และวางแผนซ่อมเสริมอย่างไร?",
-      "question_en": "If over half the class misses the objective, what goes into your post-lesson reflection and remediation plan?",
-      "tip": "วัดข้อ 3.3 ข้อ 'มีบันทึกผลหลังการจัดการเรียนรู้' และการนำผลไปปรับปรุงสอนซ่อมเสริมจริง (PLC/Action research)"
+      "level": "medium",
+      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
+      "indicator_ref": "1.4",
+      "question_th": "ถ้าครูถ่ายคลิปหรือโพสต์รูปนักเรียนลงโซเชียล ต้องระวังจรรยาบรรณและ PDPA เรื่องใดบ้าง?",
+      "question_en": "What ethics and privacy rules should teachers follow on social media?",
+      "tip": "ดูความตระหนักเรื่องจรรยาบรรณวิชาชีพ การขออนุญาต และไม่ละเมิดสิทธิเด็ก"
     },
     {
       "q_id": "Q29",
-      "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "[สัมภาษณ์เป็นภาษาอังกฤษ] Could you briefly introduce yourself and explain the main goal of your lesson plan in English? (ประมาณ 1–2 นาที)",
-      "question_en": "Could you briefly introduce yourself and explain the main goal of your lesson plan in English?",
-      "tip": "ประเมินความคล่องแคล่ว การออกเสียง ความถูกต้องทางภาษา และความมั่นใจในการสื่อสารภาษาอังกฤษจริง (1.1 + 3.2)"
+      "level": "medium",
+      "category": "ประวัติศาสตร์ชาติไทยและจรรยาบรรณ",
+      "indicator_ref": "1.4",
+      "question_th": "คุณจะสอดแทรกคุณธรรม 5 ประการ (พอเพียง วินัย สุจริต จิตอาสา กตัญญู) ในคาบอังกฤษอย่างไร?",
+      "question_en": "How can you include moral values in an English activity?",
+      "tip": "ดูการบูรณาการคุณธรรมจริยธรรมอย่างเป็นธรรมชาติในบทเรียน (1.4)"
     },
     {
       "q_id": "Q30",
+      "level": "medium",
       "category": "การสอนภาษาอังกฤษและแผนฯ",
-      "indicator_ref": "3.2",
-      "question_th": "[สาธิตสั้น 1 นาที] ลองสาธิตวิธีสอนคำศัพท์ใหม่ 1 คำ หรือวิธี Wrap-up สรุปบทเรียนกับเด็ก ป.4 ให้คณะกรรมการดูแบบสั้น ๆ หน่อยครับ",
-      "question_en": "Demonstrate in 1 minute how you teach a new vocabulary item or wrap up a Grade 4 lesson.",
-      "tip": "สังเกตน้ำเสียง แววตา พลังการสอน ท่าทาง การตรวจสอบความเข้าใจ (CCQs) และการสรุปเชื่อมโยง"
+      "indicator_ref": "3.1",
+      "question_th": "ในแผนการสอนนี้ คุณเชื่อมโยงตัวชี้วัด จุดประสงค์ K-P-A และกิจกรรมการสอนอย่างไร?",
+      "question_en": "How do your objectives and activities align with the curriculum?",
+      "tip": "วัดความถูกต้องครบถ้วนและสอดคล้องขององค์ประกอบแผนฯ (3.1 — 20 คะแนน)"
     },
     {
       "q_id": "Q31",
-      "category": "แฟ้มสะสมงานและชุมชน",
-      "indicator_ref": "2.1",
-      "question_th": "หลักสูตรอบรมหรือการพัฒนาตนเองนอกห้องเรียนชิ้นใดในแฟ้มสะสมงานที่คุณได้นำองค์ความรู้มาใช้ปรับการสอนได้ผลจริงมากที่สุด?",
-      "question_en": "Which training or certification in your portfolio had the biggest real impact on your classroom?",
-      "tip": "ตรวจสอบความเชื่อมโยงระหว่างประวัติอบรม (2.1) กับการนำไปปฏิบัติจริง ไม่ใช่แค่เก็บเกียรติบัตร"
+      "level": "medium",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.2",
+      "question_th": "ถ้าเด็กประถมยังสะกดและอ่านคำอังกฤษไม่ได้ คุณจะใช้ Phonics ช่วยอย่างไร?",
+      "question_en": "How do you use Phonics to help students read English?",
+      "tip": "ดูความเข้าใจเรื่องเสียงตัวอักษร การผสมเสียง (Blending) และการฝึกอ่านอย่างเป็นขั้น"
     },
     {
       "q_id": "Q32",
-      "category": "แฟ้มสะสมงานและชุมชน",
-      "indicator_ref": "2.2",
-      "question_th": "ผลงานหรือนวัตกรรมที่ตรงกับวิชาเอกภาษาอังกฤษในแฟ้มสะสมงานชิ้นไหนที่คุณภูมิใจที่สุด และมีผลลัพธ์เชิงประจักษ์ต่อนักเรียนอย่างไร?",
-      "question_en": "Which English-teaching innovation or achievement in your portfolio are you proudest of, and what were the outcomes?",
-      "tip": "ประเมินตามเกณฑ์ 2.2 (10 คะแนน): ระดับผลงาน (โรงเรียน/สูงกว่าโรงเรียน), ความตรงวิชาเอก, และผลต่อผู้เรียน"
+      "level": "medium",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.2",
+      "question_th": "คุณใช้ Classroom English ในห้องเรียนอย่างไรให้เด็กเข้าใจโดยไม่ต้องแปลไทยทุกคำ?",
+      "question_en": "How do you use Classroom English without translating every word?",
+      "tip": "ดูการใช้ท่าทาง (Gesture), รูปภาพ, ประโยคกิจวัตร และระดับภาษาที่เหมาะกับเด็ก"
     },
     {
       "q_id": "Q33",
-      "category": "แฟ้มสะสมงานและชุมชน",
-      "indicator_ref": "2.3",
-      "question_th": "คุณเคยมีส่วนร่วมในกิจกรรมชุมชนหรือจิตสาธารณะในลักษณะใดบ้าง และได้เรียนรู้อะไรที่สามารถนำมาเชื่อมโยงกับบริบทโรงเรียนและชุมชนรอบข้าง?",
-      "question_en": "How have your community outreach and volunteer experiences shaped how you'll engage school communities?",
-      "tip": "ประเมินตามเกณฑ์ 2.3 (5 คะแนน): รูปแบบการเข้าถึงชุมชนและการทำงานร่วมกับผู้อื่น (กลุ่ม/เดี่ยว)"
+      "level": "medium",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.3",
+      "question_th": "คุณใช้เครื่องมือและเกณฑ์ Rubric แบบใดในการประเมินทักษะการพูดและฟังของนักเรียน?",
+      "question_en": "What tools or rubrics do you use to assess speaking and listening?",
+      "tip": "วัดความหลากหลายและความเหมาะสมของเครื่องมือประเมินตามข้อ 3.3 (15 คะแนน)"
     },
     {
       "q_id": "Q34",
+      "level": "medium",
+      "category": "การสอนภาษาอังกฤษและแผนฯ",
+      "indicator_ref": "3.3",
+      "question_th": "หากสอนแล้วเด็กเกินครึ่งไม่ผ่านเกณฑ์ คุณจะเขียนบันทึกหลังสอนและสอนซ่อมเสริมอย่างไร?",
+      "question_en": "If half the class fails the lesson goal, what will you do next?",
+      "tip": "วัดความเข้าใจการเขียนบันทึกผลหลังสอนและการปรับปรุงการสอนจริง"
+    },
+    {
+      "q_id": "Q35",
+      "level": "medium",
+      "category": "แฟ้มสะสมงานและชุมชน",
+      "indicator_ref": "2.1",
+      "question_th": "การอบรมในแฟ้มสะสมงานเรื่องใดที่คุณนำมาปรับใช้ในการสอนแล้วได้ผลดีที่สุด?",
+      "question_en": "Which training in your portfolio helped your teaching the most?",
+      "tip": "ดูการนำความรู้จากการพัฒนาตนเองไปใช้จริงในห้องเรียน (2.1)"
+    },
+    {
+      "q_id": "Q36",
+      "level": "medium",
       "category": "แฟ้มสะสมงานและชุมชน",
       "indicator_ref": "2.3",
-      "question_th": "หากโรงเรียนต้องจัดค่ายภาษาอังกฤษ (English Camp) ร่วมกับผู้ปกครองและชุมชนในวันสำคัญ คุณอยากออกแบบฐานกิจกรรมแบบไหน?",
-      "question_en": "How would you design an English Camp station involving parents and the local community?",
-      "tip": "ดูความคิดสร้างสรรค์ในการเชื่อมบ้าน-วัด-โรงเรียน และทำให้ภาษาอังกฤษเข้าถึงง่ายสำหรับทุกคน"
+      "question_th": "ถ้าต้องจัดค่ายภาษาอังกฤษ (English Camp) ร่วมกับผู้ปกครองและชุมชน จะออกแบบฐานแบบไหน?",
+      "question_en": "How would you design an English Camp activity for students and parents?",
+      "tip": "ดูความคิดสร้างสรรค์ในการเชื่อมโรงเรียนกับชุมชนอย่างมีส่วนร่วม (2.3)"
     }
   ],
   "roomMeta": {
@@ -2395,7 +2505,9 @@
       queueSearch: "",
       partFilter: "all",
       qPanelCat: "all",
+      qPanelLevel: "all",
       qBankCat: "all",
+      qBankLevel: "all",
       qBankSearch: "",
       summarySort: "seq",
       summaryDoneOnly: false,
@@ -2942,6 +3054,14 @@
       }
     }
 
+    function normalizeLevel_(lvl) {
+      return String(lvl || "easy").trim().toLowerCase() === "medium" ? "medium" : "easy";
+    }
+
+    function levelLabel_(lvl) {
+      return normalizeLevel_(lvl) === "medium" ? "ปานกลาง" : "ง่าย";
+    }
+
     function renderQuestionSidePanel_() {
       const catSel = document.getElementById("qPanelCatFilter");
       renderCategorySelectOptions_(catSel, true);
@@ -2953,20 +3073,28 @@
         ? `ถามผู้เข้าสอบรายนี้แล้ว ${askedSet.size} ข้อ (ติ๊กบันทึกอัตโนมัติ)`
         : "เลือกผู้เข้าสอบเพื่อบันทึกคำถามที่ถามแล้ว";
 
-      const list = STATE.questions.filter(q => STATE.qPanelCat === "all" || q.category === STATE.qPanelCat);
+      const list = STATE.questions.filter(q => {
+        if (STATE.qPanelCat !== "all" && q.category !== STATE.qPanelCat) return false;
+        if (STATE.qPanelLevel !== "all" && normalizeLevel_(q.level) !== STATE.qPanelLevel) return false;
+        return true;
+      });
       const container = document.getElementById("qPanelList");
       container.innerHTML = list.map(q => {
         const isAsked = askedSet.has(q.q_id);
         const isHi = STATE.highlightedQId === q.q_id;
         const roomCount = getQuestionAskedCountInRoom_(q.q_id);
+        const lvl = normalizeLevel_(q.level);
         return `
           <div class="q-card ${isAsked ? "asked" : ""} ${isHi ? "highlighted" : ""}" id="qpanel-${esc(q.q_id)}">
             <div class="q-meta">
-              <span class="q-badge">ตัวชี้วัด ${esc(q.indicator_ref)} • ${esc(q.category)}</span>
+              <div class="q-badge-group">
+                <span class="lvl-badge lvl-${lvl}">${levelLabel_(lvl)}</span>
+                <span class="q-badge">ตัวชี้วัด ${esc(q.indicator_ref)} • ${esc(q.category)}</span>
+              </div>
               <span>ถามในห้องแล้ว ${roomCount} คน</span>
             </div>
-            <div class="q-th">${esc(q.question_th)}</div>
             ${q.question_en ? `<div class="q-en">${esc(q.question_en)}</div>` : ""}
+            <div class="q-th">${esc(q.question_th)}</div>
             ${q.tip ? `<div class="q-tip">แนวฟังคำตอบ: ${esc(q.tip)}</div>` : ""}
             <div class="q-actions">
               <button type="button" class="btn-sm ${isAsked ? "btn-emerald" : ""}" data-toggle-asked="${esc(q.q_id)}">
@@ -3055,20 +3183,25 @@
       const qSearch = STATE.qBankSearch.trim().toLowerCase();
       const filtered = STATE.questions.filter(q => {
         if (STATE.qBankCat !== "all" && q.category !== STATE.qBankCat) return false;
+        if (STATE.qBankLevel !== "all" && normalizeLevel_(q.level) !== STATE.qBankLevel) return false;
         if (!qSearch) return true;
         return `${q.question_th} ${q.question_en} ${q.tip} ${q.category}`.toLowerCase().includes(qSearch);
       });
 
       document.getElementById("qBankFullList").innerHTML = filtered.map(q => {
         const isCustom = String(q.is_custom) === "true";
+        const lvl = normalizeLevel_(q.level);
         return `
           <div class="card card-pad">
             <div class="q-meta">
-              <span class="q-badge">ตัวชี้วัด ${esc(q.indicator_ref)} • ${esc(q.category)}</span>
+              <div class="q-badge-group">
+                <span class="lvl-badge lvl-${lvl}">${levelLabel_(lvl)}</span>
+                <span class="q-badge">ตัวชี้วัด ${esc(q.indicator_ref)} • ${esc(q.category)}</span>
+              </div>
               ${isCustom ? `<button type="button" class="btn-sm btn-danger" data-del-q="${esc(q.q_id)}">ลบ</button>` : `<span>คลังมาตรฐาน</span>`}
             </div>
-            <div class="q-th" style="font-size:15px;">${esc(q.question_th)}</div>
             ${q.question_en ? `<div class="q-en">${esc(q.question_en)}</div>` : ""}
+            <div class="q-th">${esc(q.question_th)}</div>
             ${q.tip ? `<div class="q-tip">แนวฟังคำตอบ: ${esc(q.tip)}</div>` : ""}
           </div>
         `;
@@ -3903,15 +4036,25 @@
         STATE.qPanelCat = e.target.value;
         renderQuestionSidePanel_();
       });
+      document.getElementById("qPanelLevelChips").addEventListener("click", e => {
+        const btn = e.target.closest("[data-qpanel-level]");
+        if (!btn) return;
+        STATE.qPanelLevel = btn.getAttribute("data-qpanel-level");
+        document.querySelectorAll("#qPanelLevelChips [data-qpanel-level]").forEach(el => {
+          const on = el === btn;
+          el.classList.toggle("active", on);
+          el.setAttribute("aria-pressed", String(on));
+        });
+        renderQuestionSidePanel_();
+      });
       document.getElementById("btnRandomQuestion").addEventListener("click", () => {
         const c = getSelectedCandidate_();
         const asked = new Set((c && c.notesObj && c.notesObj.askedQuestions) || []);
-        const pool = STATE.questions.filter(q =>
-          (STATE.qPanelCat === "all" || q.category === STATE.qPanelCat) && !asked.has(q.q_id)
-        );
-        const candidatesPool = pool.length > 0
-          ? pool
-          : STATE.questions.filter(q => STATE.qPanelCat === "all" || q.category === STATE.qPanelCat);
+        const matchFilter = q =>
+          (STATE.qPanelCat === "all" || q.category === STATE.qPanelCat) &&
+          (STATE.qPanelLevel === "all" || normalizeLevel_(q.level) === STATE.qPanelLevel);
+        const pool = STATE.questions.filter(q => matchFilter(q) && !asked.has(q.q_id));
+        const candidatesPool = pool.length > 0 ? pool : STATE.questions.filter(matchFilter);
         if (candidatesPool.length === 0) return;
         const pick = candidatesPool[Math.floor(Math.random() * candidatesPool.length)];
         STATE.highlightedQId = pick.q_id;
@@ -3992,6 +4135,17 @@
         STATE.qBankCat = e.target.value;
         renderQuestionBankFull_();
       });
+      document.getElementById("qBankLevelChips").addEventListener("click", e => {
+        const btn = e.target.closest("[data-qbank-level]");
+        if (!btn) return;
+        STATE.qBankLevel = btn.getAttribute("data-qbank-level");
+        document.querySelectorAll("#qBankLevelChips [data-qbank-level]").forEach(el => {
+          const on = el === btn;
+          el.classList.toggle("active", on);
+          el.setAttribute("aria-pressed", String(on));
+        });
+        renderQuestionBankFull_();
+      });
       document.getElementById("btnAddQuestion").addEventListener("click", () => {
         const th = document.getElementById("newQTh").value.trim();
         if (!th) {
@@ -4002,6 +4156,7 @@
           q_id: "QC-" + Date.now(),
           category: document.getElementById("newQCat").value,
           indicator_ref: document.getElementById("newQRef").value,
+          level: document.getElementById("newQLevel").value,
           question_th: th,
           question_en: document.getElementById("newQEn").value.trim(),
           tip: document.getElementById("newQTip").value.trim(),
