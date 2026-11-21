@@ -177,7 +177,7 @@
       gap: 6px;
       transition: background-color 0.15s, border-color 0.15s, transform 0.08s;
     }
-    button:not(.btn-primary):not(.btn-emerald):not(.btn-amber):not(.btn-danger):not(.active):not(.active-full):not(.active-part):not(.sync-pill):not(.quick-tag):not(.table-jump-btn):hover {
+    button:not(.btn-primary):not(.btn-emerald):not(.btn-amber):not(.btn-danger):not(.active):not(.active-full):not(.active-part):not(.sync-pill):not(.quick-tag):not(.table-jump-btn):not(.c-badge-C1):not(.c-badge-C2):not(.c-badge-C3):not(.is-fav):hover {
       background: var(--surface-hover);
     }
     button:active { transform: scale(0.98); }
@@ -947,15 +947,53 @@
       color: #FFFFFF;
       border-color: var(--navy);
     }
-    .committee-select {
+    .committee-badge-btn {
       min-height: 44px;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--navy-soft);
-      color: var(--accent-ink);
       font-weight: 700;
       font-size: 13px;
+      border: 1px solid transparent;
+    }
+    .c-badge-C1, .c-badge-C1:hover {
+      background: var(--navy);
+      color: #FFFFFF;
+      border-color: var(--navy);
+    }
+    .c-badge-C2, .c-badge-C2:hover {
+      background: var(--emerald);
+      color: #FFFFFF;
+      border-color: var(--emerald);
+    }
+    .c-badge-C3, .c-badge-C3:hover {
+      background: var(--amber-solid);
+      color: #FFFFFF;
+      border-color: var(--amber-solid);
+    }
+    .pin-locked-notice {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--emerald-bg);
+      color: var(--emerald-ink);
+      font-size: 13.5px;
+      font-weight: 600;
+      border: 1px solid var(--emerald);
+    }
+    .share-links-box {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      background: var(--surface-soft);
+      margin-bottom: 14px;
+    }
+    .share-links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    @media (max-width: 640px) {
+      .share-links-grid { grid-template-columns: 1fr; }
     }
 
     /* Summary & Table */
@@ -1350,7 +1388,8 @@
         </div>
       </div>
       <form id="pinForm" class="pin-card-body">
-        <div>
+        <div id="pinLockedNotice" class="pin-locked-notice" hidden></div>
+        <div id="pinCommitteeWrap">
           <span class="field-label">เลือกบทบาทกรรมการ (แยกคะแนนอิสระ ไม่ทับกัน)</span>
           <div id="pinCommitteeGrid" class="committee-grid" role="group" aria-label="เลือกบทบาทกรรมการ">
             <button type="button" class="committee-opt active" data-committee="C1" aria-pressed="true">กรรมการคนที่ 1</button>
@@ -1391,11 +1430,10 @@
         </div>
 
         <div class="topbar-controls">
-          <select id="committeeSelector" class="committee-select" aria-label="เลือกบทบาทกรรมการ">
-            <option value="C1">กรรมการคนที่ 1</option>
-            <option value="C2">กรรมการคนที่ 2</option>
-            <option value="C3">กรรมการคนที่ 3</option>
-          </select>
+          <button type="button" id="btnCommitteeBadge" class="committee-badge-btn c-badge-C1" title="บทบาทกรรมการปัจจุบัน (คลิกเพื่อสลับพร้อมข้อความยืนยัน)">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span id="committeeBadgeText">กรรมการคนที่ 1</span>
+          </button>
           <select id="roomSelector" class="room-select" aria-label="เลือกห้องสอบ"></select>
 
           <nav class="nav-tabs" aria-label="เมนูหลัก">
@@ -1690,6 +1728,33 @@
     </main>
   </div>
 
+  <!-- MODAL: SWITCH COMMITTEE (PROTECTED) -->
+  <div id="committeeSwitchModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="committeeSwitchTitle">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="modal-head">
+        <strong id="committeeSwitchTitle" class="modal-head-title">
+          <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>ตรวจสอบ / สลับบทบาทกรรมการ</span>
+        </strong>
+        <button type="button" class="btn-sm" data-close-modal="committeeSwitchModal" aria-label="ปิดหน้าต่างสลับกรรมการ">✕ ปิด</button>
+      </div>
+      <div class="modal-body">
+        <div id="committeeSwitchCurrent" style="font-size:14px;font-weight:600;margin-bottom:8px;"></div>
+        <p style="margin:0 0 12px;font-size:13px;color:var(--ink-muted);">
+          ระบบจำบทบาทกรรมการไว้ในเครื่องนี้อัตโนมัติแม้หลังพักเที่ยง หากต้องการสลับไปช่องอื่น กรุณากดยืนยันด้านล่าง (ระวังอย่าสลับทับช่องของกรรมการท่านอื่น)
+        </p>
+        <div class="committee-grid" id="modalCommitteeGrid">
+          <button type="button" class="committee-opt" data-switch-committee="C1">กรรมการคนที่ 1</button>
+          <button type="button" class="committee-opt" data-switch-committee="C2">กรรมการคนที่ 2</button>
+          <button type="button" class="committee-opt" data-switch-committee="C3">กรรมการคนที่ 3</button>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" data-close-modal="committeeSwitchModal">ยกเลิก (คงช่องเดิม)</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: IMPORT CANDIDATES -->
   <div id="importModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
     <div class="modal-box">
@@ -1753,6 +1818,15 @@
         <button type="button" class="btn-sm" data-close-modal="settingsModal" aria-label="ปิดหน้าต่างตั้งค่า">✕ ปิด</button>
       </div>
       <div class="modal-body">
+        <div class="share-links-box">
+          <strong style="font-size:14px;">แชร์ลิงก์เฉพาะกรรมการ (ล็อกช่องอัตโนมัติ กันลืม/กดผิดหลังพักเที่ยง)</strong>
+          <div style="font-size:12.5px;color:var(--ink-muted);margin-top:2px;">ส่งลิงก์แยกให้แต่ละท่านใน LINE — เมื่อกดเปิด ลิงก์จะล็อกช่องกรรมการของท่านนั้นให้อัตโนมัติทันที</div>
+          <div class="share-links-grid">
+            <button type="button" class="btn-sm c-badge-C1" data-copy-committee-link="1">คัดลอกลิงก์ กรรมการ 1</button>
+            <button type="button" class="btn-sm c-badge-C2" data-copy-committee-link="2">คัดลอกลิงก์ กรรมการ 2</button>
+            <button type="button" class="btn-sm c-badge-C3" data-copy-committee-link="3">คัดลอกลิงก์ กรรมการ 3</button>
+          </div>
+        </div>
         <div class="form-grid" style="margin-bottom:14px;">
           <div>
             <label class="field-label" for="setCommitteeName">ชื่อ-สกุล กรรมการประเมิน</label>
@@ -3373,8 +3447,7 @@
       const cName = STATE.settings["committee_name_" + STATE.committeeId] || STATE.settings.committee_name || "";
       const cTag = cName ? `${committeeLabel_(STATE.committeeId)} (${cName})` : committeeLabel_(STATE.committeeId);
       document.getElementById("brandSub").textContent = `${agency} • วิชาเอก${major} • ${cTag}`;
-      const cSel = document.getElementById("committeeSelector");
-      if (cSel) cSel.value = STATE.committeeId;
+      updateCommitteeBadge_();
       renderRoomSelector_();
       renderQueue_();
       renderCandidateBanner_();
@@ -3540,7 +3613,7 @@
 
     function closeActiveOverlays_() {
       let closed = false;
-      ["importModal", "settingsModal", "printOverlay"].forEach(id => {
+      ["importModal", "settingsModal", "committeeSwitchModal", "printOverlay"].forEach(id => {
         const el = document.getElementById(id);
         if (el && el.classList.contains("open")) {
           el.classList.remove("open");
@@ -3969,7 +4042,28 @@
       }
     }
 
-    function setPinCommitteeUi_(cid) {
+    function readCommitteeFromUrl_() {
+      try {
+        const params = new URLSearchParams(window.location.search || "");
+        const raw = String(params.get("c") || params.get("committee") || "").trim().toUpperCase();
+        if (raw === "1" || raw === "C1") return "C1";
+        if (raw === "2" || raw === "C2") return "C2";
+        if (raw === "3" || raw === "C3") return "C3";
+      } catch (e) {}
+      return "";
+    }
+
+    function updateCommitteeBadge_() {
+      const btn = document.getElementById("btnCommitteeBadge");
+      const txt = document.getElementById("committeeBadgeText");
+      if (!btn || !txt) return;
+      btn.classList.remove("c-badge-C1", "c-badge-C2", "c-badge-C3");
+      btn.classList.add("c-badge-" + STATE.committeeId);
+      const cName = STATE.settings["committee_name_" + STATE.committeeId] || (STATE.committeeId === "C1" ? STATE.settings.committee_name : "") || "";
+      txt.textContent = cName ? `${committeeLabel_(STATE.committeeId)} • ${cName}` : committeeLabel_(STATE.committeeId);
+    }
+
+    function setPinCommitteeUi_(cid, lockedByUrl) {
       const norm = normalizeCommitteeId_(cid);
       STATE.committeeId = norm;
       try { localStorage.setItem(STORAGE_KEYS.COMMITTEE, norm); } catch (e) {}
@@ -3978,8 +4072,19 @@
         btn.classList.toggle("active", on);
         btn.setAttribute("aria-pressed", String(on));
       });
-      const sel = document.getElementById("committeeSelector");
-      if (sel) sel.value = norm;
+      const notice = document.getElementById("pinLockedNotice");
+      const wrap = document.getElementById("pinCommitteeWrap");
+      if (notice && wrap) {
+        if (lockedByUrl) {
+          notice.hidden = false;
+          notice.textContent = `ล็อกบทบาทตามลิงก์อัตโนมัติ: ${committeeLabel_(norm)} (ไม่ต้องเลือกใหม่)`;
+          wrap.hidden = true;
+        } else {
+          notice.hidden = true;
+          wrap.hidden = false;
+        }
+      }
+      updateCommitteeBadge_();
     }
 
     function switchCommittee_(nextCid) {
@@ -4068,8 +4173,9 @@
       try {
         applyTheme_(localStorage.getItem(STORAGE_KEYS.THEME) || "light", false);
         if (localStorage.getItem(STORAGE_KEYS.PRIVACY) === "1") togglePrivacyBlur_(true);
-        const savedCommittee = localStorage.getItem(STORAGE_KEYS.COMMITTEE) || "C1";
-        setPinCommitteeUi_(savedCommittee);
+        const urlCommittee = readCommitteeFromUrl_();
+        const savedCommittee = urlCommittee || localStorage.getItem(STORAGE_KEYS.COMMITTEE) || "C1";
+        setPinCommitteeUi_(savedCommittee, Boolean(urlCommittee));
       } catch (e) {}
 
       const saved = readSavedPin_();
@@ -4087,11 +4193,43 @@
       document.getElementById("pinCommitteeGrid").addEventListener("click", e => {
         const btn = e.target.closest("[data-committee]");
         if (!btn) return;
-        setPinCommitteeUi_(btn.getAttribute("data-committee"));
+        setPinCommitteeUi_(btn.getAttribute("data-committee"), false);
       });
 
-      document.getElementById("committeeSelector").addEventListener("change", e => {
-        switchCommittee_(e.target.value);
+      document.getElementById("btnCommitteeBadge").addEventListener("click", () => {
+        const curEl = document.getElementById("committeeSwitchCurrent");
+        curEl.textContent = `บทบาทปัจจุบันในเครื่องนี้: ${committeeLabel_(STATE.committeeId)}`;
+        document.querySelectorAll("#modalCommitteeGrid [data-switch-committee]").forEach(b => {
+          const on = b.getAttribute("data-switch-committee") === STATE.committeeId;
+          b.classList.toggle("active", on);
+          b.setAttribute("aria-pressed", String(on));
+        });
+        openModal_("committeeSwitchModal");
+      });
+
+      document.getElementById("modalCommitteeGrid").addEventListener("click", e => {
+        const btn = e.target.closest("[data-switch-committee]");
+        if (!btn) return;
+        const targetCid = btn.getAttribute("data-switch-committee");
+        closeActiveOverlays_();
+        if (targetCid !== STATE.committeeId) {
+          switchCommittee_(targetCid);
+        }
+      });
+
+      document.querySelectorAll("[data-copy-committee-link]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const num = btn.getAttribute("data-copy-committee-link");
+          const base = window.location.href.split("?")[0].split("#")[0];
+          const link = `${base}?c=${num}`;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(link)
+              .then(() => showToast(`คัดลอกลิงก์กรรมการคนที่ ${num} แล้ว (ส่งเข้า LINE ได้เลย)`))
+              .catch(() => showToast(`ลิงก์กรรมการคนที่ ${num}: ${link}`));
+          } else {
+            showToast(`ลิงก์กรรมการคนที่ ${num}: ${link}`);
+          }
+        });
       });
 
       document.getElementById("pinForm").addEventListener("submit", e => {
@@ -4448,7 +4586,7 @@
       document.querySelectorAll("[data-close-modal]").forEach(btn => {
         btn.addEventListener("click", closeActiveOverlays_);
       });
-      ["importModal", "settingsModal", "printOverlay"].forEach(id => {
+      ["importModal", "settingsModal", "committeeSwitchModal", "printOverlay"].forEach(id => {
         document.getElementById(id).addEventListener("click", e => {
           if (e.target && e.target.id === id) closeActiveOverlays_();
         });
