@@ -906,6 +906,57 @@
     }
     .q-tip { font-size: 12px; color: var(--emerald-ink); background: var(--emerald-bg); padding: 6px 8px; border-radius: 6px; margin-bottom: 8px; }
     .q-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .btn-fav {
+      min-height: 36px;
+      padding: 4px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-fav.is-fav {
+      background: var(--amber-bg);
+      color: var(--amber-ink);
+      border-color: var(--amber-solid);
+    }
+    .btn-fav.is-fav:hover {
+      background: var(--amber-bg);
+      color: var(--amber-ink);
+    }
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .committee-opt {
+      min-height: 44px;
+      padding: 8px 6px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--ink);
+      justify-content: center;
+    }
+    .committee-opt.active {
+      background: var(--navy);
+      color: #FFFFFF;
+      border-color: var(--navy);
+    }
+    .committee-select {
+      min-height: 44px;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--navy-soft);
+      color: var(--accent-ink);
+      font-weight: 700;
+      font-size: 13px;
+    }
 
     /* Summary & Table */
     .summary-stats {
@@ -1300,6 +1351,18 @@
       </div>
       <form id="pinForm" class="pin-card-body">
         <div>
+          <span class="field-label">เลือกบทบาทกรรมการ (แยกคะแนนอิสระ ไม่ทับกัน)</span>
+          <div id="pinCommitteeGrid" class="committee-grid" role="group" aria-label="เลือกบทบาทกรรมการ">
+            <button type="button" class="committee-opt active" data-committee="C1" aria-pressed="true">กรรมการคนที่ 1</button>
+            <button type="button" class="committee-opt" data-committee="C2" aria-pressed="false">กรรมการคนที่ 2</button>
+            <button type="button" class="committee-opt" data-committee="C3" aria-pressed="false">กรรมการคนที่ 3</button>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="pinCommitteeName">ชื่อกรรมการ (ไม่บังคับ — ใช้แสดงในใบสรุป)</label>
+          <input id="pinCommitteeName" type="text" class="text-input" placeholder="เช่น นายสมชาย ใจดี (เว้นว่างได้)" autocomplete="name" />
+        </div>
+        <div>
           <label class="field-label" for="pinInput">รหัส PIN สำหรับกรรมการ</label>
           <input id="pinInput" type="password" inputmode="numeric" autocomplete="current-password" spellcheck="false" maxlength="12" class="text-input" placeholder="กรอกรหัส PIN…" required />
         </div>
@@ -1328,6 +1391,11 @@
         </div>
 
         <div class="topbar-controls">
+          <select id="committeeSelector" class="committee-select" aria-label="เลือกบทบาทกรรมการ">
+            <option value="C1">กรรมการคนที่ 1</option>
+            <option value="C2">กรรมการคนที่ 2</option>
+            <option value="C3">กรรมการคนที่ 3</option>
+          </select>
           <select id="roomSelector" class="room-select" aria-label="เลือกห้องสอบ"></select>
 
           <nav class="nav-tabs" aria-label="เมนูหลัก">
@@ -1476,6 +1544,7 @@
               <select id="qPanelCatFilter" class="search-input" aria-label="กรองหมวดหมู่คำถามสัมภาษณ์"></select>
               <div id="qPanelLevelChips" class="filter-chips" role="group" aria-label="กรองระดับความยากของคำถาม">
                 <button type="button" class="chip-btn active" data-qpanel-level="all" aria-pressed="true">ทั้งหมด</button>
+                <button type="button" class="chip-btn" data-qpanel-level="fav" id="chipPanelFav" aria-pressed="false">★ ที่ชอบ (0)</button>
                 <button type="button" class="chip-btn" data-qpanel-level="easy" aria-pressed="false">ง่าย</button>
                 <button type="button" class="chip-btn" data-qpanel-level="medium" aria-pressed="false">ปานกลาง</button>
               </div>
@@ -1609,6 +1678,7 @@
               </div>
               <div id="qBankLevelChips" class="filter-chips" role="group" aria-label="กรองระดับความยากในคลังคำถาม">
                 <button type="button" class="chip-btn active" data-qbank-level="all" aria-pressed="true">ทุกระดับ</button>
+                <button type="button" class="chip-btn" data-qbank-level="fav" id="chipBankFav" aria-pressed="false">★ ที่ชอบ (0)</button>
                 <button type="button" class="chip-btn" data-qbank-level="easy" aria-pressed="false">ง่าย</button>
                 <button type="button" class="chip-btn" data-qbank-level="medium" aria-pressed="false">ปานกลาง</button>
               </div>
@@ -2460,7 +2530,9 @@
       QUEUE: "ktn_interview_sync_queue_v1",
       THEME: "ktn_interview_theme_v1",
       PRIVACY: "ktn_interview_privacy_v1",
-      PIN: "ktn_interview_pin_v1"
+      PIN: "ktn_interview_pin_v1",
+      COMMITTEE: "ktn_interview_committee_v1",
+      FAVS: "ktn_interview_favs_v1"
     };
 
     const QUICK_TAGS = [
@@ -2520,8 +2592,36 @@
       importDraft: [],
       lastFocusEl: null,
       activePin: "",
-      isUnlocked: false
+      isUnlocked: false,
+      committeeId: "C1",
+      favoriteQuestions: []
     };
+
+    function normalizeCommitteeId_(cid) {
+      const v = String(cid || "C1").trim().toUpperCase();
+      return (v === "C1" || v === "C2" || v === "C3") ? v : "C1";
+    }
+
+    function committeeLabel_(cid) {
+      const norm = normalizeCommitteeId_(cid);
+      if (norm === "C2") return "กรรมการคนที่ 2";
+      if (norm === "C3") return "กรรมการคนที่ 3";
+      return "กรรมการคนที่ 1";
+    }
+
+    function committeeCacheKey_(cid) {
+      const norm = normalizeCommitteeId_(cid);
+      return norm === "C1" ? STORAGE_KEYS.CACHE : (STORAGE_KEYS.CACHE + "_" + norm);
+    }
+
+    function committeeQueueKey_(cid) {
+      const norm = normalizeCommitteeId_(cid);
+      return norm === "C1" ? STORAGE_KEYS.QUEUE : (STORAGE_KEYS.QUEUE + "_" + norm);
+    }
+
+    function committeeFavKey_(cid) {
+      return STORAGE_KEYS.FAVS + "_" + normalizeCommitteeId_(cid);
+    }
 
     function hasAppsScript_() {
       return typeof google !== "undefined" && google.script && google.script.run;
@@ -2610,14 +2710,15 @@
 
     function persistCache_() {
       try {
-        localStorage.setItem(STORAGE_KEYS.CACHE, JSON.stringify({
+        localStorage.setItem(committeeCacheKey_(STATE.committeeId), JSON.stringify({
           candidates: STATE.candidates,
           questions: STATE.questions,
           settings: STATE.settings,
           selectedRoom: STATE.selectedRoom,
           selectedCandidateId: STATE.selectedCandidateId
         }));
-        localStorage.setItem(STORAGE_KEYS.QUEUE, JSON.stringify(STATE.syncQueue));
+        localStorage.setItem(committeeQueueKey_(STATE.committeeId), JSON.stringify(STATE.syncQueue));
+        localStorage.setItem(committeeFavKey_(STATE.committeeId), JSON.stringify(STATE.favoriteQuestions || []));
       } catch (e) {}
     }
 
@@ -2792,7 +2893,7 @@
       STATE.isSyncing = true;
       updateSyncPill_();
 
-      return runGas("batchSyncScores", batch)
+      return runGas("batchSyncScores", batch, STATE.committeeId)
         .then(res => {
           keys.forEach(k => delete STATE.syncQueue[k]);
           persistCache_();
@@ -3062,10 +3163,45 @@
       return normalizeLevel_(lvl) === "medium" ? "ปานกลาง" : "ง่าย";
     }
 
+    function isFavQuestion_(qid) {
+      return Array.isArray(STATE.favoriteQuestions) && STATE.favoriteQuestions.indexOf(qid) !== -1;
+    }
+
+    function updateFavChipCounts_() {
+      const count = (STATE.favoriteQuestions || []).filter(qid => STATE.questions.some(q => q.q_id === qid)).length;
+      const pChip = document.getElementById("chipPanelFav");
+      const bChip = document.getElementById("chipBankFav");
+      if (pChip) pChip.textContent = `★ ที่ชอบ (${count})`;
+      if (bChip) bChip.textContent = `★ ที่ชอบ (${count})`;
+    }
+
+    function toggleFavoriteQuestion_(qid) {
+      if (!qid) return;
+      if (!Array.isArray(STATE.favoriteQuestions)) STATE.favoriteQuestions = [];
+      const idx = STATE.favoriteQuestions.indexOf(qid);
+      if (idx === -1) {
+        STATE.favoriteQuestions.unshift(qid);
+        showToast("เพิ่มเข้าคำถามที่ชอบแล้ว ★");
+      } else {
+        STATE.favoriteQuestions.splice(idx, 1);
+        showToast("นำออกจากคำถามที่ชอบแล้ว");
+      }
+      const key = "fav_questions_" + STATE.committeeId;
+      STATE.settings[key] = JSON.stringify(STATE.favoriteQuestions);
+      persistCache_();
+      updateFavChipCounts_();
+      renderQuestionSidePanel_();
+      renderQuestionBankFull_();
+      const patch = {};
+      patch[key] = STATE.settings[key];
+      runGas("saveSettings", patch).catch(() => {});
+    }
+
     function renderQuestionSidePanel_() {
       const catSel = document.getElementById("qPanelCatFilter");
       renderCategorySelectOptions_(catSel, true);
       catSel.value = STATE.qPanelCat;
+      updateFavChipCounts_();
 
       const c = getSelectedCandidate_();
       const askedSet = new Set((c && c.notesObj && c.notesObj.askedQuestions) || []);
@@ -3075,13 +3211,20 @@
 
       const list = STATE.questions.filter(q => {
         if (STATE.qPanelCat !== "all" && q.category !== STATE.qPanelCat) return false;
+        if (STATE.qPanelLevel === "fav") return isFavQuestion_(q.q_id);
         if (STATE.qPanelLevel !== "all" && normalizeLevel_(q.level) !== STATE.qPanelLevel) return false;
         return true;
-      });
+      }).slice().sort((a, b) => (isFavQuestion_(b.q_id) ? 1 : 0) - (isFavQuestion_(a.q_id) ? 1 : 0));
+
       const container = document.getElementById("qPanelList");
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-note" style="padding:18px;text-align:center;color:var(--ink-muted);font-size:13.5px;">${STATE.qPanelLevel === "fav" ? "ยังไม่มีคำถามที่ติดดาว ★ กดปุ่ม “☆ ชอบ” บนคำถามที่ใช้บ่อยได้เลยครับ" : "ไม่พบคำถามในหมวดและระดับนี้"}</div>`;
+        return;
+      }
       container.innerHTML = list.map(q => {
         const isAsked = askedSet.has(q.q_id);
         const isHi = STATE.highlightedQId === q.q_id;
+        const isFav = isFavQuestion_(q.q_id);
         const roomCount = getQuestionAskedCountInRoom_(q.q_id);
         const lvl = normalizeLevel_(q.level);
         return `
@@ -3097,6 +3240,9 @@
             <div class="q-th">${esc(q.question_th)}</div>
             ${q.tip ? `<div class="q-tip">แนวฟังคำตอบ: ${esc(q.tip)}</div>` : ""}
             <div class="q-actions">
+              <button type="button" class="btn-fav ${isFav ? "is-fav" : ""}" data-toggle-fav="${esc(q.q_id)}" aria-pressed="${isFav}">
+                ${isFav ? "★ ที่ชอบ" : "☆ ชอบ"}
+              </button>
               <button type="button" class="btn-sm ${isAsked ? "btn-emerald" : ""}" data-toggle-asked="${esc(q.q_id)}">
                 ${isAsked ? "✓ ถามแล้ว" : "ติ๊กถามแล้ว"}
               </button>
@@ -3179,17 +3325,25 @@
       const catSel = document.getElementById("qBankCatFilter");
       renderCategorySelectOptions_(catSel, true);
       catSel.value = STATE.qBankCat;
+      updateFavChipCounts_();
 
       const qSearch = STATE.qBankSearch.trim().toLowerCase();
       const filtered = STATE.questions.filter(q => {
         if (STATE.qBankCat !== "all" && q.category !== STATE.qBankCat) return false;
-        if (STATE.qBankLevel !== "all" && normalizeLevel_(q.level) !== STATE.qBankLevel) return false;
+        if (STATE.qBankLevel === "fav" && !isFavQuestion_(q.q_id)) return false;
+        if (STATE.qBankLevel !== "all" && STATE.qBankLevel !== "fav" && normalizeLevel_(q.level) !== STATE.qBankLevel) return false;
         if (!qSearch) return true;
         return `${q.question_th} ${q.question_en} ${q.tip} ${q.category}`.toLowerCase().includes(qSearch);
-      });
+      }).slice().sort((a, b) => (isFavQuestion_(b.q_id) ? 1 : 0) - (isFavQuestion_(a.q_id) ? 1 : 0));
 
-      document.getElementById("qBankFullList").innerHTML = filtered.map(q => {
+      const fullContainer = document.getElementById("qBankFullList");
+      if (filtered.length === 0) {
+        fullContainer.innerHTML = `<div class="card card-pad" style="text-align:center;color:var(--ink-muted);">${STATE.qBankLevel === "fav" ? "ยังไม่มีคำถามที่ติดดาว ★ กดปุ่ม “☆ ชอบ” บนคำถามที่ใช้บ่อยได้เลยครับ" : "ไม่พบคำถามตามเงื่อนไขที่ค้นหา"}</div>`;
+        return;
+      }
+      fullContainer.innerHTML = filtered.map(q => {
         const isCustom = String(q.is_custom) === "true";
+        const isFav = isFavQuestion_(q.q_id);
         const lvl = normalizeLevel_(q.level);
         return `
           <div class="card card-pad">
@@ -3198,7 +3352,12 @@
                 <span class="lvl-badge lvl-${lvl}">${levelLabel_(lvl)}</span>
                 <span class="q-badge">ตัวชี้วัด ${esc(q.indicator_ref)} • ${esc(q.category)}</span>
               </div>
-              ${isCustom ? `<button type="button" class="btn-sm btn-danger" data-del-q="${esc(q.q_id)}">ลบ</button>` : `<span>คลังมาตรฐาน</span>`}
+              <div style="display:flex;align-items:center;gap:6px;">
+                <button type="button" class="btn-fav ${isFav ? "is-fav" : ""}" data-toggle-fav="${esc(q.q_id)}" aria-pressed="${isFav}">
+                  ${isFav ? "★ ที่ชอบ" : "☆ ชอบ"}
+                </button>
+                ${isCustom ? `<button type="button" class="btn-sm btn-danger" data-del-q="${esc(q.q_id)}">ลบ</button>` : `<span>คลังมาตรฐาน</span>`}
+              </div>
             </div>
             ${q.question_en ? `<div class="q-en">${esc(q.question_en)}</div>` : ""}
             <div class="q-th">${esc(q.question_th)}</div>
@@ -3211,7 +3370,11 @@
     function renderAll_() {
       const agency = STATE.settings.agency || "อ.ก.ค.ศ. สพป.สระบุรี เขต ๒";
       const major = STATE.settings.major || "ภาษาอังกฤษ";
-      document.getElementById("brandSub").textContent = `${agency} • วิชาเอก${major}`;
+      const cName = STATE.settings["committee_name_" + STATE.committeeId] || STATE.settings.committee_name || "";
+      const cTag = cName ? `${committeeLabel_(STATE.committeeId)} (${cName})` : committeeLabel_(STATE.committeeId);
+      document.getElementById("brandSub").textContent = `${agency} • วิชาเอก${major} • ${cTag}`;
+      const cSel = document.getElementById("committeeSelector");
+      if (cSel) cSel.value = STATE.committeeId;
       renderRoomSelector_();
       renderQueue_();
       renderCandidateBanner_();
@@ -3761,6 +3924,32 @@
         }
       }
 
+      // Load favorite questions for this committee member (server settings take precedence, else localStorage)
+      const favKey = "fav_questions_" + STATE.committeeId;
+      let favArr = [];
+      if (STATE.settings[favKey]) {
+        const parsedFav = parseJsonSafe(STATE.settings[favKey], []);
+        if (Array.isArray(parsedFav)) favArr = parsedFav;
+      } else {
+        try {
+          const localFav = parseJsonSafe(localStorage.getItem(committeeFavKey_(STATE.committeeId)), []);
+          if (Array.isArray(localFav)) favArr = localFav;
+        } catch (e) {}
+      }
+      STATE.favoriteQuestions = favArr;
+
+      // Sync optional committee name typed at PIN screen
+      const typedName = (document.getElementById("pinCommitteeName") && document.getElementById("pinCommitteeName").value || "").trim();
+      const cNameKey = "committee_name_" + STATE.committeeId;
+      if (typedName && typedName !== STATE.settings[cNameKey]) {
+        STATE.settings[cNameKey] = typedName;
+        if (STATE.committeeId === "C1") STATE.settings.committee_name = typedName;
+        const namePatch = {};
+        namePatch[cNameKey] = typedName;
+        if (STATE.committeeId === "C1") namePatch.committee_name = typedName;
+        runGas("saveSettings", namePatch).catch(() => {});
+      }
+
       applyCustomRubricWeights_(STATE.settings.rubric_weights_json);
       STATE.candidates.forEach(c => recalcCandidateTotals_(c, false));
 
@@ -3780,6 +3969,51 @@
       }
     }
 
+    function setPinCommitteeUi_(cid) {
+      const norm = normalizeCommitteeId_(cid);
+      STATE.committeeId = norm;
+      try { localStorage.setItem(STORAGE_KEYS.COMMITTEE, norm); } catch (e) {}
+      document.querySelectorAll("#pinCommitteeGrid [data-committee]").forEach(btn => {
+        const on = btn.getAttribute("data-committee") === norm;
+        btn.classList.toggle("active", on);
+        btn.setAttribute("aria-pressed", String(on));
+      });
+      const sel = document.getElementById("committeeSelector");
+      if (sel) sel.value = norm;
+    }
+
+    function switchCommittee_(nextCid) {
+      const norm = normalizeCommitteeId_(nextCid);
+      if (norm === STATE.committeeId) return Promise.resolve();
+      const doSwitch = () => {
+        setPinCommitteeUi_(norm);
+        STATE.selectedCandidateId = "";
+        showToast(`กำลังโหลดข้อมูล ${committeeLabel_(norm)}…`);
+        let cached = null;
+        try {
+          cached = parseJsonSafe(localStorage.getItem(committeeCacheKey_(norm)), null);
+          STATE.syncQueue = parseJsonSafe(localStorage.getItem(committeeQueueKey_(norm)), {});
+        } catch (e) {}
+        return runGas("getInitialData", norm)
+          .then(res => {
+            hydrateAndShowApp_(res, cached);
+            showToast(`สลับเป็น ${committeeLabel_(norm)} เรียบร้อย (คะแนนแยกอิสระ)`);
+          })
+          .catch(() => {
+            if (cached && Array.isArray(cached.candidates) && cached.candidates.length > 0) {
+              hydrateAndShowApp_(null, cached);
+              showToast(`สลับเป็น ${committeeLabel_(norm)} (โหมดออฟไลน์)`);
+            } else {
+              showToast("ไม่สามารถโหลดข้อมูลกรรมการท่านนี้ได้ กรุณาตรวจสอบอินเทอร์เน็ต");
+            }
+          });
+      };
+      if (Object.keys(STATE.syncQueue).length > 0) {
+        return flushSyncQueue_().finally(doSwitch);
+      }
+      return doSwitch();
+    }
+
     function unlockWithPin_(pin, remember, allowOfflineResume) {
       const cleanPin = String(pin || "").trim();
       const errEl = document.getElementById("pinError");
@@ -3791,8 +4025,8 @@
 
       let cached = null;
       try {
-        cached = parseJsonSafe(localStorage.getItem(STORAGE_KEYS.CACHE), null);
-        STATE.syncQueue = parseJsonSafe(localStorage.getItem(STORAGE_KEYS.QUEUE), {});
+        cached = parseJsonSafe(localStorage.getItem(committeeCacheKey_(STATE.committeeId)), null);
+        STATE.syncQueue = parseJsonSafe(localStorage.getItem(committeeQueueKey_(STATE.committeeId)), {});
       } catch (e) {}
 
       STATE.activePin = cleanPin;
@@ -3801,7 +4035,7 @@
       btn.disabled = true;
       btn.querySelector("span").textContent = "กำลังตรวจสอบรหัส…";
 
-      return runGas("getInitialData")
+      return runGas("getInitialData", STATE.committeeId)
         .then(res => {
           btn.disabled = false;
           btn.querySelector("span").textContent = "ปลดล็อกเข้าสู่ระบบ";
@@ -3834,6 +4068,8 @@
       try {
         applyTheme_(localStorage.getItem(STORAGE_KEYS.THEME) || "light", false);
         if (localStorage.getItem(STORAGE_KEYS.PRIVACY) === "1") togglePrivacyBlur_(true);
+        const savedCommittee = localStorage.getItem(STORAGE_KEYS.COMMITTEE) || "C1";
+        setPinCommitteeUi_(savedCommittee);
       } catch (e) {}
 
       const saved = readSavedPin_();
@@ -3847,6 +4083,16 @@
     // Event bindings
     document.addEventListener("DOMContentLoaded", () => {
       initApp_();
+
+      document.getElementById("pinCommitteeGrid").addEventListener("click", e => {
+        const btn = e.target.closest("[data-committee]");
+        if (!btn) return;
+        setPinCommitteeUi_(btn.getAttribute("data-committee"));
+      });
+
+      document.getElementById("committeeSelector").addEventListener("change", e => {
+        switchCommittee_(e.target.value);
+      });
 
       document.getElementById("pinForm").addEventListener("submit", e => {
         e.preventDefault();
@@ -4050,9 +4296,12 @@
       document.getElementById("btnRandomQuestion").addEventListener("click", () => {
         const c = getSelectedCandidate_();
         const asked = new Set((c && c.notesObj && c.notesObj.askedQuestions) || []);
-        const matchFilter = q =>
-          (STATE.qPanelCat === "all" || q.category === STATE.qPanelCat) &&
-          (STATE.qPanelLevel === "all" || normalizeLevel_(q.level) === STATE.qPanelLevel);
+        const matchFilter = q => {
+          if (STATE.qPanelCat !== "all" && q.category !== STATE.qPanelCat) return false;
+          if (STATE.qPanelLevel === "fav") return isFavQuestion_(q.q_id);
+          if (STATE.qPanelLevel !== "all" && normalizeLevel_(q.level) !== STATE.qPanelLevel) return false;
+          return true;
+        };
         const pool = STATE.questions.filter(q => matchFilter(q) && !asked.has(q.q_id));
         const candidatesPool = pool.length > 0 ? pool : STATE.questions.filter(matchFilter);
         if (candidatesPool.length === 0) return;
@@ -4063,6 +4312,11 @@
         if (card) card.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
       document.getElementById("qPanelList").addEventListener("click", e => {
+        const favBtn = e.target.closest("[data-toggle-fav]");
+        if (favBtn) {
+          toggleFavoriteQuestion_(favBtn.getAttribute("data-toggle-fav"));
+          return;
+        }
         const c = getSelectedCandidate_();
         if (!c) return;
         const askBtn = e.target.closest("[data-toggle-asked]");
@@ -4174,6 +4428,11 @@
           .catch(() => showToast("บันทึกคำถามในเครื่องแล้ว (ออฟไลน์)"));
       });
       document.getElementById("qBankFullList").addEventListener("click", e => {
+        const favBtn = e.target.closest("[data-toggle-fav]");
+        if (favBtn) {
+          toggleFavoriteQuestion_(favBtn.getAttribute("data-toggle-fav"));
+          return;
+        }
         const btn = e.target.closest("[data-del-q]");
         if (!btn) return;
         const qid = btn.getAttribute("data-del-q");
@@ -4244,7 +4503,7 @@
         persistCache_();
         renderAll_();
         closeActiveOverlays_();
-        runGas("importCandidates", draft)
+        runGas("importCandidates", draft, STATE.committeeId)
           .then(res => {
             if (res && Array.isArray(res.candidates)) {
               STATE.candidates = res.candidates.map(normalizeCandidate_);
@@ -4311,8 +4570,10 @@
           customMap[inp.getAttribute("data-weight-item")] = Math.max(1, Math.round(Number(inp.value) || 1));
         });
         const weightsJson = JSON.stringify(customMap);
+        const cNameVal = document.getElementById("setCommitteeName").value.trim();
         Object.assign(STATE.settings, {
-          committee_name: document.getElementById("setCommitteeName").value.trim(),
+          committee_name: cNameVal,
+          ["committee_name_" + STATE.committeeId]: cNameVal,
           committee_position: document.getElementById("setCommitteePos").value.trim(),
           agency: document.getElementById("setAgency").value.trim(),
           venue: document.getElementById("setVenue").value.trim(),
