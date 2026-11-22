@@ -177,7 +177,7 @@
       gap: 6px;
       transition: background-color 0.15s, border-color 0.15s, transform 0.08s;
     }
-    button:not(.btn-primary):not(.btn-emerald):not(.btn-amber):not(.btn-danger):not(.active):not(.active-full):not(.active-part):not(.sync-pill):not(.quick-tag):not(.table-jump-btn):not(.c-badge-C1):not(.c-badge-C2):not(.c-badge-C3):not(.is-fav):hover {
+    button:not(.btn-primary):not(.btn-emerald):not(.btn-amber):not(.btn-danger):not(.active):not(.active-full):not(.active-part):not(.sync-pill):not(.quick-tag):not(.table-jump-btn):not(.c-badge-C1):not(.c-badge-C2):not(.c-badge-C3):not(.is-fav):not(.fab-jump-q):hover {
       background: var(--surface-hover);
     }
     button:active { transform: scale(0.98); }
@@ -995,6 +995,42 @@
     @media (max-width: 640px) {
       .share-links-grid { grid-template-columns: 1fr; }
     }
+    .fab-jump-group {
+      position: fixed;
+      right: 16px;
+      bottom: 18px;
+      z-index: 65;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .fab-jump-q {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: #FFFFFF;
+      border: 1px solid var(--navy);
+      box-shadow: var(--shadow-md);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .fab-jump-q:hover {
+      background: var(--navy-hover);
+      border-color: var(--navy-hover);
+      color: #FFFFFF;
+    }
+    .fab-jump-top {
+      min-height: 44px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      font-size: 13px;
+      font-weight: 600;
+    }
 
     /* Summary & Table */
     .summary-stats {
@@ -1570,14 +1606,17 @@
           </div>
 
           <!-- Right: Quick Question Drawer -->
-          <aside class="card qpanel-aside" aria-label="คลังคำถามสัมภาษณ์">
+          <aside class="card qpanel-aside" id="qPanelAside" aria-label="คลังคำถามสัมภาษณ์">
             <div class="qpanel-head">
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;">
                 <strong>คลังคำถามสัมภาษณ์</strong>
-                <button type="button" class="btn-primary btn-sm" id="btnRandomQuestion">
-                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
-                  <span>สุ่มคำถามที่ยังไม่ถาม</span>
-                </button>
+                <div style="display:flex;gap:6px;align-items:center;">
+                  <button type="button" class="btn-sm" id="btnBackToScoring" title="เลื่อนกลับขึ้นไปหน้าให้คะแนน">↑ ให้คะแนน</button>
+                  <button type="button" class="btn-primary btn-sm" id="btnRandomQuestion">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                    <span>สุ่มคำถาม</span>
+                  </button>
+                </div>
               </div>
               <select id="qPanelCatFilter" class="search-input" aria-label="กรองหมวดหมู่คำถามสัมภาษณ์"></select>
               <div id="qPanelLevelChips" class="filter-chips" role="group" aria-label="กรองระดับความยากของคำถาม">
@@ -1726,6 +1765,14 @@
         </div>
       </section>
     </main>
+
+    <div id="fabJumpGroup" class="fab-jump-group" aria-label="ปุ่มลัดเลื่อนหน้าจอ">
+      <button type="button" class="fab-jump-top" id="btnFabTop" title="เลื่อนขึ้นไปด้านบนสุดเพื่อให้คะแนน">↑ ให้คะแนน</button>
+      <button type="button" class="fab-jump-q" id="btnFabQuestions" title="ข้ามไปยังคลังคำถามสัมภาษณ์ทันที">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>คลังคำถาม</span>
+      </button>
+    </div>
   </div>
 
   <!-- MODAL: SWITCH COMMITTEE (PROTECTED) -->
@@ -4264,10 +4311,33 @@
             else b.removeAttribute("aria-current");
           });
           document.querySelectorAll(".view-panel").forEach(p => p.classList.toggle("active", p.id === "view-" + STATE.activeView));
+          const fab = document.getElementById("fabJumpGroup");
+          if (fab) fab.style.display = STATE.activeView === "scoring" ? "flex" : "none";
           if (STATE.activeView === "summary") renderSummaryView_();
           if (STATE.activeView === "questions") renderQuestionBankFull_();
         });
       });
+
+      const scrollToQPanel_ = () => {
+        if (STATE.activeView !== "scoring") {
+          document.querySelector('.nav-tab[data-view="scoring"]').click();
+        }
+        if (!STATE.showQPanel) {
+          STATE.showQPanel = true;
+          document.getElementById("scoringGrid").classList.remove("no-qpanel");
+          document.getElementById("btnToggleQPanel").setAttribute("aria-expanded", "true");
+        }
+        const aside = document.getElementById("qPanelAside");
+        if (aside) aside.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      const scrollToScoringTop_ = () => {
+        const banner = document.getElementById("candidateBanner");
+        if (banner) banner.scrollIntoView({ behavior: "smooth", block: "start" });
+        else window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+      document.getElementById("btnFabQuestions").addEventListener("click", scrollToQPanel_);
+      document.getElementById("btnFabTop").addEventListener("click", scrollToScoringTop_);
+      document.getElementById("btnBackToScoring").addEventListener("click", scrollToScoringTop_);
 
       document.getElementById("btnPrivacy").addEventListener("click", () => togglePrivacyBlur_());
       document.getElementById("btnThemeToggle").addEventListener("click", () => {
