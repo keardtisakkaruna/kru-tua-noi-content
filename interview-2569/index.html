@@ -1083,6 +1083,12 @@
       color: var(--crimson-ink);
       font-weight: 700;
     }
+    .data-table td.avg-final-cell {
+      background: var(--navy-soft);
+      color: var(--accent-ink);
+      font-weight: 700;
+      font-size: 15px;
+    }
 
     /* Summary & Table */
     .summary-stats {
@@ -1527,6 +1533,7 @@
           <nav class="nav-tabs" aria-label="เมนูหลัก">
             <button type="button" class="nav-tab active" data-view="scoring" aria-current="page">ให้คะแนนรายคน</button>
             <button type="button" class="nav-tab" data-view="summary">สรุปคะแนนทั้งห้อง</button>
+            <button type="button" class="nav-tab" data-view="combined" id="navTabCombined">รวม 3 กรรมการ</button>
             <button type="button" class="nav-tab" data-view="questions" id="navTabQuestions">คลังคำถาม</button>
           </nav>
 
@@ -1746,6 +1753,63 @@
                 </tr>
               </thead>
               <tbody id="summaryTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2.5: COMBINED 3-COMMITTEE DASHBOARD -->
+      <section id="view-combined" class="view-panel">
+        <div class="summary-stats" id="combinedStatsRow"></div>
+
+        <div class="card card-pad" style="margin-bottom:14px;">
+          <div class="toolbar-row">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              <strong id="combinedRoomTitle">แดชบอร์ดรวมคะแนน 3 กรรมการ</strong>
+              <button type="button" class="chip-btn active" data-combined-filter="all" aria-pressed="true">ทั้งหมด</button>
+              <button type="button" class="chip-btn" data-combined-filter="complete" aria-pressed="false">ครบทั้ง 3 คน</button>
+              <button type="button" class="chip-btn" data-combined-filter="incomplete" aria-pressed="false">ยังไม่ครบ 3 คน</button>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button type="button" id="btnRefreshCombined">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span>รีเฟรชคะแนน 3 กรรมการ</span>
+              </button>
+              <button type="button" class="btn-emerald" id="btnExportCombinedXls">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                <span>ดาวน์โหลด Excel รวม 3 คน</span>
+              </button>
+              <button type="button" class="btn-primary" id="btnPrintCombined">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span>พิมพ์สรุป 3 กรรมการ A4</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="score-recheck-bar neutral" style="margin-bottom:10px;" id="combinedFormulaNote">
+            สูตรคำนวณ: (คะแนน กก.1 + กก.2 + กก.3) ÷ 3 แสดงทศนิยม 3 ตำแหน่งแบบตัดเศษ ไม่ปัดขึ้น (เช่น 284 ÷ 3 = 94.666) • อัปเดตล่าสุด: <span id="combinedUpdatedAt">-</span>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="num-col">ที่</th>
+                  <th>เลขประจำตัวสอบ</th>
+                  <th>ชื่อ-สกุล</th>
+                  <th class="num-col">ภาค</th>
+                  <th class="num-col">ด้าน 1 เฉลี่ย<br>(25)</th>
+                  <th class="num-col">ด้าน 2 เฉลี่ย<br>(25)</th>
+                  <th class="num-col">ด้าน 3 เฉลี่ย<br>(50)</th>
+                  <th class="num-col" id="thColC1">กก.1<br>(100)</th>
+                  <th class="num-col" id="thColC2">กก.2<br>(100)</th>
+                  <th class="num-col" id="thColC3">กก.3<br>(100)</th>
+                  <th class="num-col">รวม 3 คน<br>(300)</th>
+                  <th class="num-col">เฉลี่ยสุทธิ<br>(3 ตำแหน่ง ไม่ปัด)</th>
+                  <th class="num-col">สถานะ</th>
+                </tr>
+              </thead>
+              <tbody id="combinedTableBody"></tbody>
             </table>
           </div>
         </div>
@@ -2787,6 +2851,9 @@
       summarySort: "seq",
       summaryDoneOnly: false,
       summaryOutRangeOnly: false,
+      combinedFilter: "all",
+      combinedData: null,
+      combinedLoading: false,
       privacyBlur: false,
       showQPanel: true,
       highlightedQId: "",
@@ -3657,6 +3724,264 @@
       }).join("");
     }
 
+    function trunc3Div_(sum, count) {
+      if (!count || count <= 0) return "";
+      const intScaled = Math.trunc(((Number(sum) || 0) * 1000 + 1e-9) / count);
+      return (intScaled / 1000).toFixed(3);
+    }
+
+    function computeCombinedRow_(item) {
+      const slots = [
+        { id: "C1", label: "กก.1", data: item.c1 || { status: "pending", p1: 0, p2: 0, p3: 0, total: 0 } },
+        { id: "C2", label: "กก.2", data: item.c2 || { status: "pending", p1: 0, p2: 0, p3: 0, total: 0 } },
+        { id: "C3", label: "กก.3", data: item.c3 || { status: "pending", p1: 0, p2: 0, p3: 0, total: 0 } }
+      ];
+      const isAbsent = slots.some(s => s.data.status === "absent");
+      const scored = slots.filter(s => s.data.status === "done" || (s.data.status !== "absent" && s.data.total > 0));
+      const missing = slots.filter(s => s.data.status !== "done" && !(s.data.status !== "absent" && s.data.total > 0)).map(s => s.label);
+      const count = scored.length;
+      const sumP1 = scored.reduce((a, s) => a + (Number(s.data.p1) || 0), 0);
+      const sumP2 = scored.reduce((a, s) => a + (Number(s.data.p2) || 0), 0);
+      const sumP3 = scored.reduce((a, s) => a + (Number(s.data.p3) || 0), 0);
+      const sumTotal = scored.reduce((a, s) => a + (Number(s.data.total) || 0), 0);
+      return {
+        isAbsent,
+        count,
+        complete: !isAbsent && count === 3,
+        missing,
+        sumTotal,
+        avgP1: count > 0 ? trunc3Div_(sumP1, count) : "-",
+        avgP2: count > 0 ? trunc3Div_(sumP2, count) : "-",
+        avgP3: count > 0 ? trunc3Div_(sumP3, count) : "-",
+        avgTotal: count > 0 ? trunc3Div_(sumTotal, count) : "-"
+      };
+    }
+
+    function getCombinedRoomItems_() {
+      const items = (STATE.combinedData && Array.isArray(STATE.combinedData.items)) ? STATE.combinedData.items : [];
+      return items
+        .filter(it => STATE.selectedRoom === "ALL" || String(it.room_no) === String(STATE.selectedRoom))
+        .slice()
+        .sort((a, b) => {
+          const rDiff = (Number(a.room_no) || 999) - (Number(b.room_no) || 999);
+          if (rDiff !== 0) return rDiff;
+          return (Number(a.seq_no) || 0) - (Number(b.seq_no) || 0);
+        });
+    }
+
+    function loadCommitteeDashboard_(silent) {
+      if (STATE.combinedLoading) return Promise.resolve();
+      STATE.combinedLoading = true;
+      const btn = document.getElementById("btnRefreshCombined");
+      if (btn) btn.disabled = true;
+      const tbody = document.getElementById("combinedTableBody");
+      if (!STATE.combinedData && tbody) {
+        tbody.innerHTML = `<tr><td colspan="13" style="text-align:center;padding:24px;color:var(--ink-muted);">กำลังดึงคะแนนจากกรรมการทั้ง 3 ท่าน…</td></tr>`;
+      }
+      return runGas("getCommitteeDashboard")
+        .then(res => {
+          STATE.combinedData = res;
+          STATE.combinedLoading = false;
+          if (btn) btn.disabled = false;
+          renderCombinedView_();
+          if (!silent) showToast("อัปเดตคะแนนรวม 3 กรรมการล่าสุดแล้ว");
+        })
+        .catch(() => {
+          STATE.combinedLoading = false;
+          if (btn) btn.disabled = false;
+          if (!silent) showToast("ไม่สามารถดึงข้อมูลรวม 3 กรรมการได้ กรุณาตรวจสอบอินเทอร์เน็ต");
+          renderCombinedView_();
+        });
+    }
+
+    function renderCombinedView_() {
+      const roomItems = getCombinedRoomItems_();
+      const names = (STATE.combinedData && STATE.combinedData.committeeNames) || { C1: "กก.1", C2: "กก.2", C3: "กก.3" };
+      const upd = document.getElementById("combinedUpdatedAt");
+      if (upd) upd.textContent = (STATE.combinedData && STATE.combinedData.serverTime) || "-";
+
+      const th1 = document.getElementById("thColC1");
+      const th2 = document.getElementById("thColC2");
+      const th3 = document.getElementById("thColC3");
+      if (th1) th1.innerHTML = `กก.1<br>(100)`;
+      if (th2) th2.innerHTML = `กก.2<br>(100)`;
+      if (th3) th3.innerHTML = `กก.3<br>(100)`;
+
+      const computed = roomItems.map(it => ({ item: it, calc: computeCombinedRow_(it) }));
+      const completeRows = computed.filter(x => x.calc.complete);
+      const absentRows = computed.filter(x => x.calc.isAbsent);
+      const incompleteRows = computed.filter(x => !x.calc.isAbsent && !x.calc.complete);
+      const roomAvg = completeRows.length > 0
+        ? trunc3Div_(completeRows.reduce((acc, x) => acc + x.calc.sumTotal, 0), completeRows.length * 3)
+        : "-";
+
+      document.getElementById("combinedStatsRow").innerHTML = `
+        <div class="card stat-card"><div class="kpi-label">ผู้เข้าสอบในห้อง</div><div class="stat-num tabular-nums">${roomItems.length}</div></div>
+        <div class="card stat-card"><div class="kpi-label">ครบทั้ง 3 กรรมการ</div><div class="stat-num tabular-nums" style="color:var(--emerald);">${completeRows.length}</div></div>
+        <div class="card stat-card"><div class="kpi-label">ยังไม่ครบ 3 คน</div><div class="stat-num tabular-nums" style="color:var(--amber-ink);">${incompleteRows.length}</div></div>
+        <div class="card stat-card"><div class="kpi-label">ขาดสอบ</div><div class="stat-num tabular-nums" style="color:var(--crimson);">${absentRows.length}</div></div>
+        <div class="card stat-card" style="grid-column:span 2;"><div class="kpi-label">ค่าเฉลี่ยรวมห้อง (ทศนิยม 3 ตำแหน่ง ไม่ปัด)</div><div class="stat-num tabular-nums score-sensitive">${roomAvg}</div></div>
+      `;
+
+      document.getElementById("combinedRoomTitle").textContent = STATE.selectedRoom === "ALL"
+        ? `รวมคะแนน 3 กรรมการทุกห้อง (${roomItems.length} คน)`
+        : `รวมคะแนน 3 กรรมการ ห้องสอบที่ ${STATE.selectedRoom} (${roomItems.length} คน)`;
+
+      let rows = computed;
+      if (STATE.combinedFilter === "complete") rows = completeRows;
+      else if (STATE.combinedFilter === "incomplete") rows = incompleteRows;
+
+      const tbody = document.getElementById("combinedTableBody");
+      if (!STATE.combinedData) {
+        tbody.innerHTML = `<tr><td colspan="13" style="text-align:center;padding:24px;color:var(--ink-muted);">กดปุ่ม "รีเฟรชคะแนน 3 กรรมการ" เพื่อโหลดคะแนนล่าสุดจาก Google Sheets</td></tr>`;
+        return;
+      }
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="13" style="text-align:center;padding:20px;color:var(--ink-muted);">ไม่พบรายชื่อตามตัวกรองนี้</td></tr>`;
+        return;
+      }
+
+      const fmtSlot = s => {
+        if (!s) return "-";
+        if (s.status === "absent") return "ขาด";
+        if (s.status === "done" || s.total > 0) return String(s.total);
+        return "-";
+      };
+
+      tbody.innerHTML = rows.map(({ item: it, calc }) => {
+        const fullName = `${it.prefix}${it.first_name} ${it.last_name}`;
+        let stHtml = `<span class="status-dot st-pending">รอ ${esc(calc.missing.join(","))}</span>`;
+        if (calc.isAbsent) stHtml = `<span class="status-dot st-absent">ขาดสอบ</span>`;
+        else if (calc.complete) stHtml = `<span class="status-dot st-done">ครบ 3 คน</span>`;
+        return `
+          <tr>
+            <td class="num-col tabular-nums">${it.seq_no}</td>
+            <td class="tabular-nums">${esc(it.exam_id)}</td>
+            <td><strong>${esc(fullName)}</strong></td>
+            <td class="num-col">${esc(it.session)}</td>
+            <td class="num-col tabular-nums score-sensitive">${calc.isAbsent ? "-" : calc.avgP1}</td>
+            <td class="num-col tabular-nums score-sensitive">${calc.isAbsent ? "-" : calc.avgP2}</td>
+            <td class="num-col tabular-nums score-sensitive">${calc.isAbsent ? "-" : calc.avgP3}</td>
+            <td class="num-col tabular-nums score-sensitive">${fmtSlot(it.c1)}</td>
+            <td class="num-col tabular-nums score-sensitive">${fmtSlot(it.c2)}</td>
+            <td class="num-col tabular-nums score-sensitive">${fmtSlot(it.c3)}</td>
+            <td class="num-col tabular-nums score-sensitive">${calc.isAbsent || calc.count === 0 ? "-" : calc.sumTotal}</td>
+            <td class="num-col tabular-nums score-sensitive avg-final-cell">${calc.isAbsent ? "ขาดสอบ" : calc.avgTotal}</td>
+            <td class="num-col">${stHtml}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function exportCombinedExcel_() {
+      const items = getCombinedRoomItems_();
+      const s = STATE.settings;
+      const bodyRows = items.map(it => {
+        const calc = computeCombinedRow_(it);
+        const fmtSlot = x => x.status === "absent" ? "ขาดสอบ" : ((x.status === "done" || x.total > 0) ? x.total : "-");
+        return `<tr>
+          <td>${it.seq_no}</td>
+          <td style="mso-number-format:'\\@';">${esc(it.exam_id)}</td>
+          <td>${esc(it.prefix)}${esc(it.first_name)} ${esc(it.last_name)}</td>
+          <td>${esc(it.room_no)}</td>
+          <td>${esc(it.session)}</td>
+          <td style="mso-number-format:'0.000';">${calc.isAbsent ? "-" : calc.avgP1}</td>
+          <td style="mso-number-format:'0.000';">${calc.isAbsent ? "-" : calc.avgP2}</td>
+          <td style="mso-number-format:'0.000';">${calc.isAbsent ? "-" : calc.avgP3}</td>
+          <td>${fmtSlot(it.c1)}</td>
+          <td>${fmtSlot(it.c2)}</td>
+          <td>${fmtSlot(it.c3)}</td>
+          <td>${calc.isAbsent || calc.count === 0 ? "-" : calc.sumTotal}</td>
+          <td style="mso-number-format:'0.000';font-weight:bold;">${calc.isAbsent ? "ขาดสอบ" : calc.avgTotal}</td>
+        </tr>`;
+      }).join("");
+      const html = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+        <head><meta charset="utf-8" /></head>
+        <body>
+          <h3>${esc(s.exam_title)}</h3>
+          <p>${esc(s.agency)} • ห้องสอบที่ ${esc(STATE.selectedRoom)} • สรุปคะแนนรวม 3 กรรมการ (ทศนิยม 3 ตำแหน่ง ไม่ปัด)</p>
+          <table border="1" cellspacing="0" cellpadding="4">
+            <thead>
+              <tr style="background:#D9E2EC;font-weight:bold;">
+                <th>ที่</th><th>เลขประจำตัวสอบ</th><th>ชื่อ-สกุล</th><th>ห้อง</th><th>ภาค</th>
+                <th>ด้าน 1 เฉลี่ย (25)</th><th>ด้าน 2 เฉลี่ย (25)</th><th>ด้าน 3 เฉลี่ย (50)</th>
+                <th>กก.1 (100)</th><th>กก.2 (100)</th><th>กก.3 (100)</th>
+                <th>รวม 3 คน (300)</th><th>เฉลี่ยสุทธิ (3 ตำแหน่ง ไม่ปัด)</th>
+              </tr>
+            </thead>
+            <tbody>${bodyRows}</tbody>
+          </table>
+        </body></html>
+      `;
+      const blob = new Blob(["\uFEFF" + html], { type: "application/vnd.ms-excel;charset=utf-8;" });
+      downloadBlob_(blob, `สรุปคะแนนรวม3กรรมการ_ห้อง_${STATE.selectedRoom}.xls`);
+    }
+
+    function printCombinedA4_() {
+      const items = getCombinedRoomItems_();
+      const s = STATE.settings;
+      const names = (STATE.combinedData && STATE.combinedData.committeeNames) || { C1: "กรรมการคนที่ 1", C2: "กรรมการคนที่ 2", C3: "กรรมการคนที่ 3" };
+      const bodyRows = items.map(it => {
+        const calc = computeCombinedRow_(it);
+        const fmtSlot = x => x.status === "absent" ? "ขาด" : ((x.status === "done" || x.total > 0) ? x.total : "-");
+        return `
+          <tr>
+            <td style="text-align:center;">${it.seq_no}</td>
+            <td style="text-align:center;">${esc(it.exam_id)}</td>
+            <td>${esc(it.prefix)}${esc(it.first_name)} ${esc(it.last_name)}</td>
+            <td style="text-align:center;">${esc(it.session)}</td>
+            <td style="text-align:center;">${calc.isAbsent ? "-" : calc.avgP1}</td>
+            <td style="text-align:center;">${calc.isAbsent ? "-" : calc.avgP2}</td>
+            <td style="text-align:center;">${calc.isAbsent ? "-" : calc.avgP3}</td>
+            <td style="text-align:center;">${fmtSlot(it.c1)}</td>
+            <td style="text-align:center;">${fmtSlot(it.c2)}</td>
+            <td style="text-align:center;">${fmtSlot(it.c3)}</td>
+            <td style="text-align:center;">${calc.isAbsent || calc.count === 0 ? "-" : calc.sumTotal}</td>
+            <td style="text-align:center;font-weight:700;">${calc.isAbsent ? "ขาดสอบ" : calc.avgTotal}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const html = `
+        <div class="print-doc-head">
+          <div class="h1">แบบสรุปคะแนนรวมคณะกรรมการประเมิน ภาค ค (3 กรรมการ)</div>
+          <div class="h2">${esc(s.exam_title)}</div>
+          <div class="h3">${esc(s.agency)} • ห้องสอบที่ ${esc(STATE.selectedRoom)} • วิชาเอก${esc(s.major)}</div>
+          <div class="h3" style="font-size:12px;">(คำนวณค่าเฉลี่ยรวม 3 กรรมการ แสดงทศนิยม 3 ตำแหน่งแบบตัดเศษ ไม่ปัด)</div>
+        </div>
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th>ที่</th><th>เลขประจำตัวสอบ</th><th>ชื่อ-สกุล</th><th>ภาค</th>
+              <th>ด้าน 1<br>(25)</th><th>ด้าน 2<br>(25)</th><th>ด้าน 3<br>(50)</th>
+              <th>กก.1<br>(100)</th><th>กก.2<br>(100)</th><th>กก.3<br>(100)</th>
+              <th>รวม 3 คน<br>(300)</th><th>เฉลี่ยสุทธิ<br>(3 ตำแหน่ง)</th>
+            </tr>
+          </thead>
+          <tbody>${bodyRows}</tbody>
+        </table>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;text-align:center;font-size:12.5px;">
+          <div>
+            <div>ลงชื่อ......................................................</div>
+            <div>(${esc(names.C1)})</div>
+            <div>กรรมการคนที่ 1</div>
+          </div>
+          <div>
+            <div>ลงชื่อ......................................................</div>
+            <div>(${esc(names.C2)})</div>
+            <div>กรรมการคนที่ 2</div>
+          </div>
+          <div>
+            <div>ลงชื่อ......................................................</div>
+            <div>(${esc(names.C3)})</div>
+            <div>กรรมการคนที่ 3</div>
+          </div>
+        </div>
+      `;
+      openPrintOverlay_(html, true);
+    }
+
     function renderAll_() {
       const agency = STATE.settings.agency || "อ.ก.ค.ศ. สพป.สระบุรี เขต ๒";
       const major = STATE.settings.major || "ภาษาอังกฤษ";
@@ -3670,6 +3995,7 @@
       renderRubric_();
       renderQuestionSidePanel_();
       renderSummaryView_();
+      if (STATE.combinedData) renderCombinedView_();
       renderQuestionBankFull_();
     }
 
@@ -4483,6 +4809,10 @@
           const fab = document.getElementById("fabJumpGroup");
           if (fab) fab.style.display = STATE.activeView === "scoring" ? "flex" : "none";
           if (STATE.activeView === "summary") renderSummaryView_();
+          if (STATE.activeView === "combined") {
+            renderCombinedView_();
+            loadCommitteeDashboard_(true);
+          }
           if (STATE.activeView === "questions") renderQuestionBankFull_();
         });
       });
@@ -4777,6 +5107,22 @@
       document.getElementById("btnExportCsv").addEventListener("click", exportRoomCsv_);
       document.getElementById("btnExportXls").addEventListener("click", exportRoomExcel_);
       document.getElementById("btnPrintRoom").addEventListener("click", printRoomSummaryA4_);
+
+      // Combined 3-committee dashboard controls
+      document.getElementById("btnRefreshCombined").addEventListener("click", () => loadCommitteeDashboard_(false));
+      document.getElementById("btnExportCombinedXls").addEventListener("click", exportCombinedExcel_);
+      document.getElementById("btnPrintCombined").addEventListener("click", printCombinedA4_);
+      document.querySelectorAll("[data-combined-filter]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          STATE.combinedFilter = btn.getAttribute("data-combined-filter");
+          document.querySelectorAll("[data-combined-filter]").forEach(b => {
+            const on = b === btn;
+            b.classList.toggle("active", on);
+            b.setAttribute("aria-pressed", String(on));
+          });
+          renderCombinedView_();
+        });
+      });
 
       // Question Bank Full view
       document.getElementById("qBankSearch").addEventListener("input", e => {
