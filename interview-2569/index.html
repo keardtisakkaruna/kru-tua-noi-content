@@ -1031,6 +1031,58 @@
       font-size: 13px;
       font-weight: 600;
     }
+    .kpi-range-hint {
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+      color: var(--ink-muted);
+    }
+    .kpi-box.kpi-ok {
+      border-color: var(--emerald);
+      background: color-mix(in srgb, var(--emerald-bg) 35%, var(--surface));
+    }
+    .kpi-box.kpi-ok .kpi-range-hint { color: var(--emerald-ink); }
+    .kpi-box.kpi-warn {
+      border-color: var(--crimson);
+      background: color-mix(in srgb, var(--crimson-bg) 45%, var(--surface));
+    }
+    .kpi-box.kpi-warn .kpi-range-hint { color: var(--crimson-ink); }
+    .kpi-box.grand.kpi-ok, .kpi-box.grand.kpi-warn {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+    .kpi-box.grand .kpi-range-hint { color: rgba(255, 255, 255, 0.85); }
+    .score-recheck-bar {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .score-recheck-bar.ok {
+      background: var(--emerald-bg);
+      color: var(--emerald-ink);
+      border: 1px solid var(--emerald);
+    }
+    .score-recheck-bar.warn {
+      background: var(--crimson-bg);
+      color: var(--crimson-ink);
+      border: 1px solid var(--crimson);
+    }
+    .score-recheck-bar.neutral {
+      background: var(--surface-soft);
+      color: var(--ink-muted);
+      border: 1px solid var(--border-soft);
+    }
+    .data-table td.cell-warn {
+      background: var(--crimson-bg);
+      color: var(--crimson-ink);
+      font-weight: 700;
+    }
 
     /* Summary & Table */
     .summary-stats {
@@ -1557,23 +1609,28 @@
               </div>
 
               <div class="score-kpi-row">
-                <div class="kpi-box">
+                <div class="kpi-box" id="kpiBoxPart1">
                   <div class="kpi-label">1. คุณลักษณะ (สัมภาษณ์)</div>
                   <div class="kpi-val tabular-nums score-sensitive" id="kpiPart1">0 / 25</div>
+                  <div class="kpi-range-hint" id="kpiHintPart1">เกณฑ์เขต 22–25</div>
                 </div>
-                <div class="kpi-box">
+                <div class="kpi-box" id="kpiBoxPart2">
                   <div class="kpi-label">2. พัฒนาตนเอง (แฟ้มฯ)</div>
                   <div class="kpi-val tabular-nums score-sensitive" id="kpiPart2">0 / 25</div>
+                  <div class="kpi-range-hint" id="kpiHintPart2">เกณฑ์เขต 22–25</div>
                 </div>
-                <div class="kpi-box">
+                <div class="kpi-box" id="kpiBoxPart3">
                   <div class="kpi-label">3. ความสามารถสอน (แผนฯ)</div>
                   <div class="kpi-val tabular-nums score-sensitive" id="kpiPart3">0 / 50</div>
+                  <div class="kpi-range-hint" id="kpiHintPart3">เกณฑ์เขต 45–50</div>
                 </div>
-                <div class="kpi-box grand">
+                <div class="kpi-box grand" id="kpiBoxGrand">
                   <div class="kpi-label">คะแนนรวมสุทธิ</div>
                   <div class="kpi-val tabular-nums score-sensitive" id="kpiGrand">0 / 100</div>
+                  <div class="kpi-range-hint" id="kpiHintGrand">กรอบรวมเขต 89–100</div>
                 </div>
               </div>
+              <div id="scoreRangeAlert" class="score-recheck-bar neutral" role="status">กรอบคะแนนเขต: ด้านที่ 1 (22–25) • ด้านที่ 2 (22–25) • ด้านที่ 3 (45–50) • รวม (89–100)</div>
             </div>
 
             <div class="part-jumpbar">
@@ -1643,6 +1700,7 @@
               <button type="button" class="chip-btn active" id="btnSortSeq" aria-pressed="true">เรียงตามลำดับที่</button>
               <button type="button" class="chip-btn" id="btnSortScore" aria-pressed="false">เรียงคะแนน มาก → น้อย</button>
               <button type="button" class="chip-btn" id="btnFilterDoneOnly" aria-pressed="false">แสดงเฉพาะประเมินแล้ว</button>
+              <button type="button" class="chip-btn" id="btnFilterOutRange" aria-pressed="false">⚠ นอกเกณฑ์เขต (0)</button>
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;">
               <button type="button" class="btn-emerald" id="btnExportXls">
@@ -1772,6 +1830,30 @@
         <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span>คลังคำถาม</span>
       </button>
+    </div>
+  </div>
+
+  <!-- MODAL: RECHECK DISTRICT SCORE RANGE -->
+  <div id="recheckModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="recheckModalTitle">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="modal-head">
+        <strong id="recheckModalTitle" class="modal-head-title">
+          <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>รีเช็กคะแนนก่อนบันทึก (นอกเกณฑ์เขต)</span>
+        </strong>
+        <button type="button" class="btn-sm" data-close-modal="recheckModal" aria-label="ปิดหน้าต่างรีเช็กคะแนน">✕ ปิด</button>
+      </div>
+      <div class="modal-body">
+        <div id="recheckCandidateName" style="font-weight:700;font-size:15px;margin-bottom:8px;"></div>
+        <div id="recheckIssuesList" style="font-size:13.5px;line-height:1.6;padding:10px 12px;border-radius:8px;background:var(--crimson-bg);color:var(--crimson-ink);margin-bottom:10px;"></div>
+        <div style="font-size:12.5px;color:var(--ink-muted);">
+          เกณฑ์ที่เขตกำหนด: ด้านที่ 1 (22–25) • ด้านที่ 2 (22–25) • ด้านที่ 3 (45–50) • รวม (89–100)
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn-primary" data-close-modal="recheckModal">กลับไปปรับคะแนน</button>
+        <button type="button" class="btn-danger" id="btnConfirmSaveOutRange">ยืนยันบันทึกคะแนนนี้</button>
+      </div>
     </div>
   </div>
 
@@ -2704,6 +2786,7 @@
       qBankSearch: "",
       summarySort: "seq",
       summaryDoneOnly: false,
+      summaryOutRangeOnly: false,
       privacyBlur: false,
       showQPanel: true,
       highlightedQId: "",
@@ -3129,6 +3212,33 @@
       listEl.innerHTML = html;
     }
 
+    const DISTRICT_RANGE = {
+      part1: { min: 22, max: 25, label: "ด้านที่ 1 (คุณลักษณะ)" },
+      part2: { min: 22, max: 25, label: "ด้านที่ 2 (พัฒนาตนเอง)" },
+      part3: { min: 45, max: 50, label: "ด้านที่ 3 (ความสามารถสอน)" },
+      grand: { min: 89, max: 100, label: "คะแนนรวมสุทธิ" }
+    };
+
+    function checkCandidateScoreRange_(c) {
+      if (!c || c.status === "absent") {
+        return { ok: true, p1Ok: true, p2Ok: true, p3Ok: true, grandOk: true, issues: [], touched: false };
+      }
+      const p1 = Number(c.part1_total) || 0;
+      const p2 = Number(c.part2_total) || 0;
+      const p3 = Number(c.part3_total) || 0;
+      const g = Number(c.grand_total) || 0;
+      const touched = g > 0 || c.status === "done" || c.status === "in_progress";
+      const p1Ok = p1 >= DISTRICT_RANGE.part1.min && p1 <= DISTRICT_RANGE.part1.max;
+      const p2Ok = p2 >= DISTRICT_RANGE.part2.min && p2 <= DISTRICT_RANGE.part2.max;
+      const p3Ok = p3 >= DISTRICT_RANGE.part3.min && p3 <= DISTRICT_RANGE.part3.max;
+      const grandOk = g >= DISTRICT_RANGE.grand.min && g <= DISTRICT_RANGE.grand.max;
+      const issues = [];
+      if (!p1Ok) issues.push(`${DISTRICT_RANGE.part1.label}: ได้ ${p1} (เกณฑ์เขต ${DISTRICT_RANGE.part1.min}–${DISTRICT_RANGE.part1.max})`);
+      if (!p2Ok) issues.push(`${DISTRICT_RANGE.part2.label}: ได้ ${p2} (เกณฑ์เขต ${DISTRICT_RANGE.part2.min}–${DISTRICT_RANGE.part2.max})`);
+      if (!p3Ok) issues.push(`${DISTRICT_RANGE.part3.label}: ได้ ${p3} (เกณฑ์เขต ${DISTRICT_RANGE.part3.min}–${DISTRICT_RANGE.part3.max})`);
+      return { ok: p1Ok && p2Ok && p3Ok && grandOk, p1Ok, p2Ok, p3Ok, grandOk, issues, touched };
+    }
+
     function renderCandidateBanner_() {
       const c = getSelectedCandidate_();
       const totals = getRubricTotals_();
@@ -3147,6 +3257,47 @@
       document.getElementById("kpiPart2").textContent = `${c.part2_total} / ${totals.part2}`;
       document.getElementById("kpiPart3").textContent = `${c.part3_total} / ${totals.part3}`;
       document.getElementById("kpiGrand").textContent = c.status === "absent" ? "ขาดสอบ" : `${c.grand_total} / ${totals.grand}`;
+
+      // Live district score-range recheck
+      const chk = checkCandidateScoreRange_(c);
+      const setBoxState = (boxId, hintId, isOk, minV, maxV, val) => {
+        const box = document.getElementById(boxId);
+        const hint = document.getElementById(hintId);
+        if (!box || !hint) return;
+        box.classList.remove("kpi-ok", "kpi-warn");
+        if (c.status === "absent" || !chk.touched) {
+          hint.textContent = `เกณฑ์เขต ${minV}–${maxV}`;
+          return;
+        }
+        if (isOk) {
+          box.classList.add("kpi-ok");
+          hint.textContent = `✓ เข้าเกณฑ์ (${minV}–${maxV})`;
+        } else {
+          box.classList.add("kpi-warn");
+          hint.textContent = val < minV ? `⚠ ต่ำกว่าเกณฑ์ (${minV}–${maxV})` : `⚠ เกินเกณฑ์ (${minV}–${maxV})`;
+        }
+      };
+      setBoxState("kpiBoxPart1", "kpiHintPart1", chk.p1Ok, 22, 25, c.part1_total);
+      setBoxState("kpiBoxPart2", "kpiHintPart2", chk.p2Ok, 22, 25, c.part2_total);
+      setBoxState("kpiBoxPart3", "kpiHintPart3", chk.p3Ok, 45, 50, c.part3_total);
+      setBoxState("kpiBoxGrand", "kpiHintGrand", chk.ok, 89, 100, c.grand_total);
+
+      const alertEl = document.getElementById("scoreRangeAlert");
+      if (alertEl) {
+        if (c.status === "absent") {
+          alertEl.className = "score-recheck-bar neutral";
+          alertEl.textContent = "ผู้เข้าสอบขาดสอบ (ไม่ต้องตรวจสอบเกณฑ์คะแนนเขต)";
+        } else if (!chk.touched) {
+          alertEl.className = "score-recheck-bar neutral";
+          alertEl.textContent = "กรอบคะแนนเขต: ด้านที่ 1 (22–25) • ด้านที่ 2 (22–25) • ด้านที่ 3 (45–50) • รวม (89–100)";
+        } else if (chk.ok) {
+          alertEl.className = "score-recheck-bar ok";
+          alertEl.textContent = "✓ รีเช็กผ่านเกณฑ์เขตครบทั้ง 3 ด้าน (ด้าน 1: 22–25 • ด้าน 2: 22–25 • ด้าน 3: 45–50)";
+        } else {
+          alertEl.className = "score-recheck-bar warn";
+          alertEl.textContent = `⚠ รีเช็กยังไม่เข้าเกณฑ์เขต: ${chk.issues.join(" | ")}`;
+        }
+      }
 
       document.getElementById("inputLessonTopic").value = c.notesObj.lessonTopic || "";
       document.getElementById("inputNotes").value = c.notesObj.notes || "";
@@ -3397,8 +3548,21 @@
         ? `สรุปคะแนนทุกห้องรวมกัน (${roomCands.length} คน)`
         : `สรุปคะแนนห้องสอบที่ ${STATE.selectedRoom} (${roomCands.length} คน)`;
 
+      const outRangeCount = roomCands.filter(c => {
+        const chk = checkCandidateScoreRange_(c);
+        return chk.touched && !chk.ok;
+      }).length;
+      const outBtn = document.getElementById("btnFilterOutRange");
+      if (outBtn) outBtn.textContent = `⚠ นอกเกณฑ์เขต (${outRangeCount})`;
+
       let rows = roomCands.slice();
       if (STATE.summaryDoneOnly) rows = rows.filter(c => c.status === "done");
+      if (STATE.summaryOutRangeOnly) {
+        rows = rows.filter(c => {
+          const chk = checkCandidateScoreRange_(c);
+          return chk.touched && !chk.ok;
+        });
+      }
       if (STATE.summarySort === "score") {
         rows.sort((a, b) => {
           if (a.status === "absent" && b.status !== "absent") return 1;
@@ -3413,6 +3577,11 @@
         const showDash = c.status === "absent";
         const cell = v => showDash ? "-" : (v === "" || v === undefined ? 0 : v);
         const fullName = `${c.prefix}${c.first_name} ${c.last_name}`;
+        const chk = checkCandidateScoreRange_(c);
+        const p1Warn = chk.touched && !chk.p1Ok ? " cell-warn" : "";
+        const p2Warn = chk.touched && !chk.p2Ok ? " cell-warn" : "";
+        const p3Warn = chk.touched && !chk.p3Ok ? " cell-warn" : "";
+        const gWarn = chk.touched && !chk.ok ? " cell-warn" : "";
         return `
           <tr data-jump-cand="${esc(c.candidate_id)}">
             <td class="num-col tabular-nums">${c.seq_no}</td>
@@ -3425,16 +3594,16 @@
             <td class="num-col tabular-nums score-sensitive">${cell(c.s1_2)}</td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s1_3)}</td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s1_4)}</td>
-            <td class="num-col tabular-nums score-sensitive"><strong>${cell(c.part1_total)}</strong></td>
+            <td class="num-col tabular-nums score-sensitive${p1Warn}"><strong>${cell(c.part1_total)}</strong></td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s2_1)}</td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s2_2)}</td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s2_3)}</td>
-            <td class="num-col tabular-nums score-sensitive"><strong>${cell(c.part2_total)}</strong></td>
+            <td class="num-col tabular-nums score-sensitive${p2Warn}"><strong>${cell(c.part2_total)}</strong></td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s3_1)}</td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s3_2)}</td>
             <td class="num-col tabular-nums score-sensitive">${cell(c.s3_3)}</td>
-            <td class="num-col tabular-nums score-sensitive"><strong>${cell(c.part3_total)}</strong></td>
-            <td class="num-col tabular-nums score-sensitive"><strong>${showDash ? "ขาดสอบ" : c.grand_total}</strong></td>
+            <td class="num-col tabular-nums score-sensitive${p3Warn}"><strong>${cell(c.part3_total)}</strong></td>
+            <td class="num-col tabular-nums score-sensitive${gWarn}"><strong>${showDash ? "ขาดสอบ" : c.grand_total}</strong></td>
             <td class="score-sensitive" style="max-width:260px;overflow:hidden;text-overflow:ellipsis;">${esc(noteTxt)}</td>
           </tr>
         `;
@@ -3660,7 +3829,7 @@
 
     function closeActiveOverlays_() {
       let closed = false;
-      ["importModal", "settingsModal", "committeeSwitchModal", "printOverlay"].forEach(id => {
+      ["importModal", "settingsModal", "committeeSwitchModal", "recheckModal", "printOverlay"].forEach(id => {
         const el = document.getElementById(id);
         if (el && el.classList.contains("open")) {
           el.classList.remove("open");
@@ -4400,7 +4569,22 @@
         const idx = list.findIndex(x => x.candidate_id === STATE.selectedCandidateId);
         if (idx !== -1 && idx < list.length - 1) selectCandidate_(list[idx + 1].candidate_id);
       });
-      document.getElementById("btnMarkDone").addEventListener("click", () => setCandidateStatus_("done"));
+      document.getElementById("btnMarkDone").addEventListener("click", () => {
+        const c = getSelectedCandidate_();
+        if (!c) return;
+        const chk = checkCandidateScoreRange_(c);
+        if (!chk.ok) {
+          document.getElementById("recheckCandidateName").textContent = `${c.prefix}${c.first_name} ${c.last_name} (รวม ${c.grand_total}/100)`;
+          document.getElementById("recheckIssuesList").innerHTML = chk.issues.map(x => `• ${esc(x)}`).join("<br>");
+          openModal_("recheckModal");
+          return;
+        }
+        setCandidateStatus_("done");
+      });
+      document.getElementById("btnConfirmSaveOutRange").addEventListener("click", () => {
+        closeActiveOverlays_();
+        setCandidateStatus_("done");
+      });
       document.getElementById("btnMarkAbsent").addEventListener("click", () => setCandidateStatus_("absent"));
       document.getElementById("btnMarkPending").addEventListener("click", () => setCandidateStatus_("pending"));
       document.getElementById("btnPrintIndividual").addEventListener("click", printIndividualA4_);
@@ -4578,6 +4762,12 @@
         e.currentTarget.setAttribute("aria-pressed", String(STATE.summaryDoneOnly));
         renderSummaryView_();
       });
+      document.getElementById("btnFilterOutRange").addEventListener("click", e => {
+        STATE.summaryOutRangeOnly = !STATE.summaryOutRangeOnly;
+        e.currentTarget.classList.toggle("active", STATE.summaryOutRangeOnly);
+        e.currentTarget.setAttribute("aria-pressed", String(STATE.summaryOutRangeOnly));
+        renderSummaryView_();
+      });
       document.getElementById("summaryTableBody").addEventListener("click", e => {
         const jumpBtn = e.target.closest("[data-jump-cand]");
         if (!jumpBtn) return;
@@ -4656,7 +4846,7 @@
       document.querySelectorAll("[data-close-modal]").forEach(btn => {
         btn.addEventListener("click", closeActiveOverlays_);
       });
-      ["importModal", "settingsModal", "committeeSwitchModal", "printOverlay"].forEach(id => {
+      ["importModal", "settingsModal", "committeeSwitchModal", "recheckModal", "printOverlay"].forEach(id => {
         document.getElementById(id).addEventListener("click", e => {
           if (e.target && e.target.id === id) closeActiveOverlays_();
         });
